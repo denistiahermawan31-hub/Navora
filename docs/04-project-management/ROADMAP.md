@@ -6,7 +6,7 @@
 | Version | 0.1 (Draft) |
 | Date | 2026-11-22 |
 | Status | **AWAITING REQUIREMENTS APPROVAL** |
-| Methodology | Waterfall with formal stage gates (DEC-014) |
+| Methodology | Waterfall with formal stage gates (proposed `DEC-022`; `DEC-014` is the WIB timezone decision) |
 
 > No stage may begin until the previous stage is reviewed and approved by the project owner. Durations are intentionally `TBD` — no schedule, budget, or team capacity has been provided.
 
@@ -42,7 +42,8 @@ flowchart LR
 **Activities**
 - Audit repository and existing documentation (complete).
 - Draft BRD, PRD, SRS, business rules, feature specifications (complete as drafts).
-- Resolve open decisions: authentication, currency, withdrawals, completion, deletion.
+- Apply owner-approved decisions (DEC-003/004/006/007/008/016/023..026); see `DECISIONS.md` §1.
+- Triage remaining `OPEN` items (`DECISIONS.md` §4/§5) without silently resolving them.
 - Review with the owner and obtain sign-off.
 
 **Deliverables**
@@ -55,11 +56,12 @@ flowchart LR
 
 **Exit criteria (G1)**
 - [ ] All `Must` requirements approved.
-- [ ] DEC-003, DEC-004, DEC-006, DEC-007, DEC-008 resolved.
+- [ ] Owner-approved decisions recorded as binding (`DECISIONS.md` §1).
 - [ ] Scope exclusions confirmed (DEC-016).
-- [ ] Owner signs off on MVP scope.
+- [ ] Remaining `OPEN` items triaged; none silently treated as approved.
+- [ ] Owner signs off on MVP scope (DEC-024) and the requirements package.
 
-**Blocking questions:** Q-01..Q-08 in `PRD.md`.
+**Blocking questions:** none unresolved from the original Q-01..Q-08 set (all resolved in `PRD.md` §12). Remaining items are tracked in `DECISIONS.md` §4.
 
 ---
 
@@ -68,7 +70,7 @@ flowchart LR
 **Objective:** Finalize the design system, component contracts, wireframes, and technical design before coding.
 
 **Activities**
-- Approve palette, typography, icon library (DEC-010, DEC-011).
+- Approve palette, typography, icon library (DEC-010, DEC-019).
 - Review wireframes for dashboard, goals, detail, history, forms, states.
 - Finalize component specifications and responsive behavior.
 - Confirm database engine and schema; review ERD.
@@ -103,7 +105,7 @@ flowchart LR
 5. Savings transactions + balance/progress calculation.
 6. Dashboard aggregation.
 7. Validation, CSRF, escaping, feedback states.
-8. Authentication (only if approved).
+8. Authentication (mandatory — DEC-003), including email verification and password reset (DEC-015).
 9. Responsive and accessibility passes.
 10. Remove/exclude out-of-scope routes.
 

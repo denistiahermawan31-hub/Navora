@@ -100,7 +100,7 @@ Dashboard (ringkasan)
 - Search field + sort control (and status filter if approved, `OPEN-05`).
 - Card grid (1/2/3 columns responsive).
 - Each card: name, balance/target, progress bar, remaining, excess (if any), optional target date, overflow menu (Edit/Arsipkan).
-- Numbered pagination, 20 per page (DEC-009).
+- Numbered pagination (DEC-009); `20` per page is a draft default (`C-20` OPEN).
 
 ### 5.3 Goal detail
 - Breadcrumb/back link.
@@ -114,7 +114,7 @@ Dashboard (ringkasan)
 ### 5.4 Savings history
 - Goal name context at top.
 - Table: Tanggal | Jenis | Nominal | Catatan | Aksi.
-- Numbered pagination, 20 per page.
+- Numbered pagination (DEC-009); `20` per page is a draft default (`C-20` OPEN).
 - Empty state with "Tambah Tabungan".
 
 ### 5.5 Forms

@@ -87,10 +87,10 @@ Dependencies: `TECH-01` PHP version, `TECH-02` DB engine, `TECH-06` email provid
 
 **SR-4.1.4 Password reset**
 - Request input: email. Always returns the same generic confirmation (no enumeration).
-- Processing: create a time-limited, single-use token; send email.
+- Processing: create a time-limited token; send email. Token generation, exact lifetime, and single-use enforcement are `OPEN-09` (not yet approved).
 - Completion input: token + new password + confirmation.
 - Processing: validate token → update password hash → invalidate token → invalidate existing sessions.
-- Open: token lifetime (`OPEN-09`).
+- Open: token lifetime and single-use policy (`OPEN-09`); email provider (`TECH-06`).
 
 ### 4.2 Goal Management
 
@@ -102,7 +102,7 @@ Dependencies: `TECH-01` PHP version, `TECH-02` DB engine, `TECH-06` email provid
 
 **SR-4.2.2 List goals**
 - Input: optional `q` (search), `sort`, `status`, `page`.
-- Output: paginated list (20/page) of the user's non-archived goals, each with name, target, balance, progress, remaining, excess, status, Hampir Tercapai indicator.
+- Output: numbered paginated list (DEC-009) of the user's non-archived goals, each with name, target, balance, progress, remaining, excess, status, Hampir Tercapai indicator. Page size is `C-20` OPEN; `20` is a draft default, not an approved value.
 - Empty result: empty state, not an empty table.
 - Archived goals are excluded.
 
@@ -139,7 +139,7 @@ Dependencies: `TECH-01` PHP version, `TECH-02` DB engine, `TECH-06` email provid
 
 **SR-4.3.2 List transactions**
 - Input: goal identifier, `page`.
-- Output: paginated table (numbered, 20/page), newest first, with direction, amount, date, note.
+- Output: numbered paginated table (DEC-009), newest first, with direction, amount, date, note. Page size is `C-20` OPEN; `20` is a draft default.
 - Empty: empty state.
 
 **SR-4.3.3 Update transaction** (`OPEN-01`)
@@ -153,6 +153,7 @@ Dependencies: `TECH-01` PHP version, `TECH-02` DB engine, `TECH-06` email provid
 ### 4.4 Dashboard
 
 - Aggregates (proposed set, `OPEN-06`): count of active goals, total saved across active goals, total remaining, goals in the Hampir Tercapai range, recent transactions.
+- Definitions (draft, aligned with PRD §4.4 and FS-09): active-goal count excludes archived goals (FR-045); total saved may be negative (DEC-025); total remaining = sum of `max(0, target - balance)` (RULE-021); nearly reached = `90% <= progress < 100%` (DEC-012); recent activity = at most 5 newest transactions. The exact widget set is not approved.
 - Archived goals are excluded from counts and totals (RULE-033).
 - All values derived from the same source of truth as goal pages (no separate stored totals).
 - With zero goals: onboarding empty state.
@@ -184,7 +185,7 @@ Dependencies: `TECH-01` PHP version, `TECH-02` DB engine, `TECH-06` email provid
 | Transaction date | `YYYY-MM-DD` | Yes | Valid; not future (proposal); WIB | "Tanggal tidak boleh di masa depan" |
 | Note | UTF-8 text | No | ≤ 255 chars (`OPEN-04`) | "Catatan terlalu panjang" |
 | Search query | UTF-8 text | No | ≤ 80 chars; trimmed | — |
-| Page | Integer | No | ≥ 1; invalid → 1 | — |
+| Page | Integer | No | ≥ 1; invalid-page fallback `C-19` OPEN (draft: invalid → 1, out-of-range → last page) | — |
 
 ### 5.2 Outputs
 
@@ -196,7 +197,7 @@ Dependencies: `TECH-01` PHP version, `TECH-02` DB engine, `TECH-06` email provid
 | Flash messages | Session-backed, one render | Success/error |
 | Error pages | HTML | 404, 419 (CSRF), 500 |
 | Email | Plain text or HTML | Verification and reset links |
-| Machine output | **None** | No JSON API in MVP (DEC-017) |
+| Machine output | **None (proposed)** | No JSON API in the proposed MVP boundary; `DEC-017` is `PENDING` |
 
 ---
 
@@ -226,7 +227,7 @@ Dependencies: `TECH-01` PHP version, `TECH-02` DB engine, `TECH-06` email provid
 | Database connection failure | Log details; show generic message | 500 page |
 | Constraint violation | Log; show generic message | 500 page or inline error if recoverable |
 | Duplicate submission | Redirect-after-POST; idempotent guard where feasible | Single record |
-| Page out of range | Clamp to last valid page or page 1 | Valid list |
+| Page out of range | Draft only: non-numeric/`0` → page 1; numeric out-of-range → last valid page (`C-19` OPEN) | Valid list |
 | Expired verification/reset token | Reject and offer resend | Informational page |
 | Unexpected exception | Log with correlation ID; no stack trace to user | 500 page |
 
@@ -239,11 +240,11 @@ Dependencies: `TECH-01` PHP version, `TECH-02` DB engine, `TECH-06` email provid
 | ID | Requirement | Target | Status |
 |---|---|---|---|
 | PR-01 | Goal list renders within 500 ms server time for 100 goals | 100 goals | `PROPOSED` |
-| PR-02 | Transaction page renders within 300 ms for 20 rows | 20 rows | `PROPOSED` |
+| PR-02 | Transaction page renders within 300 ms for a draft 20-row page (`C-20` OPEN) | 20 rows (draft) | `PROPOSED` |
 | PR-03 | Avoid N+1 queries: balances aggregated in SQL, not per row in PHP | Query count bounded | `PROPOSED` |
 | PR-04 | Total page weight of CSS+JS ≤ 250 KB uncompressed for MVP | Budget | `PROPOSED` |
 | PR-05 | No blocking third-party scripts | Zero external requests | `PROPOSED` |
-| PR-06 | Pagination prevents unbounded result sets | 20 rows/cards per page | `APPROVED` (DEC-009) |
+| PR-06 | Pagination prevents unbounded result sets | Numbered pagination; page size `C-20` OPEN (draft: 20 rows/cards) | `APPROVED` (numbered pagination, DEC-009) / `OPEN` (page size) |
 
 ---
 
@@ -261,7 +262,7 @@ Dependencies: `TECH-01` PHP version, `TECH-02` DB engine, `TECH-06` email provid
 | SR-SEC-08 | Generic authentication and password-reset messages; no user enumeration. |
 | SR-SEC-09 | File uploads: none in MVP; if added, validate type/size and store outside webroot. |
 | SR-SEC-10 | Security headers: `X-Content-Type-Options`, `Referrer-Policy`, frame protection, CSP as feasible. |
-| SR-SEC-11 | Verification and reset tokens are random, single-use, time-limited, and stored hashed. |
+| SR-SEC-11 | Verification and reset links expire (DEC-015). Token randomness/storage plus exact lifetime and single-use enforcement are `OPEN-09`. |
 | SR-SEC-12 | Email changes (if added later) require re-verification. |
 
 Details: `docs/03-technical/SECURITY-GUIDELINES.md`.
@@ -282,8 +283,8 @@ Details: `docs/03-technical/SECURITY-GUIDELINES.md`.
 
 ## 11. Constraints and Non-Goals
 
-- Must fit the existing custom PHP MVC structure (DEC-002).
-- No SPA, no REST API, no microservices in MVP (DEC-017).
+- Must fit the existing custom PHP MVC structure as a proposed technical baseline (`DEC-002` `PENDING`).
+- No SPA, no REST API, and no microservices are proposed for the MVP boundary; `DEC-017` remains `PENDING`.
 - No real-time updates.
 - No offline mode.
 - No native mobile client.

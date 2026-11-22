@@ -105,7 +105,7 @@ One table for both verification and reset tokens; alternative is two tables. The
 | `purpose` | `VARCHAR(20)` | NOT NULL | `verify_email` or `reset_password` |
 | `token_hash` | `VARCHAR(255)` | NOT NULL, UNIQUE | Store a hash, never the raw token |
 | `expires_at` | `DATETIME` | NOT NULL | Lifetime `OPEN-09` (proposal: 60 min) |
-| `used_at` | `DATETIME` | NULL | Single-use enforcement |
+| `used_at` | `DATETIME` | NULL | Single-use enforcement is `OPEN-09`; column is a draft mechanism only |
 | `created_at` | `DATETIME` | NOT NULL | |
 
 ### 3.3 `dream_goals`
@@ -229,7 +229,7 @@ LEFT JOIN savings_transactions t ON t.goal_id = g.id
 WHERE g.user_id = ? AND g.archived_at IS NULL
 GROUP BY g.id, g.name, g.target_price, g.target_date, g.archived_at
 ORDER BY g.updated_at DESC
-LIMIT 20 OFFSET ?;
+LIMIT ? OFFSET ?; -- draft example uses 20; page size `C-20` OPEN
 ```
 
 Then in PHP (single helper):
@@ -257,7 +257,7 @@ SELECT id, direction, amount, occurred_on, note
 FROM savings_transactions
 WHERE goal_id = ?
 ORDER BY occurred_on DESC, id DESC
-LIMIT 20 OFFSET ?;
+LIMIT ? OFFSET ?; -- draft example uses 20; page size `C-20` OPEN
 ```
 
 ```sql
@@ -282,6 +282,8 @@ FROM (
 ) x;
 ```
 
+**Scope:** this query covers active-goal count, total saved, and total remaining. Nearly reached (`90% <= progress < 100%`, DEC-012) and recent activity (at most 5 newest transactions) are defined in PRD §4.4 / SRS §4.4 / FS-09; the exact widget set is `OPEN-06`.
+
 **Caveat:** `total_saved` may be negative if withdrawals exceed deposits across goals. That is allowed (DEC-025) and must be displayed accordingly.
 
 ---
@@ -293,14 +295,14 @@ FROM (
 | Amount > 0 | App validation + CHECK constraint |
 | Direction in (`deposit`, `withdrawal`) | App validation + CHECK constraint |
 | Target > 0 | App validation + CHECK constraint |
-| Transaction date not in future | App validation (DB cannot use `CURRENT_DATE` portably in CHECK) |
+| Transaction date not in future | App validation (draft behavior; DB cannot use `CURRENT_DATE` portably in CHECK) |
 | Goal must exist for transaction | FK |
 | Transaction belongs to the same owner as its goal | Application check when loading goal |
 | No orphan transactions | FK + archive-only policy |
 | Balance consistency | Derived by query; no cached column |
 | Status correctness | Derived from balance; no stored status (`TECH-04`) |
 | Unique goal name per account | Unique index `(user_id, name)` + validation |
-| Single-use auth tokens | `used_at` + `expires_at` checks in application |
+| Expiring auth links | `expires_at` check (DEC-015); single-use enforcement via `used_at` is `OPEN-09` |
 
 ---
 
@@ -344,7 +346,7 @@ No index is added speculatively; each maps to a documented query.
 | Dates | `_on` suffix for business dates (`occurred_on`), `_at` for timestamps |
 | Booleans | `is_`/`has_` prefix (none in MVP) |
 
-**Conflict:** the scaffold has PHP models `Goal` and `DreamSavings` but no tables. This design chooses `dream_goals` as the table and "Dream Goal" as the product term; which PHP class is authoritative is `OPEN` (C-03).
+**Conflict:** the scaffold has PHP models `Goal` and `DreamSavings` but no tables. This design uses `dream_goals` as a draft table name and "Dream Goal" as the product term. Which PHP class is authoritative is `OPEN` (C-03); owner or technical approval is required before that class name is treated as final. No implementation file was renamed.
 
 ---
 

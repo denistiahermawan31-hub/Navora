@@ -8,7 +8,7 @@
 | Status | **PROPOSED — no routes or handlers exist** |
 | Related | `TECHNICAL-ARCHITECTURE.md`, `SRS.md`, `SECURITY-GUIDELINES.md` |
 
-> **There is no JSON/REST API in the MVP** (DEC-017). NAVORA is server-rendered: the "API" is the set of HTTP routes that accept HTML form submissions and return HTML or redirects. `NAVORA/routes/web.php` is empty; nothing below is implemented.
+> The documented MVP boundary is **server-rendered**: the "API" is the set of HTTP routes that accept HTML form submissions and return HTML or redirects. JSON/REST API adoption remains `PENDING` (`DEC-017`), so this is a proposal, not an owner-approved exclusion. `NAVORA/routes/web.php` is empty; nothing below is implemented.
 >
 > Authentication is **required** (DEC-003). All routes except public auth pages require a valid session.
 
@@ -21,7 +21,7 @@
 | Base URL | Application root (e.g., `/`) |
 | Content type | `application/x-www-form-urlencoded` (forms) |
 | Success | `303 See Other` redirect (POST→GET) + flash message |
-| Validation failure | `200` re-render of the form with errors |
+| Validation failure | Draft convention `200` re-render of the form with errors (`C-30` `PROPOSED`; no owner approval record) |
 | Not found / not owned / archived (outside archive view) | `404` |
 | CSRF failure | `419` |
 | Server error | `500` |
@@ -188,7 +188,7 @@ _token=<csrf>&confirm=1
 | `q` | EP-13 | text ≤ 80 chars | empty | Treated as empty |
 | `sort` | EP-13 | `recent`, `target_date`, `progress` | `recent` | Fall back to `recent` |
 | `status` | EP-13 | `berlangsung`, `tercapai`, `all` | `all` | Fall back to `all` |
-| `page` | EP-13, EP-17, EP-18 | integer ≥ 1 | `1` | Clamp to page 1 / last page |
+| `page` | EP-13, EP-17, EP-18 | integer ≥ 1 | `1` | `C-19` OPEN — draft: non-numeric/`0` → page 1; numeric out-of-range → last valid page |
 
 Archived goals are excluded from EP-13 regardless of `status`. Unknown parameters are ignored. Query strings never carry secrets.
 
@@ -235,7 +235,7 @@ Views render an error summary plus per-field messages. Values are preserved exce
 | Unauthorized access returns 404 | Avoids leaking record existence |
 | Archived goals are not mutable from the active UI | Archive state check |
 | Logout requires POST + CSRF | Prevents forced logout via GET |
-| Verification/reset tokens are single-use | `used_at` + `expires_at` checks |
+| Verification/reset links expire | `expires_at` check (DEC-015); single-use enforcement via `used_at` is `OPEN-09` |
 
 ---
 
@@ -278,6 +278,6 @@ Not applicable. This is a server-rendered application, not a versioned API. Any 
 - Delete goal replaced by archive/restore routes (DEC-008).
 - Transaction requests now carry `direction` (DEC-004).
 - Money is a whole-rupiah integer (DEC-007).
-- Goal list pagination is numbered, 20 per page (DEC-009).
+- Goal list pagination is numbered (DEC-009); `20` per page is a draft default (`C-20` OPEN).
 - `status` query values use Indonesian status names.
 - 403 removed; unauthorized access returns 404.

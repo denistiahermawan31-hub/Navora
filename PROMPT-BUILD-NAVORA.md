@@ -8,10 +8,10 @@
 ## Preconditions (all must be true)
 
 - [ ] Owner has approved `docs/01-product/PRD.md` and `docs/01-product/BUSINESS-RULES.md`.
-- [ ] DEC-003 (authentication), DEC-004 (withdrawals), DEC-006 (completion), DEC-007 (currency), DEC-008 (deletion) are resolved.
-- [ ] DEC-016 (out-of-scope modules) is resolved.
-- [ ] PHP version and database engine are confirmed.
-- [ ] Design tokens are approved (DEC-010, DEC-011).
+- [ ] The approved decisions are confirmed as the source of truth: DEC-003 (multi-user auth), DEC-004/DEC-025 (withdrawals and negative balances), DEC-006 (automatic status), DEC-007 (IDR), DEC-008 (archive/restore), DEC-009 (numbered pagination), DEC-011, DEC-012, DEC-013, DEC-014, DEC-015, DEC-016, DEC-023, DEC-024, DEC-026 (`DECISIONS.md` §1).
+- [ ] Remaining `OPEN` items that block the first feature are resolved or explicitly excluded (`DECISIONS.md` §4).
+- [ ] PHP version and database engine are confirmed (TECH-01, TECH-02).
+- [ ] Design tokens are approved (DEC-010 palette, DEC-019 typography and icons).
 - [ ] Development stage has been explicitly authorized.
 
 If any box is unchecked, the correct action is to ask for the missing decision — not to start coding.
@@ -40,16 +40,16 @@ If any box is unchecked, the correct action is to ask for the missing decision �
 > - The app is server-rendered: `index.php` → `routes/web.php` → controller → model → view.
 >
 > **Scope**
-> - In scope: dream goals (create/read/update/delete), target price, optional target date, savings transactions, derived balance/progress/remaining, savings history with numbered pagination, dashboard summary, validation, feedback, responsive accessible UI.
-> - Out of scope: habits, tasks, notes, focus sessions, planner, standalone analytics, rental, inventory, POS, payments, investments, multi-tenancy. Leave those scaffold files untouched and unreachable.
+> - In scope: mandatory multi-user accounts (register/login/logout, email verification, password reset), dream goals (create/read/update/**archive**/**restore**), target price, optional target date (past dates allowed), deposits and withdrawals, derived balance/progress/remaining/excess, automatic status and Hampir Tercapai, savings history with numbered pagination, dashboard summary, validation, feedback, responsive accessible UI, Bahasa Indonesia, IDR and WIB.
+> - Out of scope: permanent goal deletion (DEC-008), transaction edit/delete (OPEN-01/OPEN-02), habits, tasks, notes, focus sessions, planner, standalone analytics, rental, inventory, POS, payments, investments, multi-currency. Leave those scaffold files untouched and unreachable (DEC-016).
 >
 > **Hard rules**
 > - Do not invent business rules. If a rule is `TBD` or `PENDING USER APPROVAL`, stop and ask.
 > - Money uses exact types; never floats. Balance is always `SUM(transactions)`, never a stored editable field.
-> - Validate server-side, escape output, use prepared statements, protect POSTs with CSRF, scope queries by owner (if auth is approved).
+> - Validate server-side, escape output, use prepared statements, protect POSTs with CSRF, and scope every query by owner (authentication is mandatory — DEC-003).
 > - Return 404 for missing and unauthorized records.
 > - Build the documented components; do not duplicate layouts or forms.
-> - Follow the approved blue design tokens; no gradients/glow/glass/blobs/emoji icons.
+> - Follow the proposed blue design tokens in `DESIGN-SYSTEM.md` until DEC-010/DEC-019 are approved; no gradients/glow/glass/blobs/emoji icons.
 > - Every data view needs loading, empty, error, and populated states.
 > - Responsive from 360px; keyboard accessible; WCAG 2.1 AA.
 > - No fabricated data in the UI.
@@ -58,10 +58,10 @@ If any box is unchecked, the correct action is to ask for the missing decision �
 > 1. Bootstrap: front controller, autoloader, config, error handling, session, CSRF helper.
 > 2. Database connection and approved schema.
 > 3. Layout, design tokens, base components (button, field, money, progress, modal, toast, empty state).
-> 4. Goals: list, create, detail, edit, delete.
-> 5. Savings: add, history, pagination, delete/edit only if approved.
+> 4. Goals: list, create, detail, edit, archive, archive view and restore.
+> 5. Savings: deposits/withdrawals, history, numbered pagination; edit/delete only if OPEN-01/OPEN-02 are approved.
 > 6. Dashboard aggregation.
-> 7. Authentication only if approved.
+> 7. Authentication (mandatory): registration, login/logout, email verification, password reset.
 > 8. Responsive, accessibility, and security passes.
 >
 > **Per task**
@@ -116,12 +116,13 @@ Then proceed feature by feature, verifying each before moving on.
 
 | Pattern | Why |
 |---|---|
-| "I assumed IDR" | Currency is `TBD` |
-| "I added a `current_saved` column" | Balance must be derived |
+| "I assumed multi-currency or decimals" | DEC-007: single IDR, no decimals |
+| "I added a `current_saved` column" | Balance must be derived (DEC-005) |
 | "I marked tests as passed" without running them | Dishonesty |
-| "I wired up the habits page" | Out of scope |
-| "I added Tailwind/GSAP to save time" | Unapproved dependency |
-| "I auto-completed goals at 100%" | Completion rule is `TBD` |
+| "I wired up the habits page" | Out of scope (DEC-016) |
+| "I added Tailwind/GSAP to save time" | Unapproved dependency (GSAP: DEC-020) |
+| "I used a manual 'mark complete' button" | DEC-006: status is automatic from balance |
+| "I deleted a goal permanently" | DEC-008: archive only, history retained |
 | "I deleted the unused modules" | Destructive, unapproved |
 | "I used a purple gradient because it looks modern" | Violates design direction |
 | "I added sample data so the dashboard looks full" | Fabricated data |

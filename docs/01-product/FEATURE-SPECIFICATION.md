@@ -63,7 +63,7 @@ Each feature below lists purpose, actor, preconditions, main flow, alternatives,
 - **Main flow:**
   1. System loads the user's non-archived goals with aggregated balance (deposits minus withdrawals).
   2. System displays cards/rows: name, target, balance, progress, remaining, excess (if any), optional target date, status (`Berlangsung` / `Tercapai`), Hampir Tercapai indicator.
-  3. Numbered pagination, 20 goals per page (DEC-009).
+  3. Numbered pagination (DEC-009); `20` goals per page is a draft default (`C-20` OPEN).
   4. Selecting a goal opens FS-03.
 - **Alternative flows:**
   - No goals → empty state with "Buat goal pertama".
@@ -127,8 +127,8 @@ Each feature below lists purpose, actor, preconditions, main flow, alternatives,
 ## FS-07 — Savings History
 
 - **Purpose:** Review and verify deposits and withdrawals.
-- **Main flow:** open history for a goal → rows sorted by date desc, then id desc → numbered pagination (20/page) → each row shows direction, amount, date, note, running effect (if approved).
-- **Alternative flows:** empty state; page out of range → clamp; goal not found → 404.
+- **Main flow:** open history for a goal → rows sorted by date desc, then id desc → numbered pagination (DEC-009; draft `20`/page, `C-20` OPEN) → each row shows direction, amount, date, note, running effect (if approved).
+- **Alternative flows:** empty state; invalid/out-of-range page → draft fallback (`C-19` OPEN); goal not found → 404.
 - **Rules:** RULE-019, RULE-042..RULE-044.
 - **Open questions:** whether totals per page/month are shown; whether row-level edit/delete actions appear (`OPEN-01`, `OPEN-02`).
 
@@ -155,7 +155,7 @@ Each feature below lists purpose, actor, preconditions, main flow, alternatives,
   - Up to 5 recent savings entries.
 - **Rules:** totals derived from the same queries as goal pages; no stored aggregate; archived goals excluded (RULE-033).
 - **Alternative flows:** no goals → onboarding; no transactions → "Belum ada tabungan tercatat".
-- **Open questions:** exact widget set (`OPEN-06`); whether negative balances are included in "total saved" (proposal: yes, as a negative contribution).
+- **Open questions:** exact widget set (`OPEN-06`). Negative balances are included in "total saved" as a negative contribution (DEC-025).
 
 ---
 
@@ -187,7 +187,7 @@ Each feature below lists purpose, actor, preconditions, main flow, alternatives,
 
 - **Purpose:** Confirm that the user controls the registered email address.
 - **Status:** `APPROVED` (DEC-015).
-- **Main flow:** registration → verification email with a time-limited, single-use link → user opens link → email marked verified → access granted.
+- **Main flow:** registration → verification email with an expiring link (DEC-015) → user opens link → email marked verified → access granted. Single-use enforcement is `OPEN-09`.
 - **Alternative flows:** expired/invalid token → resend option; already verified → informational page.
 - **Open questions:** whether login is blocked before verification (`OPEN-08`, proposal: limited access until verified); token lifetime (`OPEN-09`, proposal: 60 minutes); email provider (`TECH-06`).
 
@@ -197,7 +197,7 @@ Each feature below lists purpose, actor, preconditions, main flow, alternatives,
 
 - **Purpose:** Restore access when a password is forgotten.
 - **Status:** `APPROVED` (DEC-015).
-- **Main flow:** "Lupa kata sandi" → enter email → generic confirmation message → email with time-limited, single-use link → set new password → all sessions invalidated → login.
+- **Main flow:** "Lupa kata sandi" → enter email → generic confirmation message → email with an expiring link (DEC-015) → set new password → all sessions invalidated → login. Single-use enforcement is `OPEN-09`.
 - **Alternative flows:** unknown email → same generic message (no enumeration); expired token → request again.
 - **Open questions:** token lifetime and single-use enforcement (`OPEN-09`); email delivery (`TECH-06`); rate limiting (`OPEN-19`).
 
@@ -239,14 +239,14 @@ Each feature below lists purpose, actor, preconditions, main flow, alternatives,
 
 | Page | Expected volume | Method | Rationale |
 |---|---|---|---|
-| Goals list | 0–100+ | **Numbered pagination**, 20 per page | Approved (DEC-009); stable URLs and predictable back-navigation |
+| Goals list | 0–100+ | **Numbered pagination** (DEC-009); 20 per page is a draft default (`C-20` OPEN) | Approved (numbered pagination only); stable URLs and predictable back-navigation |
 | Goal detail (recent transactions) | 0–10 shown | Fixed "recent" slice + link to history | Keeps the page focused |
-| Savings history | 0–1000+ | **Numbered pagination**, 20 per page | Approved (DEC-009); financial records need stable, linkable pages |
-| Archive list | 0–100+ | **Numbered pagination**, 20 per page | Consistent with the goals list |
+| Savings history | 0–1000+ | **Numbered pagination** (DEC-009); 20 per page is a draft default (`C-20` OPEN) | Approved (numbered pagination only); financial records need stable, linkable pages |
+| Archive list | 0–100+ | **Numbered pagination**, 20 per page (draft, `C-20` OPEN) | Consistent with the goals list |
 | Dashboard activity | 5 | No pagination | Bounded by design |
 | Search results | Variable | Same as goals list | Consistent behavior |
 
-**Status:** `APPROVED` (DEC-009). The previous "Load more" proposal for goals is withdrawn.
+**Status:** `APPROVED` for numbered pagination (DEC-009). Page size and invalid-page fallback remain `OPEN` (`C-20`, `C-19`); the previous "Load more" proposal for goals is withdrawn.
 
 ---
 

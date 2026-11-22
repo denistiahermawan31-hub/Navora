@@ -75,7 +75,7 @@ Legend: `[ ]` button · `( )` input · `▸` link · `▓` progress fill · `·`
 **Behavior**
 - Title is the link to detail; the card itself is not a button.
 - `⋯` menu: Edit, Arsipkan.
-- Numbered pagination, 20 goals per page (DEC-009).
+- Numbered pagination (DEC-009); `20` goals per page is a draft default (`C-20` OPEN).
 - Search with no matches → WF-09.
 - Sort options: Terbaru, Tanggal target, Progres (`OPEN-05`).
 
@@ -140,7 +140,7 @@ Legend: `[ ]` button · `( )` input · `▸` link · `▓` progress fill · `·`
 └───────────────┴──────────────────────────────────────────────────────────────┘
 ```
 
-**Rules:** 20 rows per page; numbered pagination (DEC-009); amounts right-aligned; empty state WF-10.
+**Rules:** numbered pagination (DEC-009); `20` rows per page is a draft default (`C-20` OPEN); amounts right-aligned; empty state WF-10.
 
 ---
 

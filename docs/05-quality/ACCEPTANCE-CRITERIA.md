@@ -10,7 +10,7 @@
 
 **Rule:** every criterion is `NOT VERIFIED` until executed with evidence. Criteria depending on unresolved decisions are marked `OPEN` or `BLOCKED`.
 
-> Product decisions approved on 2026-11-22 (DEC-003..DEC-016, DEC-023..DEC-026) are now reflected below. Criteria that were previously blocked by those decisions are unblocked but remain `NOT VERIFIED` because no code exists.
+> Product decisions approved on 2026-11-22 are reflected below: DEC-003, DEC-004, DEC-006, DEC-007, DEC-008, DEC-009, DEC-011, DEC-012, DEC-013, DEC-014, DEC-015, DEC-016, DEC-023, DEC-024, DEC-025, DEC-026 (`DECISIONS.md` §7). Criteria that were previously blocked by those decisions are unblocked but remain `NOT VERIFIED` because no code exists.
 
 ---
 
@@ -46,7 +46,7 @@
 **Then** each goal shows its name, balance, target, progress percentage, and remaining amount, and the values match the transaction sums.
 **Status:** `NOT VERIFIED`
 
-### AC-06 — Goal detail (FR-009)
+### AC-06 — Goal detail (FR-009, FR-018, FR-019, FR-020)
 **Given** a goal with 12 transactions (deposits and withdrawals)
 **When** the detail page is opened
 **Then** the balance equals deposits minus withdrawals, progress is `min(100, balance/target)`, remaining is `max(0, target-balance)`, and excess is `max(0, balance-target)`.
@@ -125,14 +125,14 @@
 ### AC-16 — History ordering and pagination (FR-021)
 **Given** 25 transactions
 **When** the history page is opened
-**Then** 20 rows are shown newest-first, numbered pagination offers page 2, and page 2 shows the remaining 5.
+**Then** numbered pagination is offered (DEC-009) with a draft 20 rows per page (`C-20` OPEN), newest-first, so page 2 shows the remaining 5 under that draft size.
 **Status:** `NOT VERIFIED`
 
 ### AC-17 — Invalid page (RULE-043)
 **Given** 25 transactions
 **When** the URL requests page `999`, `0`, or `abc`
-**Then** the system returns a valid page (page 1 or last valid page) without an error page or blank list.
-**Status:** `NOT VERIFIED`
+**Then** the system returns a valid page without an error page or blank list. Draft fallback only: non-numeric/`0` → page 1; numeric out-of-range → last valid page (`C-19` OPEN).
+**Status:** `NOT VERIFIED` (fallback rule `C-19` OPEN)
 
 ### AC-18 — Empty history (FR-034)
 **Given** a goal with no transactions
@@ -189,12 +189,12 @@
 
 ## 3. Calculations
 
-### AC-20 — Progress formula (RULE-022)
+### AC-20 — Progress formula (FR-019, FR-020, RULE-022)
 **Given** balance `Rp7.500.000` and target `Rp30.000.000`
 **Then** progress is `25,0%` and remaining is `Rp22.500.000`.
 **Status:** `NOT VERIFIED`
 
-### AC-21 — Over-target display (RULE-023)
+### AC-21 — Over-target display (FR-019, FR-020, RULE-023)
 **Given** balance `Rp35.000.000` and target `Rp30.000.000`
 **Then** the progress bar is full, the percentage displays `100%`, remaining displays `Rp0`, and excess displays `Rp5.000.000`.
 **Status:** `NOT VERIFIED`
@@ -210,7 +210,7 @@
 **Then** balances are obtained without one query per goal (query count bounded and logged during review).
 **Status:** `NOT VERIFIED`
 
-### AC-50 — Balance with withdrawals (RULE-020)
+### AC-50 — Balance with withdrawals (FR-018, RULE-020)
 **Given** deposits `Rp10.000.000` and withdrawals `Rp4.000.000`
 **Then** the balance is exactly `Rp6.000.000`, and any independently calculated value matches.
 **Status:** `NOT VERIFIED`
@@ -223,7 +223,7 @@
 **Given** three active goals with known balances
 **When** the dashboard loads
 **Then** active-goal count, total saved, and total remaining match independently calculated values.
-**Status:** `NOT VERIFIED`
+**Status:** `PROPOSED` (FR-026 widget set is `OPEN-06`)
 
 ### AC-25 — Zero state (FR-015)
 **Given** no goals
@@ -335,14 +335,14 @@
 ### AC-52 — Email verification (FR-036)
 **Given** a newly registered user
 **When** they open the verification link before it expires
-**Then** the email is marked verified and the token cannot be reused.
-**Status:** `NOT VERIFIED` (enforcement point `OPEN-08`)
+**Then** the email is marked verified. Single-use enforcement and token lifetime are `OPEN-09`; verification-before-full-access is `OPEN-08`.
+**Status:** `NOT VERIFIED` (`OPEN-08`, `OPEN-09`)
 
 ### AC-53 — Password reset (FR-037)
 **Given** a registered email
 **When** the user requests a reset, opens the link, and sets a new password
-**Then** the password is updated, the token is single-use, and existing sessions are invalidated.
-**Status:** `NOT VERIFIED` (token lifetime `OPEN-09`)
+**Then** the password is updated, the expiring link is accepted (DEC-015), and existing sessions are invalidated. Single-use enforcement and exact token lifetime are `OPEN-09`.
+**Status:** `NOT VERIFIED` (`OPEN-09`)
 
 ### AC-54 — Unauthorized returns 404, not 403
 **Given** any record owned by another user
@@ -362,18 +362,79 @@
 
 ---
 
-## 9. Summary
+## 9. Navigation & Persistence
 
-| Category | Criteria | Verified | Open/Blocked |
+### AC-57 — Persistent navigation (FR-028)
+**Given** an authenticated user on the dashboard, goals list, goal detail, history, or archive view
+**When** they look for primary navigation
+**Then** links to Dashboard, Goals, and Arsip are visible and reachable without returning to a previous page.
+**Status:** `PROPOSED` (FR-028 is `Must` but not owner-approved)
+
+### AC-58 — Persistence across sessions (FR-035)
+**Given** a user has created a goal and a transaction
+**When** they log out and log in again in a new session
+**Then** the goal, transaction, derived balance, and status are still present with unchanged values.
+**Status:** `NOT VERIFIED`
+
+---
+
+## 10. Summary
+
+| Category | Criteria | Verified | Open/Proposed/Blocked |
 |---|---|---|---|
 | Goals | 14 | 0 | 1 (AC-12) |
-| Savings | 14 | 0 | 1 (AC-19) |
+| Savings | 14 | 0 | 3 (AC-15, AC-17, AC-19) |
 | Calculations | 5 | 0 | 0 |
-| Dashboard | 3 | 0 | 0 |
+| Dashboard | 3 | 0 | 1 (AC-24) |
 | Feedback/errors | 4 | 0 | 0 |
 | Responsive/a11y | 6 | 0 | 1 (AC-35) |
 | Scope | 2 | 0 | 0 |
-| Authentication | 8 | 0 | 0 |
-| **Total** | **56** | **0** | **3** |
+| Authentication | 8 | 0 | 2 (AC-52, AC-53) |
+| Navigation/persistence | 2 | 0 | 1 (AC-57) |
+| **Total** | **58** | **0** | **9** |
 
-No criterion has been verified. This table must be updated with evidence as testing proceeds.
+No criterion has been verified. This table must be updated with evidence as testing proceeds. The open/proposed/blocked criteria are AC-12, AC-15, AC-17, AC-19, AC-24, AC-35, AC-52, AC-53, and AC-57.
+
+---
+
+## 11. Must Requirement Traceability
+
+`—` means no dedicated business rule exists; the requirement is governed by a policy or UI state only. This table does not imply approval.
+
+| Must FR | User story | Business rules | Acceptance criteria |
+|---|---|---|---|
+| FR-001 | US-13 | RULE-047, RULE-049 | AC-38 |
+| FR-002 | US-21 | RULE-048, RULE-050 | AC-39 |
+| FR-003 | US-22 | RULE-047, RULE-048 | AC-40, AC-54 |
+| FR-036 | US-14 | RULE-049, RULE-050 | AC-52 |
+| FR-037 | US-15 | RULE-050 | AC-53 |
+| FR-005 | US-01 | RULE-001, RULE-002, RULE-003, RULE-004, RULE-006, RULE-009 | AC-01, AC-02, AC-03 |
+| FR-006 | US-23 | RULE-006, RULE-007 | AC-04 |
+| FR-008 | US-09 | RULE-020, RULE-021, RULE-022, RULE-029 | AC-05 |
+| FR-009 | US-24 | RULE-020, RULE-021, RULE-022, RULE-029, RULE-033 | AC-06 |
+| FR-010 | US-06 | RULE-009, RULE-035, RULE-036 | AC-07, AC-08 |
+| FR-011 | US-07 | RULE-037, RULE-038, RULE-039, RULE-040 | AC-09, AC-10 |
+| FR-015 | US-10 | — | AC-11, AC-25 |
+| FR-039 | US-16 | RULE-009 | AC-41 |
+| FR-044 | US-33 | RULE-007 | AC-42 |
+| FR-016 | US-02, US-03 | RULE-010, RULE-011, RULE-012, RULE-015 | AC-13, AC-43, AC-44 |
+| FR-018 | US-04 | RULE-020, RULE-025 | AC-06, AC-20, AC-50 |
+| FR-019 | US-25 | RULE-022, RULE-023 | AC-06, AC-20, AC-21, AC-48, AC-49 |
+| FR-020 | US-04 | RULE-021 | AC-06, AC-20, AC-21 |
+| FR-021 | US-05 | RULE-019, RULE-042, RULE-043 | AC-16, AC-17 |
+| FR-024 | US-26 | RULE-029, RULE-030, RULE-031 | AC-46, AC-47 |
+| FR-025 | US-17 | RULE-023, RULE-024, RULE-034, RULE-052 | AC-21, AC-45 |
+| FR-040 | US-03 | RULE-051, RULE-053 | AC-44 |
+| FR-041 | US-18 | RULE-054 | AC-48, AC-49 |
+| FR-026 (PROPOSED) | US-09 | RULE-021, RULE-033, RULE-054 (draft definitions) | AC-24, AC-51 |
+| FR-028 (PROPOSED) | US-27 | — | AC-57 |
+| FR-038 | US-08 | RULE-039 | AC-10 |
+| FR-045 | US-08 | RULE-033 | AC-51 |
+| FR-030 | US-11 | — | AC-02 |
+| FR-031 | US-29 | — | AC-26 |
+| FR-032 | US-29 | — | AC-28, AC-29 |
+| FR-033 | US-30 | RULE-004, RULE-012, RULE-046 | AC-55 |
+| FR-034 (PROPOSED) | US-31 | RULE-044 (empty state only) | AC-18 |
+| FR-035 | US-32 | — | AC-58 |
+| FR-042 | US-19 | RULE-056 | AC-55 |
+| FR-043 | US-20 | RULE-045 | AC-56 |

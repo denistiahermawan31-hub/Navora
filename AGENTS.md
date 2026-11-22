@@ -56,7 +56,7 @@ Do not proceed, and report instead, if any of these is true:
 
 ## 3. Scope Discipline
 
-**In scope:** dream goals, target prices, optional target dates, savings transactions, derived balance/progress/remaining, savings history, dashboard summary, validation, feedback states, responsive accessible UI, and authentication **only if approved**.
+**In scope:** multi-user accounts and mandatory authentication (DEC-003), dream goals, target prices, optional target dates, deposits and withdrawals, derived balance/progress/remaining, savings history, archive and restore, dashboard summary, validation, feedback states, and responsive accessible UI. Financial behavior (IDR, withdrawals, completion, archive, over-saving, negative balances, past target dates) is **approved** and binding (DEC-004/006/007/008/023/025/026).
 
 **Out of scope — do not implement, link, or route:**
 habits, tasks, notes, focus sessions, planner/schedule, standalone analytics, rental/borrowing, tailoring, inventory, POS, payments, bank integrations, investments, multi-tenancy, native apps.
@@ -84,8 +84,8 @@ The files for out-of-scope modules exist in the scaffold. **Leave them untouched
 ### 4.3 Dependencies
 - Do not add Composer, npm, CDN, font, or icon dependencies without explicit approval.
 - Prefer platform capabilities and existing code.
-- GSAP is **not approved** (DEC-012). CSS transitions cover MVP motion.
-- No framework migration (DEC-002).
+- GSAP is **not approved** (DEC-020). CSS transitions cover MVP motion.
+- Keep the custom PHP MVC scaffold as a proposed technical baseline (`DEC-002` `PENDING`); no framework migration until the owner confirms it.
 
 ### 4.4 Architecture
 - Keep the custom PHP MVC structure: `index.php` → `routes/web.php` → controller → model → view.
@@ -110,9 +110,9 @@ The files for out-of-scope modules exist in the scaffold. **Leave them untouched
 
 ## 5. UI and Design Rules
 
-- Follow the approved blue design system (`docs/02-design/DESIGN-SYSTEM.md`).
+- Follow the blue design direction in `docs/02-design/DESIGN-SYSTEM.md`.
 - Use design tokens; no hard-coded hex values outside the token file.
-- The palette is **proposed** until approved (DEC-010). Do not treat it as final.
+- The palette, typography, and icon library are **proposed** until approved (DEC-010, DEC-019). Do not treat them as final.
 - Maintain clear hierarchy: one primary action per view.
 - Support 360px–1920px. No horizontal scrolling at 360px.
 - Every data view must implement loading, empty, error, and populated states.
@@ -137,13 +137,13 @@ The files for out-of-scope modules exist in the scaffold. **Leave them untouched
 - Preserve user input on validation failure (except passwords).
 - Escape all output; use prepared statements for all SQL.
 - CSRF token on every POST; reject with 419.
-- Scope every query by owner when authentication is enabled.
+- Scope every query by owner; authentication is mandatory (DEC-003).
 - Return 404 for missing **and** unauthorized records.
-- Money: exact types (`DECIMAL`/integer minor units), never floats.
+- Money: exact types (`DECIMAL`/integer minor units), never floats; IDR, no decimals (DEC-007).
 - Balance is derived from transactions; never a manually editable field (DEC-005).
 - Never expose stack traces, SQL, file paths, or secrets to users.
 
-Unresolved: currency/precision (DEC-007), withdrawals (DEC-004), completion (DEC-006), deletion (DEC-008). Do not implement these behaviors until decided.
+Approved and binding: multi-user isolation (DEC-003), deposits and withdrawals including negative balances (DEC-004/DEC-025), automatic status (DEC-006), IDR formatting (DEC-007), archive/restore with retained history (DEC-008), numbered pagination (DEC-009), unique names per account (DEC-011), Hampir Tercapai (DEC-012), Bahasa Indonesia (DEC-013), WIB (DEC-014), email verification and reset (DEC-015), over-saving (DEC-023), MVP Scope A (DEC-024), and past target dates (DEC-026). Implementation parameters such as page size, token lifetime, money storage type, and deployment details remain OPEN in `DECISIONS.md` §4; do not invent them.
 
 ---
 

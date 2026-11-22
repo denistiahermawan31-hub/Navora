@@ -230,7 +230,7 @@ flowchart TD
   B -- "Tidak" --> C["Tampilkan 404"]
   B -- "Ya" --> D{"Parameter halaman valid?"}
   D -- "Tidak" --> E["Fallback ke halaman 1"]
-  D -- "Ya" --> F["Muat 20 transaksi, urut tanggal menurun lalu id menurun"]
+  D -- "Ya" --> F["Muat halaman transaksi (draf 20 baris, C-20 OPEN), urut tanggal menurun lalu id menurun"]
   E --> F
   F --> G{"Ada transaksi?"}
   G -- "Tidak" --> H["Empty state dengan aksi Tambah Tabungan"]
@@ -248,7 +248,7 @@ flowchart TD
 
 ## UF-10 — Edit or Delete a Transaction (OPEN)
 
-**Entry:** history row action (only if approved).
+**Entry:** history row action (only if `OPEN-01`/`OPEN-02` are approved).
 **Outcome:** corrected history with consistent balance.
 
 ```mermaid

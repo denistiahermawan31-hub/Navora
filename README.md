@@ -15,7 +15,7 @@ NAVORA helps people save toward specific purchases. A user creates a dream goal,
 - [Repository Layout](#repository-layout)
 - [Documentation](#documentation)
 - [Reading Order](#reading-order)
-- [Open Decisions](#open-decisions)
+- [Decision Status](#decision-status)
 - [Methodology](#methodology)
 - [Contributing](#contributing)
 - [License](#license)
@@ -103,31 +103,24 @@ Start at [`docs/README.md`](docs/README.md) for the full index.
 4. `docs/02-design/DESIGN-SYSTEM.md` — visual language.
 5. `docs/02-design/USER-FLOW.md` — end-to-end behavior.
 6. `docs/03-technical/TECHNICAL-ARCHITECTURE.md` — how it is structured.
-7. `docs/04-project-management/DECISIONS.md` — what is still undecided.
+7. `docs/04-project-management/DECISIONS.md` — approved decisions and what is still undecided.
 8. `docs/05-quality/ACCEPTANCE-CRITERIA.md` — how completion is judged.
 
 ---
 
-## Open Decisions
+## Decision Status
 
-Development is **blocked** until these are approved:
+**Approved by the owner (2026-11-22; recorded in `DECISIONS.md` §1):** DEC-003 (multi-user accounts, private data), DEC-004 and DEC-025 (deposits, withdrawals, negative balances), DEC-006 (automatic status), DEC-007 (IDR, no decimals), DEC-008 (archive/restore, history retained), DEC-009 (numbered pagination for goals and history), DEC-011 (goal names unique per account), DEC-012 (Hampir Tercapai at 90–99%), DEC-013 (Bahasa Indonesia), DEC-014 (Asia/Jakarta), DEC-015 (email verification and password reset), DEC-016 (productivity modules excluded), DEC-023 (over-saving), DEC-024 (MVP Scope A), DEC-026 (past target dates allowed).
 
-| Decision | Question |
-|---|---|
-| DEC-003 | Are user accounts required? |
-| DEC-004 | Are withdrawals allowed? |
-| DEC-006 | How does a goal become completed? |
-| DEC-007 | Which currency, and how is it formatted? |
-| DEC-008 | What happens to transactions when a goal is deleted? |
-| DEC-016 | What happens to the out-of-scope scaffold modules? |
+These are product decisions, **not** approval of the requirements package as a whole. The Requirements gate remains pending owner sign-off.
 
-Full register: `docs/04-project-management/DECISIONS.md`.
+Open implementation parameters include PHP version (`TECH-01`), database engine (`TECH-02`), money column type (`TECH-03`), page size (`C-20`), invalid-page fallback (`C-19`), token lifetime and single-use rules (`OPEN-09`), email provider (`TECH-06`), and hosting/document root (`TECH-09`). Full register: `docs/04-project-management/DECISIONS.md` §4 and §5.
 
 ---
 
 ## Methodology
 
-Waterfall with formal stage gates: Requirements → Design → Development → Testing → Deployment → Maintenance. No stage starts before the previous one is approved. See `docs/04-project-management/ROADMAP.md`.
+Waterfall with formal stage gates is the proposed methodology (`DEC-022` pending): Requirements → Design → Development → Testing → Deployment → Maintenance. No stage starts before the previous one is approved. See `docs/04-project-management/ROADMAP.md`.
 
 ---
 

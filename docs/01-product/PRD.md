@@ -65,7 +65,17 @@ Personas are illustrative and require validation. No demographic data is asserte
 
 ## 4. Functional Requirements
 
-Priority uses MoSCoW. `Must` items form the MVP. A requirement is only buildable when its status is `APPROVED` and no blocking `OPEN` item applies.
+Priority uses MoSCoW. `Must` items form the MVP. A requirement is only buildable when its status is `APPROVED` and no blocking `OPEN` item applies. `Must` is a priority label, **not** owner approval.
+
+**Must requirements still awaiting owner approval**
+
+| ID | Origin / evidence | Why it remains pending |
+|---|---|---|
+| FR-026 | Dashboard metric definitions in `PRD.md` §4.4, `SRS.md` §4.4, `FS-09`; definitions reference DEC-012/DEC-025/RULE-021 | Core metrics are described, but the exact widget set is `OPEN-06`; no owner approval of the final set is recorded. |
+| FR-028 | Persistent navigation to Dashboard, Goals, and Archive; `US-27` | Navigation items are a proposed structure; Settings is deferred (`OPEN-07`) and no owner approval of this exact navigation set is recorded. |
+| FR-034 | Loading, empty, and error states; `US-31`; `RULE-044` covers only empty history | General UI-state expectations exist in project rules, but no owner decision approves this requirement as written. |
+
+These three requirements remain visibly `PROPOSED`. The requirements package is therefore **not ready for final sign-off**; their priority does not imply approval.
 
 ### 4.1 Account & Access
 
@@ -91,7 +101,7 @@ Priority uses MoSCoW. `Must` items form the MVP. A requirement is only buildable
 | FR-011 | Archive a goal after explicit confirmation; history is retained | Must | `APPROVED` | DEC-008. "Delete" is replaced by "Arsipkan" |
 | FR-012 | Sort goals by recently updated, target date, or progress | Should | `OPEN-05` | |
 | FR-013 | Search goals by name | Should | `OPEN-05` | Relevant once a user has many goals |
-| FR-014 | Filter goals by status (Berlangsung / Tercapai / Diarsipkan) | Could | `OPEN-05` | Depends on FR-024 |
+| FR-014 | Filter **active** goals by status (Berlangsung / Tercapai) | Could | `OPEN-05` | Depends on FR-024; archived goals belong to the separate archive view (FR-038/FR-045), not to a status value (RULE-029) |
 | FR-015 | See an empty state with a clear call to action when no goals exist | Must | `APPROVED` | |
 | FR-039 | Goal names are unique within one account; different accounts may reuse a name | Must | `APPROVED` (behavior) / `OPEN-14` (case rules) | DEC-011 |
 | FR-044 | A target date in the past is accepted when creating or editing a goal | Must | `APPROVED` | DEC-026 |
@@ -122,6 +132,8 @@ Priority uses MoSCoW. `Must` items form the MVP. A requirement is only buildable
 | FR-028 | Persistent navigation to Dashboard, Goals, and Archive | Must | `PROPOSED` | Settings is deferred (`OPEN-07`) |
 | FR-029 | Global "Tambah Goal" and per-goal "Tambah Tabungan" actions are reachable in one step from their context | Should | `PROPOSED` | |
 
+**Dashboard metric definitions (draft — `OPEN-06`):** active-goal count excludes archived goals (FR-045); total saved is the sum of per-goal balances and may be negative (DEC-025); total remaining is the sum of each active goal's `max(0, target - balance)` (RULE-021); nearly reached is the set of active goals with `90% <= progress < 100%` (DEC-012); recent activity is at most 5 newest transactions. These definitions align PRD FR-026, SRS §4.4, and FS-09; the exact widget set is not approved.
+
 ### 4.5 Archive & Restore
 
 | ID | Requirement | Priority | Status | Notes |
@@ -137,7 +149,7 @@ Priority uses MoSCoW. `Must` items form the MVP. A requirement is only buildable
 | FR-031 | Show success feedback after create/update/archive/restore actions | Must | `APPROVED` (policy) | |
 | FR-032 | Show a safe error page/message when an operation fails | Must | `APPROVED` (policy) | No stack traces to users |
 | FR-033 | Format money as Indonesian Rupiah: `Rp` + dot thousands separator, no decimals | Must | `APPROVED` | DEC-007 |
-| FR-034 | Loading, empty, and error states are visually distinct | Must | `PROPOSED` | |
+| FR-034 | Loading, empty, and error states are visually distinct | Must | `PROPOSED` | No owner decision record; state policy only |
 | FR-035 | Data persists across sessions | Must | `APPROVED` (concept) | Database-backed |
 | FR-042 | The entire user interface uses Bahasa Indonesia | Must | `APPROVED` | DEC-013 |
 | FR-043 | Dates are interpreted and displayed in Asia/Jakarta (WIB) | Must | `APPROVED` (zone) / `OPEN` (display format) | DEC-014 |
@@ -178,7 +190,7 @@ Priority uses MoSCoW. `Must` items form the MVP. A requirement is only buildable
 | NFR-012 | Motion | Honor `prefers-reduced-motion`; no layout-shifting animation | Verified | `PROPOSED` |
 | NFR-013 | Reliability | Balance always equals deposits minus withdrawals | 100% in tests | `PROPOSED` |
 | NFR-014 | Localization | Interface copy in Bahasa Indonesia; money and dates use Indonesian conventions | DEC-013, DEC-014 | `APPROVED` (language) / `PROPOSED` (format details) |
-| NFR-015 | Security | Email verification and password-reset tokens are single-use and time-limited | Lifetime `OPEN-09` | `PROPOSED` |
+| NFR-015 | Security | Verification and reset links are delivered by email and are time-limited (DEC-015); token generation, exact lifetime, and single-use enforcement are `OPEN-09` | Lifetime and single-use `OPEN-09` | `APPROVED` (delivery/time-limited behavior) / `OPEN` (token rules) |
 
 ---
 
@@ -206,8 +218,22 @@ Priority uses MoSCoW. `Must` items form the MVP. A requirement is only buildable
 | US-18 | Sebagai penabung, saya ingin penanda "Hampir Tercapai" agar termotivasi menyelesaikan target. | FR-041 |
 | US-19 | Sebagai pengguna Indonesia, saya ingin seluruh antarmuka berbahasa Indonesia agar mudah dipahami. | FR-042 |
 | US-20 | Sebagai pengguna, saya ingin tanggal mengikuti WIB agar pencatatan konsisten. | FR-043 |
+| US-21 | Sebagai pengguna, saya ingin masuk dan keluar akun agar data saya tetap pribadi. | FR-002 |
+| US-22 | Sebagai pengguna, saya ingin hanya melihat goal dan transaksi saya sendiri agar data orang lain tidak terbaca. | FR-003 |
+| US-23 | Sebagai penabung, saya ingin boleh menentukan tanggal target agar rencana saya lebih jelas. | FR-006 |
+| US-24 | Sebagai penabung, saya ingin membuka detail goal untuk melihat saldo, progres, sisa, dan aksi yang tersedia. | FR-009 |
+| US-25 | Sebagai penabung, saya ingin melihat persentase progres yang dibatasi maksimal 100% agar kelebihan tabungan tidak menyesatkan. | FR-019 |
+| US-26 | Sebagai penabung, saya ingin status berubah otomatis saat saldo mencapai atau turun di bawah target. | FR-024 |
+| US-27 | Sebagai pengguna, saya ingin navigasi tetap ke Dashboard, Goals, dan Arsip agar saya tidak tersesat. | FR-028 |
+| US-28 | Sebagai pengguna, saya ingin aksi utama mudah dijangkau dari konteksnya agar pencatatan cepat. | FR-029 |
+| US-29 | Sebagai pengguna, saya ingin umpan balik sukses dan pesan kesalahan yang aman agar saya tahu hasil aksi saya. | FR-031, FR-032 |
+| US-30 | Sebagai pengguna Indonesia, saya ingin nominal ditampilkan sebagai Rupiah tanpa desimal agar mudah dibaca. | FR-033 |
+| US-31 | Sebagai pengguna, saya ingin kondisi memuat, kosong, dan gagal dibedakan secara visual agar saya tahu apa yang terjadi. | FR-034 |
+| US-32 | Sebagai pengguna, saya ingin data tabungan tersimpan antar-sesi agar catatan saya tidak hilang. | FR-035 |
+| US-33 | Sebagai penabung, saya ingin tetap bisa memasukkan tanggal target yang sudah lalu agar rencana lama dapat dicatat. | FR-044 |
+| US-34 | Sebagai penabung, saya ingin melihat aktivitas tabungan terbaru di ringkasan agar perubahan terakhir terlihat. | FR-027 |
 
-Acceptance criteria for each story: `docs/05-quality/ACCEPTANCE-CRITERIA.md`.
+All `Must` requirements have at least one user story. `Should`/`Could` requirements that remain `OPEN` (`OPEN-01..OPEN-05`) deliberately have no MVP story until approved. Acceptance criteria for each story: `docs/05-quality/ACCEPTANCE-CRITERIA.md`.
 
 ---
 
@@ -330,3 +356,5 @@ Remaining `OPEN` items: OPEN-01 … OPEN-20 (`DECISIONS.md` §4.1) and TECH-01 �
 - Added FR-036..FR-045 for account security, archive/restore, unique names, negative balance, nearly-reached indicator, Indonesian UI, WIB, and past target dates.
 - Replaced "delete goal" with "archive goal" throughout.
 - Removed Settings from MVP navigation (OPEN-07).
+- Consolidation follow-up: FR-014 status filter limited to active goals; FR-026 metric definitions aligned with SRS §4.4 and FS-09; NFR-015 distinguishes approved time-limited email links from OPEN-09 token parameters; added US-21..US-34 to close Must-requirement story gaps.
+- Page size and invalid-page fallback remain implementation parameters (`C-20`, `C-19` OPEN); `DEC-009` approves numbered pagination only.

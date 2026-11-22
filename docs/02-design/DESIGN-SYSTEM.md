@@ -313,7 +313,7 @@ This block is documentation only; `NAVORA/public/css/style.css` remains empty un
 
 ## 11. Design Governance
 
-1. The palette is **proposed** until the owner approves DEC-010.
+1. The palette, typography, and icon choices are **proposed** until the owner approves DEC-010 and DEC-019.
 2. Any new color must be added as a token with a documented purpose and verified contrast.
 3. Any new component must follow `COMPONENT-SPECIFICATION.md`.
 4. Accessibility checks are mandatory before a component is considered done.

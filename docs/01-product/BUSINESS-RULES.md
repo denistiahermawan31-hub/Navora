@@ -129,8 +129,8 @@
 
 | ID | Rule | Status |
 |---|---|---|
-| RULE-042 | Transaction history is scoped to a single goal and uses **numbered pagination**, 20 rows per page. | `APPROVED` (DEC-009) |
-| RULE-043 | Pagination preserves the goal context and any active search/sort/filter state. An invalid page number falls back to page 1; an out-of-range page clamps to the last valid page. | `PROPOSED` |
+| RULE-042 | Transaction history is scoped to a single goal and uses **numbered pagination** (DEC-009). Page size is not approved; `20` is a draft default used in examples (`C-20` OPEN). | `APPROVED` (numbered pagination) / `OPEN` (page size) |
+| RULE-043 | Pagination preserves the goal context and any active search/sort/filter state. Draft behavior only: non-numeric/`0` page → page 1; numeric out-of-range page → last valid page (`C-19` OPEN). | `PROPOSED` |
 | RULE-044 | Empty history shows an empty state with a "Tambah Tabungan" action, not a blank table. | `PROPOSED` |
 | RULE-045 | Dates are interpreted in Asia/Jakarta (WIB). Display format is `OPEN` (proposal: `22/11/2026`). Storage format is `YYYY-MM-DD`. | `APPROVED` (zone) / `OPEN` (display) |
 | RULE-046 | Amounts are displayed as Indonesian Rupiah: `Rp` directly followed by digits, dot as the thousands separator, no decimals. Example: `Rp15.000.000`. | `APPROVED` (DEC-007) |
@@ -172,6 +172,8 @@
 | Rule | Question | Decision record |
 |---|---|---|
 | RULE-005 | Maximum target/transaction amount | TECH-03 |
+| RULE-042 | Number of items per page for goals and history | C-20 |
+| RULE-043 | Invalid/out-of-range page fallback | C-19 |
 | RULE-008 / RULE-014 | Goal description and transaction note in MVP | OPEN-03, OPEN-04 |
 | RULE-009 | Case sensitivity and whitespace normalization for unique names | OPEN-14 |
 | RULE-013 | Reject future transaction dates? | Needs confirmation |
@@ -185,6 +187,8 @@
 | RULE-055 | Transactions on archived goals | OPEN-12 |
 
 **Development may begin only on rules marked `APPROVED`.** Rules marked `OPEN` must either be resolved or explicitly excluded from the MVP before their dependent feature is built.
+
+See `ACCEPTANCE-CRITERIA.md` §11 for the explicit `Must` FR → user story → RULE → AC cross-reference. A mapping there does not imply owner approval.
 
 ---
 
@@ -200,3 +204,4 @@
 - Hampir Tercapai approved (DEC-012); RULE-054 added.
 - Bahasa Indonesia and WIB approved (DEC-013, DEC-014); RULE-045/056 updated.
 - Multi-user ownership approved (DEC-003); RULE-047..049 updated.
+- Consolidation follow-up: RULE-042 separates approved numbered pagination from the unapproved page size (`C-20`); RULE-043 invalid-page fallback remains `PROPOSED` (`C-19`).

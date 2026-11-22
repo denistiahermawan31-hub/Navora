@@ -10,7 +10,7 @@
 
 > **No test has been run.** The application contains no code. Every status in this document is `NOT RUN` until evidence is recorded in `PROGRESS.md` or a test report.
 >
-> Test cases reflect the owner-approved decisions of 2026-11-22 (DEC-003..DEC-016, DEC-023..DEC-026). Cases that depend on remaining `OPEN` items are marked accordingly.
+> Test cases reflect the owner-approved decisions of 2026-11-22: DEC-003, DEC-004, DEC-006, DEC-007, DEC-008, DEC-009, DEC-011, DEC-012, DEC-013, DEC-014, DEC-015, DEC-016, DEC-023, DEC-024, DEC-025, DEC-026 (`DECISIONS.md` §7). Cases that depend on remaining `OPEN`/`PROPOSED` items are marked accordingly.
 
 ---
 
@@ -78,15 +78,16 @@ No test framework is installed and none may be installed during the documentatio
 | TC-A-01 | Register valid account | Submit name, unique email, matching passwords | Account created; verification email sent | FR-001, FR-036 | `NOT RUN` |
 | TC-A-02 | Duplicate email | Register with an existing email | Rejected with generic message; no enumeration | FR-001 | `NOT RUN` |
 | TC-A-03 | Weak password | Submit below minimum length | Rejected | FR-001 (`OPEN-10`) | `NOT RUN` |
-| TC-A-04 | Verify email | Open valid verification link | Email marked verified; token cannot be reused | FR-036 | `NOT RUN` |
+| TC-A-04 | Verify email | Open valid verification link | Email marked verified; single-use enforcement pending `OPEN-09` | FR-036 | `NOT RUN` |
 | TC-A-05 | Expired verification token | Open an expired link | Rejected; resend offered | FR-036 | `NOT RUN` |
 | TC-A-06 | Login valid | Correct email and password | Session created; ID regenerated | FR-002 | `NOT RUN` |
 | TC-A-07 | Login invalid | Wrong password | Generic error; no enumeration | FR-002 | `NOT RUN` |
 | TC-A-08 | Logout | POST logout with CSRF | Session invalidated; back button shows no protected content | FR-002 | `NOT RUN` |
 | TC-A-09 | Password reset request | Submit a registered email | Generic confirmation; email sent | FR-037 | `NOT RUN` |
 | TC-A-10 | Password reset unknown email | Submit unknown email | Same generic confirmation; no email | FR-037 | `NOT RUN` |
-| TC-A-11 | Password reset completion | Open valid link; set new password | Password updated; token single-use; sessions invalidated | FR-037 | `NOT RUN` |
+| TC-A-11 | Password reset completion | Open valid link; set new password | Password updated; sessions invalidated; single-use/lifetime pending `OPEN-09` | FR-037 | `NOT RUN` |
 | TC-A-12 | Data isolation | User A requests user B's goal | 404; no data disclosed | FR-003 | `NOT RUN` |
+| TC-A-13 | Persistence across sessions | Create a goal and transaction, log out, log in again in a new session | Records, balance, and status are unchanged | FR-035 | `NOT RUN` |
 
 ### 5.2 Goals
 
@@ -132,7 +133,7 @@ No test framework is installed and none may be installed during the documentatio
 | TC-T-11 | Mixed transactions | Deposit 10, withdraw 4 | Balance 6 | RULE-020 | `NOT RUN` |
 | TC-T-12 | Withdrawal exceeds balance | Balance 2, withdraw 5 | Accepted; balance -3 | FR-040 | `NOT RUN` |
 | TC-T-13 | Deposit over target | Target 30, balance 35 | Accepted; progress 100%; excess 5 | FR-025 | `NOT RUN` |
-| TC-T-14 | Pagination page 1 | 21 transactions | 20 rows + numbered pagination | FR-021 | `NOT RUN` |
+| TC-T-14 | Pagination page 1 | 21 transactions (draft size) | Numbered pagination (DEC-009); 20 rows under draft `C-20` | FR-021 | `NOT RUN` |
 | TC-T-15 | Pagination last page | Go to last | Correct remaining rows | FR-021 | `NOT RUN` |
 | TC-T-16 | Invalid page | `?page=999` / `?page=0` / `?page=abc` | Clamped, no error | RULE-043 | `NOT RUN` |
 | TC-T-17 | Empty history | Goal with no transactions | Empty state | RULE-044 | `NOT RUN` |
@@ -188,6 +189,7 @@ No test framework is installed and none may be installed during the documentatio
 | TC-U-12 | Toast announcement | Live region announces message | `NOT RUN` |
 | TC-U-13 | Indonesian copy | No English UI strings | `NOT RUN` |
 | TC-U-14 | Hampir Tercapai not color-only | Label/icon present | `NOT RUN` |
+| TC-U-15 | Persistent navigation | From dashboard, list, detail, history, and archive views | Dashboard/Goals/Arsip links visible and reachable; `FR-028` is `PROPOSED` | `NOT RUN` |
 
 ### 5.7 Security
 
@@ -211,7 +213,7 @@ No test framework is installed and none may be installed during the documentatio
 | ID | Case | Target | Status |
 |---|---|---|---|
 | TC-P-01 | Goal list, 100 goals | < 500 ms server time | `NOT RUN` |
-| TC-P-02 | History page, 20 rows | < 300 ms | `NOT RUN` |
+| TC-P-02 | History page, draft 20 rows (`C-20` OPEN) | < 300 ms | `NOT RUN` |
 | TC-P-03 | Query count for list | Constant, no N+1 | `NOT RUN` |
 | TC-P-04 | CSS+JS weight | ≤ 250 KB uncompressed | `NOT RUN` |
 | TC-P-05 | No external requests | Zero third-party calls | `NOT RUN` |

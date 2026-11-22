@@ -10,7 +10,7 @@
 
 Components are described independent of implementation. In the PHP MVC scaffold these will likely be PHP partials with view variables ("data contract" below), plus CSS classes and minimal JS. **No component exists yet.**
 
-Naming: `NV` prefix for CSS classes (e.g., `nv-goal-card`) to avoid collisions.
+Naming: lowercase `nv-` prefix for CSS classes (e.g., `nv-goal-card`) to avoid collisions.
 
 ---
 
@@ -176,7 +176,7 @@ Naming: `NV` prefix for CSS classes (e.g., `nv-goal-card`) to avoid collisions.
 - **Structure:** Previous, numbered pages (windowed with ellipsis), Next.
 - **Behavior:** links (not JS-only), preserve query state; invalid page clamps.
 - **Accessibility:** `<nav aria-label="Navigasi halaman">`, `aria-current="page"`, disabled states not focusable.
-- **Rules:** 20 items per page; used for goals, archive, and savings history (DEC-009); hide when a single page.
+- **Rules:** numbered pagination for goals, archive, and savings history (DEC-009); `20` items per page is a draft default (`C-20` OPEN); hide when a single page.
 
 ## CMP-16 — Search & Sort Bar
 

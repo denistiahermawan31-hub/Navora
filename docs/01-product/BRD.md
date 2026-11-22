@@ -197,7 +197,7 @@ Proposed, measurable at release. None has been measured; all are targets.
 |---|---|
 | Product concept, scope exclusions | `SRC-00` |
 | Scaffold constraints, technical baseline | `SRC-01` |
-| Multi-user, withdrawals, status, currency, archive, pagination, uniqueness, indicator, language, timezone, account security, legacy exclusion, over-saving, MVP scope, past dates | `DECISIONS.md` §1 (DEC-003..DEC-016, DEC-023..DEC-026) |
+| Multi-user, withdrawals, status, currency, archive, pagination, uniqueness, indicator, language, timezone, account security, legacy exclusion, over-saving, MVP scope, past dates | `DECISIONS.md` §7: DEC-003, DEC-004, DEC-006, DEC-007, DEC-008, DEC-009, DEC-011, DEC-012, DEC-013, DEC-014, DEC-015, DEC-016, DEC-023, DEC-024, DEC-025, DEC-026 |
 | Financial rule details | `BUSINESS-RULES.md` |
 | Remaining open items | `DECISIONS.md` §4 |
 

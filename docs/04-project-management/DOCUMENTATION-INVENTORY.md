@@ -4,7 +4,9 @@
 **Auditor:** AI documentation session (OpenCode)
 **Repository:** `denistiahermawan31-hub/Navora` (branch `main`)
 **Audit scope:** entire repository, all branches/history, working tree, ignored files
-**Status of this document:** `CONFIRMED` (based on direct inspection)
+**Status of this document:** `CONFIRMED` (historical snapshot based on direct inspection at audit time)
+
+> **Historical record — do not read as current status.** This inventory preserves the repository state at the audit date, including the then-empty source files and the then-open decisions. It is intentionally unchanged as evidence of the starting point. The owner has since approved DEC-003 (multi-user authentication), DEC-004/DEC-025 (withdrawals and negative balances), DEC-006 (automatic status), DEC-007 (IDR), DEC-008 (archive/restore), DEC-016 (scope exclusions), and others; see `DECISIONS.md` §1. Phrases such as "auth approval pending" in §3 below reflect the audit date only. Current status is recorded in `PROGRESS.md` and `docs/README.md`; current document inventory is 23 files under `docs/` plus 3 root documents.
 
 ---
 

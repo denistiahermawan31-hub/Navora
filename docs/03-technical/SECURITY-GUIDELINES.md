@@ -58,10 +58,10 @@ Authentication is **required** (DEC-003). Email verification and password reset 
 | SEC-A4 | Generic login failure message ("Email atau kata sandi salah") | `PROPOSED` |
 | SEC-A5 | Regenerate session ID on login and logout | `PROPOSED` |
 | SEC-A6 | Email verification is required (DEC-015); whether login is blocked before verification is `OPEN-08` | `APPROVED` (behavior) / `OPEN` (enforcement) |
-| SEC-A7 | Password reset uses a time-limited, single-use email link; lifetime `OPEN-09` (proposal: 60 minutes) | `APPROVED` (behavior) / `OPEN` (lifetime) |
+| SEC-A7 | Password reset uses an expiring email link (DEC-015); exact lifetime and single-use enforcement are `OPEN-09` (proposal: 60 minutes, single-use) | `APPROVED` (delivery + expiry) / `OPEN` (parameters) |
 | SEC-A8 | No "remember me" until token rotation is designed | `OPEN-11` |
 | SEC-A9 | Account deletion policy | `OPEN` (not in MVP) |
-| SEC-A10 | Verification and reset tokens are random (≥128 bits), stored hashed, single-use, and invalidated on use | `PROPOSED` |
+| SEC-A10 | Verification and reset tokens are random (≥128 bits) and stored hashed; single-use invalidation and lifetime are `OPEN-09` | `PROPOSED` / `OPEN-09` |
 
 ---
 

@@ -192,7 +192,7 @@ No calculation is duplicated between PHP and JavaScript.
 |---|---|
 | Front controller | Catch unhandled exceptions; render 500; log with correlation ID |
 | Router | 404 for unmatched routes |
-| Controller | Validate; redirect with flash; render 422-equivalent |
+| Controller | Validate; redirect with flash; draft convention: re-render the form with field errors using `200` (no 422 JSON in proposed MVP; `C-30` `PROPOSED`) |
 | Model | Throw on DB failure; never swallow |
 | View | Escape output; never display raw errors |
 
@@ -209,8 +209,8 @@ No calculation is duplicated between PHP and JavaScript.
 | Mechanism | Server-side PHP sessions | `PROPOSED` |
 | Password storage | `password_hash()` (Argon2id preferred, bcrypt fallback) | `PROPOSED` |
 | Login identifier | Email | `PROPOSED` |
-| Email verification | Token link, single-use, time-limited | `APPROVED` (DEC-015); lifetime `OPEN-09` |
-| Password reset | Token link, single-use, time-limited; sessions invalidated | `APPROVED` (DEC-015); lifetime `OPEN-09` |
+| Email verification | Expiring email link (DEC-015) | `APPROVED` (delivery + expiry) / `OPEN-09` (lifetime, single-use enforcement) |
+| Password reset | Expiring email link; sessions invalidated (DEC-015) | `APPROVED` (delivery + expiry) / `OPEN-09` (lifetime, single-use enforcement) |
 | Session fixation | `session_regenerate_id(true)` on login | `PROPOSED` |
 | Cookie flags | `HttpOnly`, `SameSite=Lax`, `Secure` on HTTPS | `PROPOSED` |
 | Authorization | Every query scoped by `user_id` | `APPROVED` (behavior) |
@@ -300,14 +300,14 @@ No test framework is installed; installation requires approval after the require
 
 | Decision | Record |
 |---|---|
-| Confirm PHP MVC baseline | DEC-002 |
+| Confirm PHP MVC baseline | `DEC-002` (`PENDING`) |
 | Authentication model | Resolved: multi-user (DEC-003) |
 | Email verification and password reset | DEC-015; delivery `TECH-06` |
 | Database engine | `OPEN` (`TECH-02`) |
 | Money column type | `OPEN` (`TECH-03`) |
 | Status storage | `OPEN` (`TECH-04`) |
 | Document root strategy | `OPEN` (`TECH-09`) |
-| API vs server-rendered | DEC-017 |
+| API vs server-rendered | `DEC-017` (`PENDING`) |
 | GSAP adoption | DEC-020 |
 
 ---

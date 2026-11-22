@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | Document ID | NAVORA-DEC |
-| Version | 0.2.0 |
+| Version | 0.2.1 |
 | Date | 2026-11-22 |
 | Status | **Owner-approved product decisions recorded; technical items remain OPEN** |
 | Owner | Project Owner (`denistiahermawan31-hub`) |
@@ -14,7 +14,9 @@
 |---|---|
 | `APPROVED` | Explicitly confirmed by the project owner. Binding. |
 | `PROPOSED` | Drafted for approval; not binding yet. |
+| `PENDING` | Awaiting owner or technical confirmation; not binding. |
 | `OPEN` / `TBD` | Unresolved; blocks the dependent work. |
+| `PARTIALLY RESOLVED` | Legacy label: some aspects settled, at least one still unresolved. Retired in 0.2.1; present only for historical traceability. |
 | `DEFERRED` | Intentionally postponed beyond the current milestone. |
 | `SUPERSEDED` | Replaced by a newer decision; kept for history. |
 | `OUT` | Explicitly excluded from NAVORA. |
@@ -120,7 +122,7 @@ The owner's approved product decisions reused IDs that earlier drafts had assign
 |---|---|---|---|
 | DEC-011 | Typography and icon library | **DEC-019** | `PENDING` |
 | DEC-012 | GSAP adoption | **DEC-020** | `DEFERRED` |
-| DEC-013 | TailAdmin as inspiration only | **DEC-021** | `APPROVED` (principle) |
+| DEC-013 | TailAdmin as inspiration only | **DEC-021** | `PENDING` (no owner approval record; reference not inspected) |
 | DEC-014 | Waterfall methodology | **DEC-022** | `PENDING` |
 | DEC-015 | Single-user vs multi-user data model | merged into **DEC-003** | `SUPERSEDED` |
 | DEC-016 | Legacy modules | **DEC-016** | `APPROVED` (same topic) |
@@ -135,14 +137,24 @@ The owner's approved product decisions reused IDs that earlier drafts had assign
 |---|---|---|---|
 | DEC-001 | Documentation at repository root, code in `NAVORA/` | `PENDING` | Low risk; confirm later |
 | DEC-002 | Keep the custom PHP MVC scaffold; no framework migration | `PENDING` | Technical baseline |
-| DEC-005 | Balance derived from transactions, not manually editable | `APPROVED (behavior) / OPEN (implementation)` | Required by DEC-004/006/023; storage/query detail open |
-| DEC-010 | Blue brand palette | `PENDING` | Design approval |
-| DEC-017 | No JSON API in MVP; server-rendered HTTP | `PENDING` | Technical |
-| DEC-018 | Non-brief requirements are `PROPOSED` unless approved | `APPROVED` | Documentation policy |
+| DEC-005 | Balance derived from transactions, not manually editable | `APPROVED (derived behavior) / OPEN (implementation)` | Behavior follows from DEC-004/006/023; not an independently owner-approved ID. Storage/query detail open. |
+| DEC-010 | Blue brand palette | `PENDING` | Design approval; not included in any approved range |
+| DEC-017 | No JSON API in MVP; server-rendered HTTP | `PENDING` | Technical; server-rendered is a proposed baseline, not an approved exclusion |
+| DEC-018 | Non-brief requirements are `PROPOSED` unless approved | `PENDING` | Documentation policy; formerly labelled `APPROVED` in draft but absent from §7 |
 | DEC-019 | Typography (Inter/Sora) and icons (Lucide) | `PENDING` | Renumbered from former DEC-011 |
 | DEC-020 | GSAP optional | `DEFERRED` | Renumbered from former DEC-012 |
-| DEC-021 | TailAdmin as inspiration only, not copied | `APPROVED` (principle) | Renumbered from former DEC-013; reference not inspected |
+| DEC-021 | TailAdmin as inspiration only, not copied | `PENDING` | Renumbered from former DEC-013; formerly labelled `APPROVED` (principle) but absent from §7; `SRC-03` not inspected |
 | DEC-022 | Waterfall with approval gates | `PENDING` | Renumbered from former DEC-014 |
+
+### 3.1 Approval-status discrepancies resolved in 0.2.1
+
+- **DEC-005:** the rule that balance is derived from transactions is approved **as a consequence** of DEC-004/DEC-006/DEC-023 (`RULE-025`, `PRD FR-018`). It is not an independently owner-approved decision ID and is therefore not listed in §7. Implementation details remain `OPEN`.
+- **DEC-018 and DEC-021:** earlier drafts marked these `APPROVED`, but §7 contains no owner-approval record. Their status is now `PENDING`. No behavior changed; only the status claim was corrected.
+- **C-30:** `200` re-render is a documented technical convention in `API-SPECIFICATION.md`, but no owner approval is recorded. Its conflict status is now `PROPOSED`, not `RESOLVED`.
+- **DEC-002 and DEC-017:** both remain `PENDING`. Other documents must not present them as final decisions; wording has been corrected accordingly.
+- **DEC-010 and all other `PENDING` items:** excluded from approved lists. Cross-document references use the explicit owner-approved ID list from §7 instead of a numeric range.
+
+No approval evidence has been invented; where approval cannot be verified, the status is `PENDING` or `PROPOSED`.
 
 ---
 
@@ -200,12 +212,12 @@ These items are **not** decided by the approved product decisions. They must not
 |---|---|---|---|
 | C-01 | Legacy modules (habits/tasks/notes/focus/planner/analytics) vs savings-only scope | DEC-016: excluded from scope; files preserved, not routed | `RESOLVED` |
 | C-02 | Legacy `DAYORA` naming (`database/dayora.sql`) | No rename yet; cleanup requires approval | `OPEN` (low) |
-| C-03 | `Goal` vs `DreamSavings` PHP model naming | Product term is "Dream Goal"; single entity proposed; PHP class choice `OPEN` | `PARTIALLY RESOLVED` |
+| C-03 | `Goal` vs `DreamSavings` PHP model naming | Product term is "Dream Goal"; table `dream_goals` is a draft schema choice; PHP class choice remains `OPEN`. No implementation file has content; owner or technical approval is required to select one class. | `OPEN` |
 | C-04 | Auth present in scaffold vs "if approved" | DEC-003: multi-user approved | `RESOLVED` |
 | C-05 | Analytics module vs scope | DEC-016 / DEC-024: out of scope; advanced statistics deferred | `RESOLVED` |
 | C-06 | Documentation root placement | DEC-001 pending | `OPEN` (low) |
 | C-07 | Decision ID collisions between drafts and owner decisions | Renumbered per §2 | `RESOLVED` |
-| C-08 | Dashboard metric definitions differed across PRD/SRS/FS | Consolidated in PRD FR-026 / SRS §4.3 / FS-09 | `RESOLVED` |
+| C-08 | Dashboard metric definitions differed across PRD/SRS/FS | Consolidated in PRD FR-026 / SRS §4.4 / FS-09 (exact widget set remains `OPEN-06`) | `RESOLVED` |
 | C-09 | Goal pagination: numbered vs "Load more" | DEC-009: numbered pagination for goals and history | `RESOLVED` |
 | C-10 | Transaction CRUD status differed across documents | Edit/delete remain OPEN-01/OPEN-02; creation and reading are in scope | `OPEN` |
 | C-11 | Archived vs soft delete vs hard delete | DEC-008: archive only in MVP; hard delete out | `RESOLVED` |
@@ -216,8 +228,8 @@ These items are **not** decided by the approved product decisions. They must not
 | C-16 | Settings navigation without a settings feature | Settings deferred (OPEN-07) | `RESOLVED` (removed from MVP) |
 | C-17 | 403 vs 404 for unauthorized access | 404 for missing and unauthorized; no admin role | `RESOLVED` |
 | C-18 | SRS diagram "Apache" vs server TBD | Server remains `OPEN`; diagram corrected to "web server (TBD)" | `RESOLVED` |
-| C-19 | Invalid page fallback (page 1 vs last page) | Page 1 fallback; out-of-range clamps to last valid page | `RESOLVED` |
-| C-20 | Page size 20 vs 20–24 | 20 per page for goals and history | `RESOLVED` |
+| C-19 | Invalid page fallback (page 1 vs last page) | No owner-approved value exists. Draft policy kept for reference: non-numeric/`0` → page 1; numeric out-of-range → last valid page. Must stay `OPEN` until approved. | `OPEN` |
+| C-20 | Page size 20 vs 20–24 | `DEC-009` approves **numbered pagination only**. No page size was approved. `20` is a documented draft default used in examples/tests, not a binding value. | `OPEN` |
 | C-21 | Search/sort state lost across pagination | Query state preserved in pagination links | `RESOLVED` |
 | C-22 | Timezone absent | DEC-014: Asia/Jakarta | `RESOLVED` |
 | C-23 | English UI assumption | DEC-013: Bahasa Indonesia | `RESOLVED` |
@@ -227,7 +239,7 @@ These items are **not** decided by the approved product decisions. They must not
 | C-27 | Target date past policy / Q-07 | DEC-026: past dates allowed; optional retained | `RESOLVED` |
 | C-28 | Goal name uniqueness | DEC-011: unique per account | `RESOLVED` |
 | C-29 | "Nearing completion" threshold | DEC-012: 90% ≤ progress < 100% | `RESOLVED` |
-| C-30 | 422 vs 200 on validation failure | 200 re-render (or 422) documented as one policy: re-render with errors | `RESOLVED` |
+| C-30 | 422 vs 200 on validation failure | Draft technical convention: re-render the form with errors using `200` for HTML form submissions; no 422 JSON responses in the proposed MVP. No owner approval record exists. | `PROPOSED` |
 | C-31 | Automated tests promised without tooling | NFR-013 retained as target; test tool `OPEN` | `OPEN` (technical) |
 | C-32 | Administrator actor `TBD` | Out of scope; no admin role | `RESOLVED` |
 | C-33 | User story coverage gaps | Added stories for archive/restore, withdrawals, auth, indicator | `RESOLVED` |
@@ -238,6 +250,10 @@ These items are **not** decided by the approved product decisions. They must not
 | C-38 | Rate limiting | `OPEN` security | `OPEN` |
 | C-39 | Privacy/retention policy | `OPEN` | `OPEN` |
 
+> **Note:** C-19 (invalid-page fallback) and C-20 (page size) concern implementation parameters. `DEC-009` approves numbered pagination for goals and history but fixes neither value, so both remain `OPEN`. Draft defaults (20 per page; page 1 for non-numeric input, last page for out-of-range numeric input) are documented for design/test consistency only and must not be reported as approved.
+>
+> **0.2.1 conflict status summary:** 28 `RESOLVED`, 10 `OPEN` (including C-03), 1 `PROPOSED` (C-30), 0 `PARTIALLY RESOLVED`. C-30 is consistent with the draft `API-SPECIFICATION.md` but is not owner-approved.
+
 ---
 
 ## 6. Decision Log Format
@@ -245,7 +261,7 @@ These items are **not** decided by the approved product decisions. They must not
 ```markdown
 ### DEC-XXX — <short title>
 - Date: YYYY-MM-DD
-- Status: APPROVED | PROPOSED | OPEN | DEFERRED | SUPERSEDED | OUT
+- Status: APPROVED | PROPOSED | PENDING | OPEN | DEFERRED | SUPERSEDED | OUT | PARTIALLY RESOLVED (legacy)
 - Context: <evidence, links>
 - Decision: <what was decided>
 - Alternatives: <...>
@@ -261,6 +277,8 @@ AI agents may draft entries but may not set `APPROVED` for product, financial, s
 
 | Item | Approved by | Date |
 |---|---|---|
-| DEC-003, DEC-004, DEC-006, DEC-007, DEC-008, DEC-009, DEC-011..DEC-016, DEC-023..DEC-026 | Project Owner | 2026-11-22 |
+| DEC-003, DEC-004, DEC-006, DEC-007, DEC-008, DEC-009, DEC-011, DEC-012, DEC-013, DEC-014, DEC-015, DEC-016, DEC-023, DEC-024, DEC-025, DEC-026 | Project Owner | 2026-11-22 |
 | Documentation consolidation into BRD/PRD/SRS/rules/features/quality docs | Project Owner instruction (this task) | 2026-11-22 |
-| Design palette, typography, icons, Waterfall, API approach | Not yet approved | — |
+| Design palette, typography, icons, Waterfall, API approach (`DEC-010`, `DEC-019`, `DEC-022`, `DEC-017`) | Not yet approved | — |
+
+> The expanded list above is the same owner-approved set recorded in 0.2.0; only the shorthand ranges were expanded. `DEC-005` is derived behavior, not an independently approved ID. `DEC-018`, `DEC-021`, and C-30 have no owner-approval record and are not included above.
