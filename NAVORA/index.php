@@ -9,6 +9,30 @@ require __DIR__ . '/core/App.php';
 require __DIR__ . '/core/Controller.php';
 require __DIR__ . '/core/Session.php';
 
+// Autoloader: map NAVORA namespaces to files (minimal, covers Controllers, Models, Core)
+spl_autoload_register(function ($class) {
+    $parts = explode('\\', ltrim($class, '\\'));
+    if (count($parts) < 2) {
+        return;
+    }
+    $name = array_pop($parts);
+    $ns = implode('\\', $parts);
+    $paths = [
+        'NAVORA\\Controllers' => '/app/controllers',
+        'NAVORA\\Models' => '/app/models',
+        'NAVORA\\Core' => '/core',
+    ];
+    foreach ($paths as $namespace => $dir) {
+        if ($ns === $namespace) {
+            $file = __DIR__ . $dir . '/' . $name . '.php';
+            if (is_file($file)) {
+                require $file;
+                return;
+            }
+        }
+    }
+});
+
 session_start();
 
 $app = new NAVORA\Core\App();
