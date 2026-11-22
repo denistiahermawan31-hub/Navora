@@ -5,7 +5,7 @@
 | Document ID | NAVORA-UX |
 | Version | 0.2.0 (Consolidated) |
 | Date | 2026-11-22 |
-| Status | **PROPOSED — design requires owner approval; approved product rules applied** |
+| Status | **Owner-approved product rules applied; DEC-019 Option A: typography/icons confirmed** |
 | Related | `DESIGN-SYSTEM.md`, `COMPONENT-SPECIFICATION.md`, `WIREFRAME-SPECIFICATION.md`, `USER-FLOW.md` |
 
 ---
@@ -27,7 +27,14 @@
 ## 2. Information Architecture
 
 ```text
-Dashboard (ringkasan)
+Landing Page publik (guest, tanpa otentikasi)
+├── Tentang NAVORA
+├── Fitur Utama
+├── Cara Kerja
+├── CTA: Masuk
+└── CTA: Daftar
+
+Dashboard (ringkasan, otentikasi)
 ├── Goals (daftar, cari, urutkan)
 │   ├── Goal detail
 │   │   ├── Tambah Tabungan (modal/halaman)
@@ -40,6 +47,7 @@ Dashboard (ringkasan)
 
 | Level | Purpose | Primary action |
 |---|---|---|
+| Public | Landing page guest, tanpa otentikasi | Baca informasi; CTA Masuk / Daftar |
 | Dashboard | Overall status across goals | Tambah Goal / Tambah Tabungan |
 | Goals | Browse and find a goal | Goal baru |
 | Goal detail | Understand and act on one goal | Tambah Tabungan |

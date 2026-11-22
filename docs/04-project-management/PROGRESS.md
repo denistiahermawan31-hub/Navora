@@ -116,10 +116,10 @@
 | `docs/04-project-management/DOCUMENTATION-INVENTORY.md` | Complete | N/A (audit) |
 | `docs/04-project-management/ROADMAP.md` | Draft complete | No |
 | `docs/04-project-management/PROGRESS.md` | Living document | N/A |
-| `docs/04-project-management/DECISIONS.md` | 26 decision IDs recorded (16 owner-approved); 20 product + 12 technical OPEN items; 39 conflicts (28 resolved, 10 OPEN, 1 proposed) | Approved items binding; pending/proposed items not binding; register itself not a signed package |
+| `docs/04-project-management/DECISIONS.md` | 26 decision IDs recorded (17 owner-approved: 16 product + 1 design); 20 product + 12 technical OPEN items; 39 conflicts (28 resolved, 10 OPEN, 1 proposed) | Approved items binding; pending/proposed items not binding; register itself not a signed package |
 | `docs/04-project-management/CHANGELOG.md` | Complete | N/A |
 | `docs/05-quality/TESTING-PLAN.md` | Draft complete; 107 planned test cases | No |
-| `docs/05-quality/ACCEPTANCE-CRITERIA.md` | Draft complete; 58 criteria, 9 open/proposed/blocked | No |
+| `docs/05-quality/ACCEPTANCE-CRITERIA.md` | Draft complete; 58 criteria, 8 open/proposed | No |
 | `docs/05-quality/DEFINITION-OF-DONE.md` | Draft complete | No |
 
 ---
@@ -148,7 +148,7 @@
 |---|---|---|---|
 | B-07 | Stack confirmation (PHP version, database engine) | Implementation start | `TECH-01`, `TECH-02` |
 | B-08 | Owner sign-off of the complete requirements package | Requirements gate G1 | `ROADMAP.md` |
-| B-09 | Design token approval (palette, typography, icons) | Design gate G2 | `DEC-010`, `DEC-019` |
+| B-09 | Typography and icon approval | Design gate G2 | `DEC-019` Option A approved; `DEC-010` palette approved |
 | B-10 | Money column type and maximum amount | Schema DDL | `TECH-03` |
 | B-11 | Page size and invalid-page fallback | Final pagination spec | `C-20`, `C-19` |
 | B-12 | Token lifetime and single-use rules | Account security implementation | `OPEN-09` |
@@ -158,21 +158,24 @@
 
 | Former blocker | Resolution |
 |---|---|
+| Design palette undecided | DEC-010: exact 11-step BESTCO blue palette approved |
 | B-01 Authentication undecided | DEC-003: multi-user with mandatory auth; former single-user option withdrawn |
 | B-02 Currency/precision undecided | DEC-007: IDR only, no decimals |
 | B-03 Withdrawals undecided | DEC-004 / DEC-025: allowed, negative balance valid |
 | B-04 Completion rule undecided | DEC-006 / DEC-023: automatic from balance; over-saving allowed |
 | B-05 Deletion policy undecided | DEC-008: archive with retained history; hard delete out of MVP |
 | B-06 Out-of-scope module handling | DEC-016: productivity modules excluded; files preserved, not routed |
+| Public Landing Page undecided | DEC-027: Public Landing Page approved as part of MVP; guest `/`, authenticated `/dashboard` |
 
 ---
 
 ## 7. Next Actions
 
 1. Owner signs off the consolidated requirements package (G1), including approval or removal of `FR-026`, `FR-028`, and `FR-034`; Q-01..Q-08 are already resolved and retained for traceability in `PRD.md` §12.
-2. Owner approves or revises the design tokens (`DESIGN-SYSTEM.md`: `DEC-010`, `DEC-019`).
-3. Owner resolves `TECH-01`, `TECH-02`, `TECH-03` and any `OPEN` item that blocks the first feature.
-4. Update this file after each approval.
-5. Only then proceed to Stage 2 (Design) per `ROADMAP.md`.
+2. Owner approves DEC-019 Option A (typography: Plus Jakarta Sans + JetBrains Mono; icon: local inline SVG set, Lucide-compatible); `DEC-010` palette is approved and reflected in `DESIGN-SYSTEM.md`.
+3. Owner approves DEC-027 — Public Landing Page as part of MVP; guest opens `/`, authenticated user redirected to `/dashboard`.
+4. Owner resolves `TECH-01`, `TECH-02`, `TECH-03` and any `OPEN` item that blocks the first feature.
+5. Update this file after each approval.
+6. Only then proceed to Stage 2 (Design) per `ROADMAP.md`.
 
 **No application work will begin until explicit approval of the requirements package is given.**

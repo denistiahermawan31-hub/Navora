@@ -83,6 +83,7 @@ NAVORA addresses this by treating each desired purchase as a **dream goal** with
 | BS-09 | Multi-user accounts with email verification and password reset | DEC-003, DEC-015 |
 | BS-10 | Automatic goal status and Hampir Tercapai indicator | DEC-006, DEC-012 |
 | BS-11 | IDR formatting and Asia/Jakarta dates | DEC-007, DEC-014 |
+| BS-12 | Public Landing Page: guest-facing informational page; accessible without authentication; CTA Masuk/Daftar; redirects authenticated users to dashboard | DEC-027 |
 
 ### 5.2 Out of Scope (explicit)
 
@@ -187,7 +188,8 @@ Proposed, measurable at release. None has been measured; all are targets.
 | Legacy modules excluded (DEC-016) | Project Owner | `APPROVED` 2026-11-22 |
 | MVP Scope A (DEC-024) | Project Owner | `APPROVED` 2026-11-22 |
 | Past target dates (DEC-026) | Project Owner | `APPROVED` 2026-11-22 |
-| Design palette, typography, icons | Project Owner | `PENDING` (DEC-010, DEC-019) |
+| Design palette (DEC-010) | Project Owner | `APPROVED` 2026-11-22 |
+| Typography and icons (DEC-019) | Project Owner | `APPROVED` 2026-11-22 |
 
 ---
 

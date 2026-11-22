@@ -11,7 +11,9 @@
 - [ ] The approved decisions are confirmed as the source of truth: DEC-003 (multi-user auth), DEC-004/DEC-025 (withdrawals and negative balances), DEC-006 (automatic status), DEC-007 (IDR), DEC-008 (archive/restore), DEC-009 (numbered pagination), DEC-011, DEC-012, DEC-013, DEC-014, DEC-015, DEC-016, DEC-023, DEC-024, DEC-026 (`DECISIONS.md` §1).
 - [ ] Remaining `OPEN` items that block the first feature are resolved or explicitly excluded (`DECISIONS.md` §4).
 - [ ] PHP version and database engine are confirmed (TECH-01, TECH-02).
-- [ ] Design tokens are approved (DEC-010 palette, DEC-019 typography and icons).
+- [x] Primary palette is approved (`DEC-010`: exact BESTCO blue scale).
+- [x] Typography and icon library are approved (`DEC-019` Option A).
+- [x] Public Landing Page is approved (`DEC-027`: guest `/`, authenticated `/dashboard`).
 - [ ] Development stage has been explicitly authorized.
 
 If any box is unchecked, the correct action is to ask for the missing decision — not to start coding.
@@ -40,7 +42,7 @@ If any box is unchecked, the correct action is to ask for the missing decision �
 > - The app is server-rendered: `index.php` → `routes/web.php` → controller → model → view.
 >
 > **Scope**
-> - In scope: mandatory multi-user accounts (register/login/logout, email verification, password reset), dream goals (create/read/update/**archive**/**restore**), target price, optional target date (past dates allowed), deposits and withdrawals, derived balance/progress/remaining/excess, automatic status and Hampir Tercapai, savings history with numbered pagination, dashboard summary, validation, feedback, responsive accessible UI, Bahasa Indonesia, IDR and WIB.
+> - In scope: mandatory multi-user accounts (register/login/logout, email verification, password reset), dream goals (create/read/update/**archive**/**restore**), target price, optional target date (past dates allowed), deposits and withdrawals, derived balance/progress/remaining/excess, automatic status and Hampir Tercapai, savings history with numbered pagination, dashboard summary, validation, feedback, responsive accessible UI, Bahasa Indonesia, IDR and WIB, Public Landing Page (`DEC-027`).
 > - Out of scope: permanent goal deletion (DEC-008), transaction edit/delete (OPEN-01/OPEN-02), habits, tasks, notes, focus sessions, planner, standalone analytics, rental, inventory, POS, payments, investments, multi-currency. Leave those scaffold files untouched and unreachable (DEC-016).
 >
 > **Hard rules**
@@ -49,7 +51,7 @@ If any box is unchecked, the correct action is to ask for the missing decision �
 > - Validate server-side, escape output, use prepared statements, protect POSTs with CSRF, and scope every query by owner (authentication is mandatory — DEC-003).
 > - Return 404 for missing and unauthorized records.
 > - Build the documented components; do not duplicate layouts or forms.
-> - Follow the proposed blue design tokens in `DESIGN-SYSTEM.md` until DEC-010/DEC-019 are approved; no gradients/glow/glass/blobs/emoji icons.
+> - Follow the approved blue palette in `DESIGN-SYSTEM.md` (`DEC-010`) and the approved typography/icons (`DEC-019` Option A); no gradients/glow/glass/blobs/emoji icons.
 > - Every data view needs loading, empty, error, and populated states.
 > - Responsive from 360px; keyboard accessible; WCAG 2.1 AA.
 > - No fabricated data in the UI.

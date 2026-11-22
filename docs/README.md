@@ -1,6 +1,6 @@
 # NAVORA Documentation Index
 
-**Documentation revision:** 0.1.0 · **Date:** 2026-11-22 · **Status:** draft, awaiting owner approval
+**Documentation revision:** 0.2.0 · **Date:** 2026-11-22 · **Status:** DEC-010 palette approved; DEC-019 Option A approved; DEC-027 Public Landing Page approved
 
 This index explains what each document is for, who should read it, and what is still unresolved. It is the entry point for humans and AI agents.
 
@@ -37,7 +37,7 @@ This index explains what each document is for, who should read it, and what is s
 | Document | Purpose | Status |
 |---|---|---|
 | [UI-UX-GUIDELINES.md](02-design/UI-UX-GUIDELINES.md) | Experience principles, information architecture, layout, navigation, page patterns, states, forms, accessibility, motion | Draft |
-| [DESIGN-SYSTEM.md](02-design/DESIGN-SYSTEM.md) | Navora Blue palette with measured contrast, neutrals, semantics, typography, spacing, radius, shadows, borders, icons, states, motion tokens | **Proposal** |
+| [DESIGN-SYSTEM.md](02-design/DESIGN-SYSTEM.md) | Owner-approved BESTCO primary blue palette (DEC-010), NAVORA neutrals/semantics, recalculated contrast, typography and icon system approved (DEC-019 Option A), spacing, radius, shadows, borders, icons, states, motion tokens | **All tokens approved** |
 | [COMPONENT-SPECIFICATION.md](02-design/COMPONENT-SPECIFICATION.md) | 24 component contracts (`CMP-01..CMP-24`) with data, behavior, responsive and state requirements | Draft |
 | [USER-FLOW.md](02-design/USER-FLOW.md) | 12 Mermaid flowcharts (`UF-01..UF-12`) including error and alternative paths | Draft |
 | [WIREFRAME-SPECIFICATION.md](02-design/WIREFRAME-SPECIFICATION.md) | Low-fidelity layouts (`WF-01..WF-14`) for desktop and mobile | Draft |
@@ -66,7 +66,7 @@ This index explains what each document is for, who should read it, and what is s
 | [DOCUMENTATION-INVENTORY.md](04-project-management/DOCUMENTATION-INVENTORY.md) | **Historical audit snapshot** (initial state: 0 documents, 45 empty source files); current inventory is 23 files under `docs/` plus 3 root documents | Complete — historical |
 | [ROADMAP.md](04-project-management/ROADMAP.md) | Waterfall stages, activities, deliverables, exit criteria, milestones | Draft — awaiting Requirements gate |
 | [PROGRESS.md](04-project-management/PROGRESS.md) | Honest phase and feature status, verification log, blockers | Living |
-| [DECISIONS.md](04-project-management/DECISIONS.md) | 26 recorded decision IDs (`DEC-001..DEC-026`; 16 owner-approved), 39 conflicts (`C-01..C-39`: 28 resolved, 10 OPEN, 1 proposed), 20 product and 12 technical OPEN items | Draft — approved decisions binding; pending/proposed items not binding |
+| [DECISIONS.md](04-project-management/DECISIONS.md) | 26 recorded decision IDs (`DEC-001..DEC-026`; 17 owner-approved: 16 product + 1 design), 39 conflicts (`C-01..C-39`: 28 resolved, 10 OPEN, 1 proposed), 20 product and 12 technical OPEN items | Draft — approved decisions binding; pending/proposed items not binding |
 | [CHANGELOG.md](04-project-management/CHANGELOG.md) | Documentation revision history | Living |
 
 **Start here:** DOCUMENTATION-INVENTORY → DECISIONS → PROGRESS.
@@ -78,7 +78,7 @@ This index explains what each document is for, who should read it, and what is s
 | Document | Purpose | Status |
 |---|---|---|
 | [TESTING-PLAN.md](05-quality/TESTING-PLAN.md) | Levels, environments, 107 test cases (`TC-###`), boundaries, defects, entry/exit criteria | Plan only — nothing executed |
-| [ACCEPTANCE-CRITERIA.md](05-quality/ACCEPTANCE-CRITERIA.md) | 58 Given/When/Then criteria (`AC-01..AC-58`); 9 open/proposed/blocked (`AC-12`, `AC-15`, `AC-17`, `AC-19`, `AC-24`, `AC-35`, `AC-52`, `AC-53`, `AC-57`); Must traceability in §11 | Draft — 0 verified |
+| [ACCEPTANCE-CRITERIA.md](05-quality/ACCEPTANCE-CRITERIA.md) | 58 Given/When/Then criteria (`AC-01..AC-58`); 8 open/proposed (`AC-12`, `AC-15`, `AC-17`, `AC-19`, `AC-24`, `AC-52`, `AC-53`, `AC-57`); Must traceability in §11 | Draft — 0 verified |
 | [DEFINITION-OF-DONE.md](05-quality/DEFINITION-OF-DONE.md) | Universal, feature, component, database, documentation, and release DoD | Draft |
 
 ---
@@ -115,7 +115,7 @@ Every requirement ID is referenced by at least one design, technical, or quality
 | Owner approval of proposed Must requirements `FR-026`, `FR-028`, `FR-034` | Yes — package not ready until resolved |
 | PHP version and database engine (`TECH-01`, `TECH-02`) | Yes (implementation) |
 | Money column type and maximum amount (`TECH-03`) | Yes (schema) |
-| Design token approval (`DEC-010`, `DEC-019`) | Yes (design gate) |
+| Typography and icon approval (`DEC-019`); palette `DEC-010` approved | Yes (design gate) |
 | Transaction edit/delete policy (`OPEN-01`, `OPEN-02`) | No — deferred outside MVP |
 | Page size and invalid-page fallback (`C-20`, `C-19`) | No — draft defaults must not be presented as approved |
 | Email provider and token parameters (`TECH-06`, `OPEN-09`) | Before implementation of account security |

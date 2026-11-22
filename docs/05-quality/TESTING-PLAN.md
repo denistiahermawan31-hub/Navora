@@ -207,6 +207,12 @@ No test framework is installed and none may be installed during the documentatio
 | TC-S-10 | Source exposure | `/.env`, `/database/*.sql`, `/config/*` not accessible | `NOT RUN` |
 | TC-S-11 | Verification token reuse | Second use rejected | `NOT RUN` |
 | TC-S-12 | Reset token reuse | Second use rejected | `NOT RUN` |
+| TC-L-01 | Public Landing Page access | Guest opens `/` without session; receives landing page, not login screen | `NOT RUN` |
+| TC-L-02 | Public Landing Page content | Landing page displays no user-specific financial data; no goal cards, no balances | `NOT RUN` |
+| TC-L-03 | Public Landing Page CTA Masuk | Selecting Masuk redirects to `/masuk`; valid credentials create session | `NOT RUN` |
+| TC-L-04 | Public Landing Page CTA Daftar | Selecting Daftar redirects to `/daftar`; valid registration creates account | `NOT RUN` |
+| TC-L-05 | Authenticated redirect from `/` | Authenticated user opening `/` receives 303 redirect to `/dashboard` | `NOT RUN` |
+| TC-L-06 | Public Landing Page visual tokens | Landing page uses DEC-010 palette, Plus Jakarta Sans, JetBrains Mono tabular-nums, local SVG icons | `NOT RUN` |
 
 ### 5.8 Performance
 

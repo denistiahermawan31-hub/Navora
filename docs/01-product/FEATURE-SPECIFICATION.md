@@ -31,6 +31,7 @@ Each feature below lists purpose, actor, preconditions, main flow, alternatives,
 | FS-13 | Password reset | Must | `APPROVED` (DEC-015) |
 | FS-14 | Archive view & restore | Must | `APPROVED` (DEC-008) |
 | FS-15 | Hampir Tercapai indicator | Must | `APPROVED` (DEC-012) |
+| FS-16 | Public Landing Page | Must | `APPROVED` (DEC-027) |
 
 ---
 
@@ -221,6 +222,26 @@ Each feature below lists purpose, actor, preconditions, main flow, alternatives,
 - **Behavior:** shown when `90% <= progress < 100%` and the goal is not archived. At `100%` the goal is `Tercapai`. Below `90%` no indicator.
 - **Presentation:** text label plus icon; not color alone (accessibility). The indicator does not change the stored/derived status.
 - **Open questions:** exact wording and icon (design stage); whether the dashboard shows a count or a list (`OPEN-06`).
+
+---
+
+## FS-16 — Public Landing Page
+
+- **Purpose:** Allow unauthenticated guests to view NAVORA's value proposition and primary CTA without requiring a session.
+- **Status:** `APPROVED` (DEC-027).
+- **Actor:** Visitor (unauthenticated user).
+- **Entry points:** application root URL `/`.
+- **Preconditions:** no active session; guest has not registered or logged in.
+- **Main flow:**
+  1. System renders landing page HTML with brand, value proposition, and primary CTA.
+  2. Visitor selects **Masuk** → redirected to `/masuk` (login form).
+  3. Visitor selects **Daftar** → redirected to `/daftar` (registration form).
+  4. After successful registration and email verification, user is redirected to `/dashboard`.
+- **Alternative flows:**
+  - Authenticated visitor opening `/` → 303 redirect to `/dashboard`.
+  - Visitor clicking any goal/ dashboard link → 404 or redirect to `/masuk` with return path (per auth flow).
+- **Validation:** server-side route guard; return 404 for unauthorized record access; generic error messages; no user data exposed on landing page.
+- **Open questions:** exact copywriting and visual layout (design stage); landing page respon- siveness at 360–1920px; integration with DEC-010/DEC-019 tokens.
 
 ---
 

@@ -3,9 +3,9 @@
 | Field | Value |
 |---|---|
 | Document ID | NAVORA-DEC |
-| Version | 0.2.1 |
+| Version | 0.2.2 |
 | Date | 2026-11-22 |
-| Status | **Owner-approved product decisions recorded; technical items remain OPEN** |
+| Status | **Owner-approved product and palette decisions recorded; technical items remain OPEN** |
 | Owner | Project Owner (`denistiahermawan31-hub`) |
 
 ## Status Legend
@@ -21,7 +21,7 @@
 | `SUPERSEDED` | Replaced by a newer decision; kept for history. |
 | `OUT` | Explicitly excluded from NAVORA. |
 
-> The 16 owner-approved decisions below are the **latest source of truth**. Where they conflict with an earlier draft, the approved decision wins. No AI agent may approve or alter them.
+> The 16 owner-approved product decisions and 1 owner-approved design decision below are the **latest source of truth**. Where they conflict with an earlier draft, the approved decision wins. No AI agent may approve or alter them.
 
 ---
 
@@ -112,6 +112,21 @@
 - Whether login is blocked before verification is **OPEN**.
 - Token lifetime, single-use policy, and email provider are **OPEN** (see §4).
 
+### 1.2 Owner-Approved Design Decision
+
+| ID | Decision | Status | Primary impact |
+|---|---|---|---|
+| **DEC-010** | NAVORA uses the exact 11-step BESTCO primary blue scale for its brand color tokens. No exact value may be desaturated, darkened, renamed, or substituted. | `APPROVED` | Design tokens, UI |
+
+#### DEC-010 — Brand palette
+
+- Approved by the Project Owner on 2026-11-22.
+- Reference: `BestCO/resources/css/app.css:11-21`; mirrored in `app/Services/Theme/DynamicThemeService.php:13-24` and `app/Http/Controllers/ThemeController.php:20-30`.
+- Approved values: `50 #eff6ff`, `100 #dbeafe`, `200 #bfdbfe`, `300 #93c5fd`, `400 #60a5fa`, `500 #3b82f6`, `600 #2563eb`, `700 #1d4ed8`, `800 #1e40af`, `900 #1e3a8a`, `950 #172554`.
+- NAVORA CSS token names remain `--nv-blue-*`; the hex values are identical to BESTCO's `--color-primary-*` values.
+- Neutrals and semantic status colors remain NAVORA-specific and must not introduce a second primary blue palette.
+- This decision does **not** approve typography/icons (`DEC-019`), gradients, glow, glassmorphism, dark mode, dynamic themes, or application implementation.
+
 ---
 
 ## 2. Renumbering & Supersession Map
@@ -138,7 +153,6 @@ The owner's approved product decisions reused IDs that earlier drafts had assign
 | DEC-001 | Documentation at repository root, code in `NAVORA/` | `PENDING` | Low risk; confirm later |
 | DEC-002 | Keep the custom PHP MVC scaffold; no framework migration | `PENDING` | Technical baseline |
 | DEC-005 | Balance derived from transactions, not manually editable | `APPROVED (derived behavior) / OPEN (implementation)` | Behavior follows from DEC-004/006/023; not an independently owner-approved ID. Storage/query detail open. |
-| DEC-010 | Blue brand palette | `PENDING` | Design approval; not included in any approved range |
 | DEC-017 | No JSON API in MVP; server-rendered HTTP | `PENDING` | Technical; server-rendered is a proposed baseline, not an approved exclusion |
 | DEC-018 | Non-brief requirements are `PROPOSED` unless approved | `PENDING` | Documentation policy; formerly labelled `APPROVED` in draft but absent from §7 |
 | DEC-019 | Typography (Inter/Sora) and icons (Lucide) | `PENDING` | Renumbered from former DEC-011 |
@@ -152,7 +166,8 @@ The owner's approved product decisions reused IDs that earlier drafts had assign
 - **DEC-018 and DEC-021:** earlier drafts marked these `APPROVED`, but §7 contains no owner-approval record. Their status is now `PENDING`. No behavior changed; only the status claim was corrected.
 - **C-30:** `200` re-render is a documented technical convention in `API-SPECIFICATION.md`, but no owner approval is recorded. Its conflict status is now `PROPOSED`, not `RESOLVED`.
 - **DEC-002 and DEC-017:** both remain `PENDING`. Other documents must not present them as final decisions; wording has been corrected accordingly.
-- **DEC-010 and all other `PENDING` items:** excluded from approved lists. Cross-document references use the explicit owner-approved ID list from §7 instead of a numeric range.
+- **DEC-010:** owner-approved as the exact BESTCO primary blue scale and recorded in §1.2 and §7. It is no longer in the `PENDING` set.
+- **All other `PENDING` items:** excluded from approved lists. Cross-document references use the explicit owner-approved ID list from §7 instead of a numeric range.
 
 No approval evidence has been invented; where approval cannot be verified, the status is `PENDING` or `PROPOSED`.
 
@@ -182,7 +197,7 @@ These items are **not** decided by the approved product decisions. They must not
 | OPEN-14 | Case sensitivity of unique goal names | DEC-011 | Case-insensitive, trimmed |
 | OPEN-15 | Percentage display precision | DEC-012 | Integer percent for display |
 | OPEN-16 | Negative money display format | DEC-007 | `-Rp2.000.000` |
-| OPEN-17 | Landing page for visitors | Auth flow | Defer; redirect to login |
+| OPEN-17 | Landing page for visitors | Auth flow | Resolved by DEC-027: Public Landing Page approved; guest sees `/`, authenticated sees `/dashboard` |
 | OPEN-18 | Data retention/purge policy for archived goals | DEC-008 | Retain indefinitely in MVP |
 | OPEN-19 | Rate limiting for login/reset | Security | Defer; document as risk |
 | OPEN-20 | Privacy notice and consent | Legal | TBD |
@@ -234,7 +249,7 @@ These items are **not** decided by the approved product decisions. They must not
 | C-22 | Timezone absent | DEC-014: Asia/Jakarta | `RESOLVED` |
 | C-23 | English UI assumption | DEC-013: Bahasa Indonesia | `RESOLVED` |
 | C-24 | Account recovery missing | DEC-015: verification + reset | `RESOLVED` (details OPEN) |
-| C-25 | Landing page mentioned but undefined | Deferred (OPEN-17) | `RESOLVED` (out of MVP) |
+| C-25 | Landing page mentioned but undefined | Resolved by DEC-027: Public Landing Page approved as part of MVP | `RESOLVED` |
 | C-26 | BRD approval list incomplete | Updated to include all approved decisions | `RESOLVED` |
 | C-27 | Target date past policy / Q-07 | DEC-026: past dates allowed; optional retained | `RESOLVED` |
 | C-28 | Goal name uniqueness | DEC-011: unique per account | `RESOLVED` |
@@ -278,7 +293,9 @@ AI agents may draft entries but may not set `APPROVED` for product, financial, s
 | Item | Approved by | Date |
 |---|---|---|
 | DEC-003, DEC-004, DEC-006, DEC-007, DEC-008, DEC-009, DEC-011, DEC-012, DEC-013, DEC-014, DEC-015, DEC-016, DEC-023, DEC-024, DEC-025, DEC-026 | Project Owner | 2026-11-22 |
+| DEC-010 — exact BESTCO primary blue palette | Project Owner | 2026-11-22 |
+| DEC-027 — Public Landing Page | Project Owner | 2026-11-22 |
 | Documentation consolidation into BRD/PRD/SRS/rules/features/quality docs | Project Owner instruction (this task) | 2026-11-22 |
-| Design palette, typography, icons, Waterfall, API approach (`DEC-010`, `DEC-019`, `DEC-022`, `DEC-017`) | Not yet approved | — |
+| Typography and icons (`DEC-019`), Waterfall (`DEC-022`), API approach (`DEC-017`) | Not yet approved | — |
 
-> The expanded list above is the same owner-approved set recorded in 0.2.0; only the shorthand ranges were expanded. `DEC-005` is derived behavior, not an independently approved ID. `DEC-018`, `DEC-021`, and C-30 have no owner-approval record and are not included above.
+> The expanded product list above is the same owner-approved set recorded in 0.2.0; only the shorthand ranges were expanded. `DEC-010` is a separately owner-approved design decision recorded in §1.2, not a product-behavior decision. `DEC-005` is derived behavior, not an independently approved ID. `DEC-018`, `DEC-021`, and C-30 have no owner-approval record and are not included above.

@@ -38,7 +38,7 @@ flowchart LR
 
 | Actor | Description | Access |
 |---|---|---|
-| Visitor | Unauthenticated user | Login, registration, password reset request |
+| Visitor | Unauthenticated user | Landing Page access; Login, registration, password reset request |
 | Registered user | Owner of a personal goal set | Own goals, transactions, archive, account |
 | System | Computes balances, validates input, sends email, renders views | Internal |
 | Administrator | **Not defined / out of scope** | No admin role exists |
@@ -91,6 +91,14 @@ Dependencies: `TECH-01` PHP version, `TECH-02` DB engine, `TECH-06` email provid
 - Completion input: token + new password + confirmation.
 - Processing: validate token → update password hash → invalidate token → invalidate existing sessions.
 - Open: token lifetime and single-use policy (`OPEN-09`); email provider (`TECH-06`).
+
+### 4.1.5 Public Landing Page Behavior
+- Entry: visitor opens application root URL `/` without active session.
+- Outcome: landing page rendered, displaying informational content, CTA Masuk and CTA Daftar.
+- Authenticated user flow: if visitor already has a valid session, redirect to `/dashboard` (303).
+- Public content restrictions: no user-specific financial data, no goal cards, no dashboard summary, no balance or progress figures.
+- Navigation: Masuk → `/masuk`; Daftar → `/daftar`; both respect DEC-015 verification flow.
+- Output: HTTP 200 with landing page HTML; no session creation, no data persistence.
 
 ### 4.2 Goal Management
 
@@ -297,7 +305,7 @@ Details: `docs/03-technical/SECURITY-GUIDELINES.md`.
 
 | SRS section | PRD requirement |
 |---|---|
-| §4.1 | FR-001..FR-003, FR-036, FR-037 |
+| §4.1 | FR-001..FR-003, FR-036, FR-037, FR-046 |
 | §4.2 | FR-005..FR-015, FR-038, FR-039, FR-044, FR-045 |
 | §4.3 | FR-016..FR-025, FR-040, FR-041 |
 | §4.4 | FR-026..FR-029 |

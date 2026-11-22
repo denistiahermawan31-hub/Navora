@@ -3,9 +3,9 @@
 | Field | Value |
 |---|---|
 | Document ID | NAVORA-DS |
-| Version | 0.1 (Proposal) |
+| Version | 0.2 (DEC-010 palette alignment) |
 | Date | 2026-11-22 |
-| Status | **PROPOSED — palette and type choices require owner approval (DEC-010, DEC-019)** |
+| Status | **Palette approved (DEC-010); typography and icon system approved (DEC-019 Option A)** |
 | Related | `UI-UX-GUIDELINES.md`, `COMPONENT-SPECIFICATION.md`, `WIREFRAME-SPECIFICATION.md` |
 
 > Nothing in this document is installed or implemented. No fonts, icon packages, or CSS frameworks have been added to the project.
@@ -30,23 +30,32 @@ NAVORA should feel like a **calm, credible financial companion**: precise enough
 
 ## 2. Color System
 
-### 2.1 Brand Blue — "Navora Blue"
+### 2.0 Palette provenance and owner decision
 
-A slightly desaturated azure with a cool, ink-like depth. Not Tailwind's default `blue-*` scale; values were chosen and then contrast-checked.
+| Aspect | BESTCO reference | Approved NAVORA decision | Status |
+|---|---|---|---|
+| Primary blue scale | `BestCO/resources/css/app.css:11-21` defines `--color-primary-50` through `--color-primary-950`. | NAVORA uses the exact same 11 hex values, mapped to `--nv-blue-50` through `--nv-blue-950`. | `APPROVED` — DEC-010, 2026-11-22 |
+| Neutral colors | BESTCO uses Tailwind neutral/slate utilities. | NAVORA cool-gray neutrals remain unchanged. | `PROPOSED` — not changed by DEC-010 |
+| Semantic status colors | BESTCO uses emerald/amber/rose/sky utilities. | NAVORA semantic tokens remain unchanged. | `PROPOSED` — not changed by DEC-010 |
+| Gradients, glow, glass, dark mode, dynamic themes | Present in parts of BESTCO. | Excluded from NAVORA MVP; no secondary primary blue palette is introduced. | `OUT` / `DEFERRED` |
 
-| Token | Hex | Intended use |
-|---|---|---|
-| `--nv-blue-50` | `#EEF5FC` | Subtle selected surface, info background |
-| `--nv-blue-100` | `#D7E7F7` | Progress track, chip background |
-| `--nv-blue-200` | `#AFCFEF` | Hover tint, decorative fill |
-| `--nv-blue-300` | `#7FB2E3` | Charts, secondary accents |
-| `--nv-blue-400` | `#4C90D2` | Progress fill on light track |
-| `--nv-blue-500` | `#2373BE` | Secondary action, links on tinted surfaces |
-| `--nv-blue-600` | `#165CA0` | **Primary action background**, primary text on white |
-| `--nv-blue-700` | `#114A82` | Hover/active primary, headings |
-| `--nv-blue-800` | `#0E3A66` | Deep headings, dark panels |
-| `--nv-blue-900` | `#0B2C4D` | Near-navy text on light tint |
-| `--nv-blue-950` | `#071D33` | Darkest brand ink |
+### 2.1 Brand Blue — approved BESTCO palette (`DEC-010`)
+
+The owner approved the exact 11-step BESTCO primary blue scale on 2026-11-22. NAVORA uses the same hex values; no value may be desaturated, darkened, renamed, or substituted. Neutral and semantic colors remain NAVORA-specific and must not introduce another primary brand palette.
+
+| Token | BESTCO reference value | Approved NAVORA value | Intended use |
+|---|---|---|---|
+| `--nv-blue-50` | `#eff6ff` | `#eff6ff` | Subtle selected surface, info background |
+| `--nv-blue-100` | `#dbeafe` | `#dbeafe` | Progress track, chip background |
+| `--nv-blue-200` | `#bfdbfe` | `#bfdbfe` | Hover tint, decorative fill |
+| `--nv-blue-300` | `#93c5fd` | `#93c5fd` | Secondary accents only |
+| `--nv-blue-400` | `#60a5fa` | `#60a5fa` | Light decorative fill; never white text |
+| `--nv-blue-500` | `#3b82f6` | `#3b82f6` | Focus/non-text UI only; fails AA for body text with white |
+| `--nv-blue-600` | `#2563eb` | `#2563eb` | **Primary action background**, primary text on white |
+| `--nv-blue-700` | `#1d4ed8` | `#1d4ed8` | Hover/active primary, headings |
+| `--nv-blue-800` | `#1e40af` | `#1e40af` | Deep headings, pressed surfaces |
+| `--nv-blue-900` | `#1e3a8a` | `#1e3a8a` | Near-navy text on light tint |
+| `--nv-blue-950` | `#172554` | `#172554` | Darkest brand ink |
 
 ### 2.2 Neutrals — cool gray with a blue undertone
 
@@ -86,18 +95,22 @@ A slightly desaturated azure with a cool, ink-like depth. Not Tailwind's default
 
 ### 2.4 Verified contrast ratios
 
-Calculated with the WCAG relative-luminance formula. Recalculate if any hex changes.
+Recalculated 2026-11-22 with the WCAG relative-luminance formula for the approved DEC-010 values. Recalculate if any hex changes.
 
 | Foreground | Background | Ratio | Result |
 |---|---|---|---|
-| `#FFFFFF` | `#165CA0` | 6.83:1 | AA normal text ✓ |
-| `#FFFFFF` | `#114A82` | 9.03:1 | AAA normal text ✓ |
-| `#FFFFFF` | `#2373BE` | 4.92:1 | AA normal text ✓ |
+| `#FFFFFF` | `#2563eb` | 5.17:1 | AA normal text ✓ |
+| `#FFFFFF` | `#1d4ed8` | 6.70:1 | AA normal text ✓ |
+| `#FFFFFF` | `#1e40af` | 8.72:1 | AAA normal text ✓ |
+| `#1d4ed8` | `#eff6ff` | 6.16:1 | AA ✓ |
+| `#2563eb` | `#eff6ff` | 4.75:1 | AA ✓ |
+| `#1e3a8a` | `#eff6ff` | 9.52:1 | AAA ✓ |
+| `#FFFFFF` | `#172554` | 14.69:1 | AAA ✓ |
+| `#FFFFFF` | `#3b82f6` | 3.68:1 | Non-text UI only — fails AA normal text |
 | `#0A2540` | `#FFFFFF` | 15.54:1 | AAA ✓ |
 | `#3D5566` | `#FFFFFF` | 7.81:1 | AAA ✓ |
 | `#5A6B7B` | `#FFFFFF` | 5.49:1 | AA ✓ |
 | `#5A6B7B` | `#F5F8FB` | 5.15:1 | AA ✓ |
-| `#165CA0` | `#EEF5FC` | 6.22:1 | AA ✓ |
 | `#FFFFFF` | `#0F6B4F` | 6.49:1 | AA ✓ |
 | `#FFFFFF` | `#C4321F` | 5.49:1 | AA ✓ |
 | `#8A4B08` | `#FFF8EC` | 6.44:1 | AA ✓ |
@@ -114,35 +127,36 @@ Calculated with the WCAG relative-luminance formula. Recalculate if any hex chan
 - Blue is not used to indicate "success"; use semantic green.
 - Red is reserved for destructive actions and errors.
 - Amber is reserved for warnings and near-deadline states (`TBD`).
-- Never place white text on `blue-400` or lighter.
-- Gradients are limited to a single subtle vertical tint (`blue-50` → `white`) if used at all; no multi-hue gradients.
+- Never place white text on `primary-500`/`--nv-blue-500` or lighter. Use `primary-600`/`--nv-blue-600` or darker for white text.
+- No gradients in the MVP; use flat fills only. No glow, glassmorphism, dark mode, or dynamic theme behavior.
 
 ---
 
 ## 3. Typography
 
-| Role | Proposed family | Fallback | Status |
+| Role | Approved family | Fallback | Status |
 |---|---|---|---|
-| UI text | **Inter** | system UI stack | `PROPOSED` |
-| Display headings | **Sora** | Inter, system UI | `PROPOSED` |
-| Numeric emphasis | Inter with `font-variant-numeric: tabular-nums` | — | `PROPOSED` |
+| UI text | **Plus Jakarta Sans** | Inter, system UI | `APPROVED` — DEC-019 Option A |
+| Display headings | **Plus Jakarta Sans** (single family) | Inter, system UI | `APPROVED` — DEC-019 Option A |
+| Numeric emphasis | **JetBrains Mono** with `font-variant-numeric: tabular-nums` | system monospace | `APPROVED` — DEC-019 Option A |
 
-No font files are included. Self-hosting is preferred over third-party font CDNs (privacy, NFR-011). If external fonts are rejected, use a system stack only.
+Font family: Plus Jakarta Sans for UI/text; JetBrains Mono for financial figures.
+Font delivery: Self-hosted fonts preferred. If fonts are not yet dependency-approved, use system UI + system monospace fallback. No Google Fonts CDN; no external font package installed in this documentation.
 
 ### 3.1 Type scale
 
 | Token | Size / line-height | Weight | Use |
 |---|---|---|---|
-| `display` | 40 / 48 | 600 | Marketing hero only |
-| `h1` | 30 / 38 | 600 | Page title |
-| `h2` | 24 / 32 | 600 | Section title |
-| `h3` | 20 / 28 | 600 | Card/panel title |
-| `body-lg` | 18 / 28 | 400 | Intro text |
-| `body` | 16 / 24 | 400 | Default |
-| `body-sm` | 14 / 20 | 400 | Secondary text, table cells |
-| `caption` | 12 / 16 | 500 | Labels, metadata |
-| `amount-xl` | 32 / 40 | 600 | Primary monetary figure |
-| `amount` | 20 / 28 | 600 | Card amounts |
+| `display` | 40 / 48 | 600 | Marketing hero only; Plus Jakarta Sans |
+| `h1` | 30 / 38 | 600 | Page title; Plus Jakarta Sans |
+| `h2` | 24 / 32 | 600 | Section title; Plus Jakarta Sans |
+| `h3` | 20 / 28 | 600 | Card/panel title; Plus Jakarta Sans |
+| `body-lg` | 18 / 28 | 400 | Intro text; Plus Jakarta Sans |
+| `body` | 16 / 24 | 400 | Default; Plus Jakarta Sans |
+| `body-sm` | 14 / 20 | 400 | Secondary text, table cells; Plus Jakarta Sans |
+| `caption` | 12 / 16 | 500 | Labels, metadata; Plus Jakarta Sans |
+| `amount-xl` | 32 / 40 | 600 | Primary monetary figure; JetBrains Mono with `font-variant-numeric: tabular-nums` |
+| `amount` | 20 / 28 | 600 | Card amounts; JetBrains Mono with `font-variant-numeric: tabular-nums` |
 
 **Rules:** maximum two families; headings use `text-wrap: balance` where supported; no letter-spacing on body text; monetary figures use tabular numerals and right alignment in tables.
 
@@ -193,7 +207,7 @@ Cards use `12px`, not 24px+. Avoid "bubble" UI.
 | `border-subtle` | `1px solid #DDE4EB` | Dividers, card outlines |
 | `border-default` | `1px solid #C9D3DC` | Table and panel boundaries |
 | `border-control` | `1px solid #6B7C8C` | Inputs, selects, checkboxes (≥3:1) |
-| `border-focus` | `2px solid #165CA0` | Focus ring (with 2px offset) |
+| `border-focus` | `2px solid #2563eb` | Focus ring (with 2px offset) |
 | `border-danger` | `1px solid #C4321F` | Invalid fields |
 
 ### Shadows (subtle, no glow)
@@ -213,13 +227,13 @@ Never stack multiple colored shadows. No `box-shadow` used to simulate borders.
 
 | Decision | Value | Status |
 |---|---|---|
-| Library | **Lucide** (outline, SVG) | `PROPOSED` |
-| Stroke width | 1.75px at 24px, 1.5px at 20px | `PROPOSED` |
-| Sizes | 16 (inline), 20 (buttons/nav), 24 (section), 32 (empty states) | `PROPOSED` |
+| Library | **Local inline SVG set** (Lucide-compatible outline geometry) | `APPROVED` — DEC-019 Option A |
+| Stroke width | 1.75px at 24px, 1.5px at 20px | `APPROVED` — DEC-019 Option A |
+| Sizes | 16 (inline), 20 (buttons/nav), 24 (section), 32 (empty states) | `APPROVED` — DEC-019 Option A |
 | Color | `currentColor`; decorative icons `aria-hidden="true"` | Required |
 | Meaning | One icon = one concept; always paired with a text label for primary actions | Required |
 
-No emoji as interface icons. No mixing icon families. Icons are not installed yet; use inline SVGs when implementation begins.
+No emoji as interface icons. No mixing icon families. An allowlisted local SVG component provides the icon set. No external icon package or CDN is included.
 
 ---
 
@@ -277,10 +291,10 @@ No emoji as interface icons. No mixing icon families. Icons are not installed ye
 ```css
 :root {
   /* Brand */
-  --nv-blue-50:#EEF5FC;  --nv-blue-100:#D7E7F7; --nv-blue-200:#AFCFEF;
-  --nv-blue-300:#7FB2E3; --nv-blue-400:#4C90D2; --nv-blue-500:#2373BE;
-  --nv-blue-600:#165CA0; --nv-blue-700:#114A82; --nv-blue-800:#0E3A66;
-  --nv-blue-900:#0B2C4D; --nv-blue-950:#071D33;
+  --nv-blue-50:#eff6ff;  --nv-blue-100:#dbeafe; --nv-blue-200:#bfdbfe;
+  --nv-blue-300:#93c5fd; --nv-blue-400:#60a5fa; --nv-blue-500:#3b82f6;
+  --nv-blue-600:#2563eb; --nv-blue-700:#1d4ed8; --nv-blue-800:#1e40af;
+  --nv-blue-900:#1e3a8a; --nv-blue-950:#172554;
 
   /* Neutrals */
   --nv-white:#FFFFFF;    --nv-gray-25:#FBFCFE;  --nv-gray-50:#F5F8FB;
@@ -290,13 +304,13 @@ No emoji as interface icons. No mixing icon families. Icons are not installed ye
 
   /* Semantic */
   --nv-success:#0F6B4F;  --nv-warning:#8A4B08;  --nv-danger:#C4321F;
-  --nv-focus:#165CA0;
+  --nv-focus:#2563eb;
 
   /* Text */
   --nv-text:#0A2540; --nv-text-muted:#5A6B7B; --nv-text-inverse:#FFFFFF;
 
   /* Surfaces */
-  --nv-bg:#F5F8FB; --nv-surface:#FFFFFF; --nv-surface-muted:#EEF5FC;
+  --nv-bg:#F5F8FB; --nv-surface:#FFFFFF; --nv-surface-muted:#eff6ff;
 
   /* Radius */
   --nv-radius-sm:6px; --nv-radius-md:8px; --nv-radius-lg:12px; --nv-radius-xl:16px;
@@ -313,7 +327,11 @@ This block is documentation only; `NAVORA/public/css/style.css` remains empty un
 
 ## 11. Design Governance
 
-1. The palette, typography, and icon choices are **proposed** until the owner approves DEC-010 and DEC-019.
+1. The brand palette is **owner-approved** (`DEC-010`). Typography and icon system are **owner-approved** (`DEC-019` Option A).
+2. Any new color must be added as a token with a documented purpose and verified contrast.
+3. Any new component must follow `COMPONENT-SPECIFICATION.md`.
+4. Accessibility checks are mandatory before a component is considered done.
+5. AI agents may propose token changes but may not approve them.
 2. Any new color must be added as a token with a documented purpose and verified contrast.
 3. Any new component must follow `COMPONENT-SPECIFICATION.md`.
 4. Accessibility checks are mandatory before a component is considered done.

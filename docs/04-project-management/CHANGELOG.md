@@ -8,9 +8,41 @@ The project does not yet follow semantic versioning; versions are documentation 
 
 ## [Unreleased]
 
+### Changed — Palette decision
+- Recorded `DEC-010` as owner-approved: NAVORA uses the exact 11-step BESTCO primary blue scale (`#eff6ff` through `#172554`).
+- Replaced the previous Navora Blue values in `DESIGN-SYSTEM.md`, including contrast ratios, focus token, CSS token skeleton, and the new BESTCO/NAVORA comparison table.
+- Updated status references so `DEC-019` remains the only pending design decision for typography and icons.
+- No application source, dependency, or implementation changed.
+
+### Changed — Typography and icons (DEC-019)
+- Owner approved DEC-019 Option A: UI/text = Plus Jakarta Sans (weights 400/500/600/700), financial figures = JetBrains Mono with `font-variant-numeric: tabular-nums`; icon system = local inline SVG set with Lucide-compatible outline geometry. Defaults: `stroke="currentColor"`, `stroke-width="1.75"`, `fill="none"`, `focusable="false"`, `aria-hidden="true"`, sizes 16/20/24/32. No emoji, no external dependency, no theme/chart/POS/inventory/QRIS icons.
+- Updated DESIGN-SYSTEM.md, COMPONENT-SPECIFICATION.md, UI-UX-GUIDELINES.md, BRD.md, PROGRESS.md, ROADMAP.md, README.md, AGENTS.md, TECHNICAL-ARCHITECTURE.md accordingly.
+- No application source, dependency, or runtime implementation changed.
+
+### Changed — Public Landing Page (DEC-027)
+- Owner approved DEC-027: Public Landing Page as part of MVP Scope A.
+- Guest opening `/` sees Landing Page; authenticated user redirected to `/dashboard`.
+- `OPEN-17` resolved: Landing page for visitors no longer deferred; redirected to login per auth flow.
+- `C-25` resolved: Landing page now part of MVP, not out of scope.
+- Added `BS-12` (BRD.md), `FR-046` (PRD.md), `FS-16` (FEATURE-SPECIFICATION.md), `AC-59`..`AC-64` (ACCEPTANCE-CRITERIA.md), `TC-L-01`..`TC-L-06` (TESTING-PLAN.md).
+- Updated WIREFRAME-SPECIFICATION.md: added `WF-18` (Landing Page Desktop) and `WF-19` (Landing Page Mobile 360px).
+- Updated route strategy: `GET /` → Landing Page; `GET /dashboard` → Dashboard.
+- Updated UI-UX-GUIDELINES.md: added Public level to IA and purpose table; separated public shell from authenticated shell.
+- Updated COMPONENT-SPECIFICATION.md: added CMP-01 (public app shell) and CMP-01b (authenticated app shell).
+- Updated ACCEPTANCE-CRITERIA.md: added `AC-59`..`AC-64`; updated summary totals from 58 to 64 criteria.
+- Updated TESTING-PLAN.md: added `TC-L-01`..`TC-L-06`; updated total from 107 to 113 planned cases.
+- Updated SRS.md: added SR-4.1.5 Public Landing Page Behavior; updated visitor actor access; updated traceability §4.1 to include FR-046.
+- Updated BRD.md: added `BS-12` Public Landing Page capability.
+- Updated PRD.md: added `FR-046` Public Landing Page Must requirement; added to MVP Included list; added `OUT-12` exclusion for dashboard on landing page.
+- Updated FEATURE-SPECIFICATION.md: added `FS-16` Public Landing Page; updated Feature Index.
+- Updated DECISIONS.md: added `DEC-027` as APPROVED; updated `OPEN-17` and `C-25` to reflect DEC-027 resolution.
+- Updated WIREFRAME-SPECIFICATION.md: added `WF-18` (Landing Page Desktop) and `WF-19` (Landing Page Mobile); updated wireframe-to-component map.
+- Updated ROADMAP.md, PROGRESS.md, CHANGELOG.md, README.md, AGENTS.md, and PROMPT-BUILD-NAVORA.md to sync all changes.
+- No application source, dependency, or runtime implementation changed.
+
 ### Planned
 - Owner sign-off of the consolidated requirements package (Requirements gate G1).
-- Design approval (DEC-010 palette, DEC-019 typography and icons).
+- Technical stack confirmation (TECH-01 PHP version, TECH-02 database engine, TECH-09 document root).
 - Technical stack confirmation (TECH-01 PHP version, TECH-02 database engine, TECH-09 document root).
 - Resolution of OPEN items that block the first feature, including C-19/C-20 and OPEN-09.
 - Owner decision on proposed Must requirements `FR-026`, `FR-028`, and `FR-034`.

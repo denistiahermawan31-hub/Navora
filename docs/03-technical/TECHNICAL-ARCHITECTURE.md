@@ -229,8 +229,8 @@ Authentication is mandatory. The former single-user alternative is withdrawn (DE
 | Layout | PHP layout partial with per-page content | `PROPOSED` |
 | Interactivity | Progressive enhancement with vanilla JS (modals, menus, toasts) | `PROPOSED` |
 | Validation | Server-first; optional light client hints | `PROPOSED` |
-| Icons | Inline SVG sprite (Lucide) | `PROPOSED` |
-| Fonts | Self-hosted, `font-display: swap` | `PROPOSED` |
+| Icons | Inline SVG set (Lucide-compatible; DEC-019 Option A approved) | `APPROVED` |
+| Fonts | Plus Jakarta Sans + JetBrains Mono; self-hosted preferred | `APPROVED` |
 | Motion | CSS transitions; GSAP not approved | `PROPOSED` / `DEFERRED` |
 | Build step | None | `PROPOSED` |
 

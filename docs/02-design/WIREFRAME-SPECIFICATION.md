@@ -432,6 +432,71 @@ Legend: `[ ]` button · `( )` input · `▸` link · `▓` progress fill · `·`
 
 ---
 
+## WF-18 — Public Landing Page (Desktop)
+
+```text
+┌──────────────────────────────────────────────────────────────┐
+│ NAVORA                                                   │
+│                                                          │
+│  Tentang NAVORA                                          │
+│  Menabung untuk tujuan dengan target dan progres yang jelas │
+│                                                          │
+│  [ Daftar ]                                            │
+│                                                          │
+│  [ Masuk ]                                             │
+│                                                          │
+│  Fitur Utama                                           │
+│  Dream goal dengan target harga dan tanggal opsional     │
+│  Setoran dan penarikan                                   │
+│  Saldo, progres, sisa, dan kelebihan target              │
+│  Riwayat tabungan dengan pagination                      │
+│  Arsip dan pulihkan goal                                 │
+│                                                          │
+│  Cara Kerja                                              │
+│  Daftar → Cek Email → Verifikasi → Dashboard            │
+│                                                          │
+│  [ Daftar ]                                            │
+│                                                          │
+│  [ Masuk ]                                             │
+└──────────────────────────────────────────────────────────────┘
+```
+
+**Rules:** no user-specific financial data; no goal cards, no dashboard summary; responsive 360–1920px; DEC-010 warna, DEC-019 tipografi; CTA Masuk/Daftar harus memiliki target sentral 44×44px; fokus fokusable; langganan newsletter tidak dalam MVP.
+
+---
+
+## WF-19 — Public Landing Page (Mobile 360px)
+
+```text
+│ ☰  NAVORA              [ ← ]                        │
+├─────────────────────────────────────────────────────────┤
+│ Tentang NAVORA                                          │
+│ Menabung untuk tujuan dengan target dan progres yang jelas │
+│                                                         │
+│  [ Daftar ]                                             │
+│                                                         │
+│  [ Masuk ]                                              │
+│                                                         │
+│ Fitur Utama                                             │
+│ Dream goal dengan target harga dan tanggal opsional     │
+│ Setoran dan penarikan                                     │
+│ Saldo, progres, sisa, dan kelebihan target              │
+│ Riwayat tabungan dengan pagination                      │
+│ Arsip dan pulihkan goal                                 │
+│                                                         │
+│ Cara Kerja                                              │
+│ Daftar → Cek Email → Verifikasi → Dashboard             │
+│                                                         │
+│  [ Daftar ]                                             │
+│                                                         │
+│  [ Masuk ]                                              │
+└─────────────────────────────────────────────────────────┘
+```
+
+**Rules:** single-column layout, full-width cards; 16px page gutter; primary action (Masuk/Daftar) di header dengan target 44×44px; DEC-010 warna, DEC-019 tipografi; tidak menampilkan data pengguna; navigasi turun ke `/masuk` atau `/daftar`.
+
+---
+
 ## Wireframe-to-Component Map
 
 | Wireframe | Components |
@@ -447,6 +512,8 @@ Legend: `[ ]` button · `( )` input · `▸` link · `▓` progress fill · `·`
 | WF-14 | CMP-24 |
 | WF-15 | CMP-01..05, CMP-11, CMP-15, CMP-20 |
 | WF-17 | CMP-01..06, CMP-22 |
+| WF-18 | CMP-01, CMP-04, CMP-19, CMP-20 |
+| WF-19 | CMP-01, CMP-04, CMP-19, CMP-20 |
 
 ---
 

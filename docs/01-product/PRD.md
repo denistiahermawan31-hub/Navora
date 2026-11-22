@@ -46,7 +46,7 @@ Each user has a private account and dashboard. Data is isolated per user.
 | PG-02 | Make savings progress immediately understandable | `APPROVED` (concept, `SRC-00`) |
 | PG-03 | Keep an accurate, reviewable savings history | `APPROVED` (concept, `SRC-00`) |
 | PG-04 | Keep daily interaction fast: few fields, clear feedback | `PROPOSED` |
-| PG-05 | Deliver a calm, trustworthy, blue-themed interface | `PROPOSED` (palette DEC-010 pending) |
+| PG-05 | Deliver a calm, trustworthy, blue-themed interface | `PROPOSED` (palette `DEC-010` approved; implementation not verified) |
 | PG-06 | Remain usable on mobile and desktop | `PROPOSED` |
 
 ---
@@ -140,6 +140,7 @@ These three requirements remain visibly `PROPOSED`. The requirements package is 
 |---|---|---|---|---|
 | FR-038 | A user can view archived goals and restore them; restored goals return to the active list | Must | `APPROVED` | DEC-008 |
 | FR-045 | Archived goals are excluded from active lists, active counts, and dashboard totals | Must | `APPROVED` | DEC-008 |
+| FR-046 | Public Landing Page: guest access to `/` without authentication; displays informational content, CTA Masuk/Daftar; authenticated users redirected to `/dashboard` | Must | `APPROVED` | DEC-027 |
 
 ### 4.6 System Feedback & Data
 
@@ -169,6 +170,7 @@ These three requirements remain visibly `PROPOSED`. The requirements package is 
 | OUT-09 | Notifications/reminders, report export, advanced statistics | DEC-024 (deferred) |
 | OUT-10 | Administrator role / back-office | No scope approved |
 | OUT-11 | Goal cover images | DEC-024 (deferred) |
+| OUT-12 | Full dashboard or goal CRUD on Public Landing Page | DEC-027: landing page is informational only |
 
 ---
 
@@ -250,6 +252,7 @@ All `Must` requirements have at least one user story. `Should`/`Could` requireme
 - IDR formatting and Bahasa Indonesia UI with WIB dates.
 - Validation, feedback, empty/error states.
 - Responsive blue design system.
+- Public Landing Page (`FR-046`) — guest access without auth; CTA Masuk/Daftar; authenticated redirect to `/dashboard`.
 
 ### Excluded from MVP
 Everything in §4.7, plus: reminders, recurring deposits, charts beyond a progress indicator, exports, goal images, sharing, multi-currency, dark mode (`FUTURE`), transaction editing/deleting (OPEN-01/OPEN-02), settings page (OPEN-07).
@@ -288,7 +291,7 @@ All `Must` requirements implemented and verified against acceptance criteria, wi
 | ID | Dependency | Status |
 |---|---|---|
 | D-01 | Confirmed technology stack (PHP version, DB engine) | `OPEN` (TECH-01, TECH-02) |
-| D-02 | Approved design tokens | `PENDING` (DEC-010) |
+| D-02 | Approved design tokens | `OPEN` (DEC-019 only; DEC-010 palette approved) |
 | D-03 | Email delivery mechanism for verification/reset | `OPEN` (TECH-06) |
 | D-04 | Money column type and maximum amount | `OPEN` (TECH-03) |
 | D-05 | Hosting target and document root | `OPEN` (TECH-09) |

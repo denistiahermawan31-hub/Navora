@@ -5,7 +5,7 @@
 | Document ID | NAVORA-CS |
 | Version | 0.1 (Draft) |
 | Date | 2026-11-22 |
-| Status | **PROPOSED — requires owner approval** |
+| Status | **PROPOSED — DEC-019 Option A approved for typography/icons; component data contracts unchanged** |
 | Related | `DESIGN-SYSTEM.md`, `UI-UX-GUIDELINES.md`, `WIREFRAME-SPECIFICATION.md` |
 
 Components are described independent of implementation. In the PHP MVC scaffold these will likely be PHP partials with view variables ("data contract" below), plus CSS classes and minimal JS. **No component exists yet.**
@@ -18,7 +18,8 @@ Naming: lowercase `nv-` prefix for CSS classes (e.g., `nv-goal-card`) to avoid c
 
 | ID | Component | Priority | Used by |
 |---|---|---|---|
-| CMP-01 | App shell / layout | Must | All pages |
+| CMP-01 | App shell / layout (public) | Must | Public Landing Page |
+| CMP-01b | App shell / layout (authenticated) | Must | Dashboard, Goals, History, Archive |
 | CMP-02 | Sidebar navigation | Must | Desktop |
 | CMP-03 | Mobile top bar + drawer | Must | Mobile |
 | CMP-04 | Page header | Must | All pages |
@@ -75,6 +76,8 @@ Naming: lowercase `nv-` prefix for CSS classes (e.g., `nv-goal-card`) to avoid c
 ## CMP-04 — Page Header
 
 - **Purpose:** Establish page identity and primary action.
+- **Public Landing Page:** title = "NAVORA"; description = singkat about menabung dengan goal; actions = [Masuk], [Daftar]; no goal data, no balance/progress figures.
+- **Authenticated app shell:** title = goal-specific (e.g., goal name); description = balance/progress info; actions = context-dependent (Tambah Tabungan, Edit, Arsipkan); may include sidebar/breadcrumb.
 - **Data:** `title` (required), `description` (optional), `actions` (0–2), `breadcrumb` (optional).
 - **Structure:** `h1`, supporting text, action group aligned right on desktop / stacked on mobile.
 - **Rules:** exactly one `h1`; at most one primary button.
@@ -212,9 +215,9 @@ Naming: lowercase `nv-` prefix for CSS classes (e.g., `nv-goal-card`) to avoid c
 ## CMP-20 — Empty State
 
 - **Purpose:** Explain absence and offer the next step.
-- **Data:** `icon`, `title`, `description`, `action` (label + href).
+- **Data:** `icon` (local inline SVG, Lucide-compatible), `title`, `description`, `action` (label + href).
 - **Variants:** no goals, no transactions, no search results, no archived goals, no recent activity.
-- **Rules:** truthful copy; no fake sample data; one action.
+- **Rules:** truthful copy; no fake sample data; one action. Icon uses the approved local SVG set; no emoji, no external package.
 
 ## CMP-21 — Skeleton / Loading
 
@@ -236,7 +239,7 @@ Naming: lowercase `nv-` prefix for CSS classes (e.g., `nv-goal-card`) to avoid c
 
 - **Purpose:** Page-level information (e.g., "Goal ini sudah tercapai").
 - **Variants:** info, success, warning, danger.
-- **Rules:** icon + title + text; dismissible only when non-critical.
+- **Rules:** icon + title + text; dismissible only when non-critical. Icon uses the approved local SVG set; `stroke="currentColor"`, `stroke-width="1.75"`, `fill="none"`.
 
 ---
 

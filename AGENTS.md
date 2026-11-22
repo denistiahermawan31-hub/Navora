@@ -112,7 +112,7 @@ The files for out-of-scope modules exist in the scaffold. **Leave them untouched
 
 - Follow the blue design direction in `docs/02-design/DESIGN-SYSTEM.md`.
 - Use design tokens; no hard-coded hex values outside the token file.
-- The palette, typography, and icon library are **proposed** until approved (DEC-010, DEC-019). Do not treat them as final.
+- The palette (`DEC-010`) is **owner-approved**: use the exact BESTCO blue scale in `DESIGN-SYSTEM.md`. Typography and icon system (`DEC-019` Option A) are **owner-approved**.
 - Maintain clear hierarchy: one primary action per view.
 - Support 360px–1920px. No horizontal scrolling at 360px.
 - Every data view must implement loading, empty, error, and populated states.

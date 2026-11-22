@@ -70,7 +70,7 @@ flowchart LR
 **Objective:** Finalize the design system, component contracts, wireframes, and technical design before coding.
 
 **Activities**
-- Approve palette, typography, icon library (DEC-010, DEC-019).
+- Typography and icon system approved (`DEC-019` Option A); palette approved (`DEC-010`).
 - Review wireframes for dashboard, goals, detail, history, forms, states.
 - Finalize component specifications and responsive behavior.
 - Confirm database engine and schema; review ERD.

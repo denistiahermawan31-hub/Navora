@@ -14,31 +14,29 @@ Each flow starts at a defined entry point and ends at a defined outcome. Error a
 
 ## UF-01 — First Visit
 
-**Entry:** user opens the application root URL.
-**Outcome:** user reaches the dashboard or the login screen.
+**Entry:** visitor opens application root URL `/` without active session; or registered user opens `/` with active session.
+**Outcome:** guest sees Landing Page; authenticated user redirected to `/dashboard`.
 
 ```mermaid
 flowchart TD
-  A["Buka URL aplikasi"] --> B{"Ada sesi aktif?"}
-  B -- "Ya" --> C["Muat dashboard"]
-  B -- "Tidak" --> D["Tampilkan halaman masuk"]
-  D --> E["Pengguna masuk atau mendaftar"]
-  E --> C
-  C --> F{"Punya goal aktif?"}
-  F -- "Tidak" --> G["Empty state: Buat goal pertama"]
-  F -- "Ya" --> H["Tampilkan ringkasan dan daftar goal"]
-  G --> I["Buka form goal"]
-  H --> J["Pilih goal"]
-  I --> K["Lanjut ke UF-04"]
-  J --> L["Lanjut ke UF-05"]
+  A["Buka URL aplikasi"] --> B{"Sesi aktif?"}
+  B -- "Ya" --> C["Arahkan ke /dashboard (303)"]
+  B -- "Tidak" --> D["Tampilkan Landing Page"]
+  D --> E["Pengunjung melihat informasi NAVORA"]
+  E --> F["Pilih aksi: Masuk atau Daftar"]
+  F --> G["Masuk → /masuk"]
+  G --> H["Login berhasil → return path atau /dashboard"]
+  F --> I["Daftar → /daftar"]
+  I --> J["Daftar berhasil → cek email"]
+  J --> K["Verifikasi email → /dashboard"]
 ```
 
 ---
 
 ## UF-02 — Registration and Email Verification
 
-**Entry:** login screen → "Daftar".
-**Outcome:** verified account with an empty active goal list.
+**Entry:** Landing Page CTA "Daftar" → `/daftar`; or authenticated user navigating to registration.
+**Outcome:** verified account with an empty active goal list; after verification, user redirected to `/dashboard`.
 
 ```mermaid
 flowchart TD

@@ -10,7 +10,7 @@
 
 **Rule:** every criterion is `NOT VERIFIED` until executed with evidence. Criteria depending on unresolved decisions are marked `OPEN` or `BLOCKED`.
 
-> Product decisions approved on 2026-11-22 are reflected below: DEC-003, DEC-004, DEC-006, DEC-007, DEC-008, DEC-009, DEC-011, DEC-012, DEC-013, DEC-014, DEC-015, DEC-016, DEC-023, DEC-024, DEC-025, DEC-026 (`DECISIONS.md` §7). Criteria that were previously blocked by those decisions are unblocked but remain `NOT VERIFIED` because no code exists.
+> Product decisions approved on 2026-11-22 are reflected below: DEC-003, DEC-004, DEC-006, DEC-007, DEC-008, DEC-009, DEC-011, DEC-012, DEC-013, DEC-014, DEC-015, DEC-016, DEC-023, DEC-024, DEC-025, DEC-026 (`DECISIONS.md` §7). The palette decision `DEC-010` is also approved. Criteria that were previously blocked by these decisions are unblocked but remain `NOT VERIFIED` because no code exists.
 
 ---
 
@@ -294,7 +294,7 @@
 ### AC-35 — Contrast (NFR-007)
 **Given** the approved palette
 **Then** all body text meets 4.5:1 and UI boundaries meet 3:1, verified with measured ratios.
-**Status:** `BLOCKED — DEC-010` (palette not approved)
+**Status:** `NOT VERIFIED` — palette approved (`DEC-010`); visual measurement pending implementation evidence.
 
 ---
 
@@ -376,6 +376,48 @@
 **Then** the goal, transaction, derived balance, and status are still present with unchanged values.
 **Status:** `NOT VERIFIED`
 
+### AC-59 — Public Landing Page access (FR-046)
+**Given** a visitor opens `/` without an active session
+**When** the landing page is rendered
+**Then** the page displays informational content about NAVORA, CTA Masuk and CTA Daftar, and does not display user-specific financial data.
+**Then** the visitor may select **Masuk** → redirected to `/masuk`, or **Daftar** → redirected to `/daftar`.
+**Then** an authenticated visitor opening `/` receives HTTP 303 redirect to `/dashboard`.
+**Status:** `NOT VERIFIED` (`FR-046`, `DEC-027`)
+
+### AC-60 — Public Landing Page content restrictions (FR-046)
+**Given** the landing page is displayed to a guest
+**When** checking for restricted content
+**Then** no goal cards, no dashboard summary, no balance figures, no progress percentages, no target dates of other users, and no financial totals are present.
+**Status:** `NOT VERIFIED` (`FR-046`)
+
+### AC-61 — Public Landing Page CTA behavior (FR-046)
+**Given** a visitor on the landing page selects **Masuk**
+**When** the login form is submitted with valid credentials
+**Then** the session is created with a regenerated ID; the back button does not restore the landing page content.
+**Given** a visitor selects **Daftar**
+**When** the registration form is submitted with a unique email and matching passwords
+**Then** an account is created with a hashed password and a verification email is sent.
+**Status:** `NOT VERIFIED` (`FR-046`, `DEC-015`, `OPEN-08`)
+
+### AC-62 — Public Landing Page redirect authenticated (FR-046)
+**Given** a registered user with an active session opens `/`
+**When** the request is processed
+**Then** the response is HTTP 303 See Other redirect to `/dashboard`.
+**And** the previous page (landing) is not retained in browser history as the current context.
+**Status:** `NOT VERIFIED` (`FR-046`, `DEC-003`)
+
+### AC-63 — Public Landing Page no data exposure (FR-046)
+**Given** a guest views the landing page
+**When** checking for data exposure
+**Then** no user IDs, no goal IDs, no transaction IDs, no balance values, and no financial calculations are visible or inferrable from the page markup or source.
+**Status:** `NOT VERIFIED` (`FR-046`)
+
+### AC-64 — Public Landing Page visual tokens (FR-046)
+**Given** the landing page is rendered
+**When** checking visual design tokens
+**Then** all colors use the DEC-010 11-step BESTCO primary blue scale (`#eff6ff` through `#172554`); all UI text uses Plus Jakarta Sans; monetary figures (if any) use JetBrains Mono with `font-variant-numeric: tabular-nums` (DEC-019); all SVG icons use the local inline SVG set with `stroke="none"`, `fill="none"`, `stroke-width="1.75"` at 24px, `currentColor` for text color, `focusable="false"`, `aria-hidden="true"`.
+**Status:** `NOT VERIFIED` (`FR-046`, `DEC-010`, `DEC-019`)
+
 ---
 
 ## 10. Summary
@@ -387,13 +429,14 @@
 | Calculations | 5 | 0 | 0 |
 | Dashboard | 3 | 0 | 1 (AC-24) |
 | Feedback/errors | 4 | 0 | 0 |
-| Responsive/a11y | 6 | 0 | 1 (AC-35) |
+| Responsive/a11y | 6 | 0 | 0 |
 | Scope | 2 | 0 | 0 |
 | Authentication | 8 | 0 | 2 (AC-52, AC-53) |
 | Navigation/persistence | 2 | 0 | 1 (AC-57) |
-| **Total** | **58** | **0** | **9** |
+| Public Landing | 6 | 0 | 0 |
+| **Total** | **64** | **0** | **8** |
 
-No criterion has been verified. This table must be updated with evidence as testing proceeds. The open/proposed/blocked criteria are AC-12, AC-15, AC-17, AC-19, AC-24, AC-35, AC-52, AC-53, and AC-57.
+No criterion has been verified. This table must be updated with evidence as testing proceeds. The open/proposed criteria are AC-12, AC-15, AC-17, AC-19, AC-24, AC-52, AC-53, and AC-57.
 
 ---
 
@@ -430,6 +473,7 @@ No criterion has been verified. This table must be updated with evidence as test
 | FR-028 (PROPOSED) | US-27 | — | AC-57 |
 | FR-038 | US-08 | RULE-039 | AC-10 |
 | FR-045 | US-08 | RULE-033 | AC-51 |
+| FR-046 | Public Landing Page | — | AC-59, AC-60, AC-61, AC-62, AC-63, AC-64 |
 | FR-030 | US-11 | — | AC-02 |
 | FR-031 | US-29 | — | AC-26 |
 | FR-032 | US-29 | — | AC-28, AC-29 |
