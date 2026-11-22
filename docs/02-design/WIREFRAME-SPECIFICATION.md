@@ -435,65 +435,125 @@ Legend: `[ ]` button · `( )` input · `▸` link · `▓` progress fill · `·`
 ## WF-18 — Public Landing Page (Desktop)
 
 ```text
-┌──────────────────────────────────────────────────────────────┐
-│ NAVORA                                                   │
-│                                                          │
-│  Tentang NAVORA                                          │
-│  Menabung untuk tujuan dengan target dan progres yang jelas │
-│                                                          │
-│  [ Daftar ]                                            │
-│                                                          │
-│  [ Masuk ]                                             │
-│                                                          │
-│  Fitur Utama                                           │
-│  Dream goal dengan target harga dan tanggal opsional     │
-│  Setoran dan penarikan                                   │
-│  Saldo, progres, sisa, dan kelebihan target              │
-│  Riwayat tabungan dengan pagination                      │
-│  Arsip dan pulihkan goal                                 │
-│                                                          │
-│  Cara Kerja                                              │
-│  Daftar → Cek Email → Verifikasi → Dashboard            │
-│                                                          │
-│  [ Daftar ]                                            │
-│                                                          │
-│  [ Masuk ]                                             │
-└──────────────────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────────────────────────────┐
+│ ◎ NAVORA      Tentang    Fitur    Cara Kerja              [ Masuk ] [ Daftar ] │ ← 64px
+├────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                │
+│  ┌──────────────────────────────────┐   ┌──────────────────────────────────┐  │
+│  │                                  │   │                                  │  │
+│  │  Menabung jadi lebih terarah.    │   │   ┌──────────────────────────┐   │  │
+│  │                                  │   │   │   [ placeholder visual ] │   │  │
+│  │  Buat tujuan tabungan, catat     │   │   │   target · progres ·     │   │  │
+│  │  setoran dan penarikan, lalu     │   │   │   koin (SVG garis)       │   │  │
+│  │  pantau progres sampai tercapai. │   │   │   tanpa angka/data       │   │  │
+│  │                                  │   │   └──────────────────────────┘   │  │
+│  │  [ Daftar ]   [ Masuk ]          │   │                                  │  │
+│  │                                  │   │                                  │  │
+│  └──────────────────────────────────┘   └──────────────────────────────────┘  │
+│              HERO — 2 kolom (1:1), konten penuh, latar --nv-white             │
+├────────────────────────────────────────────────────────────────────────────────┤
+│                             Tentang NAVORA                                     │
+│              NAVORA membantu mencatat tabungan untuk satu tujuan yang jelas:  │
+│              target harga, catatan setoran, dan progres yang mudah dibaca.     │
+├────────────────────────────────────────────────────────────────────────────────┤
+│                                Fitur Utama                                     │
+│  ┌───────────┐  ┌───────────┐  ┌───────────┐                                  │
+│  │  (ikon)   │  │  (ikon)   │  │  (ikon)   │                                  │
+│  │  Target   │  │ Setoran & │  │  Progres  │                                  │
+│  │  harga &  │  │ penarikan │  │  saldo    │                                  │
+│  │  tanggal  │  │           │  │           │                                  │
+│  └───────────┘  └───────────┘  └───────────┘                                  │
+│  ┌───────────┐  ┌───────────┐  ┌───────────┐                                  │
+│  │  (ikon)   │  │  (ikon)   │  │  (ikon)   │                                  │
+│  │  Riwayat  │  │  Arsip &  │  │   Akun    │                                  │
+│  │  tabungan │  │ pulihkan  │  │  pribadi  │                                  │
+│  └───────────┘  └───────────┘  └───────────┘                                  │
+│                     GRID 3 kolom × 2 baris, card 12px radius                   │
+├────────────────────────────────────────────────────────────────────────────────┤
+│                                Cara Kerja                                      │
+│   ┌─────────┐      ┌───────────┐     ┌────────────┐    ┌───────────┐          │
+│   │1 Daftar │ ───▶ │2 Cek Email│ ──▶ │3 Verifikasi│ ─▶ │4 Dashboard│          │
+│   └─────────┘      └───────────┘     └────────────┘    └───────────┘          │
+│              langkah horizontal, nomor urut, bukan angka statistik              │
+├────────────────────────────────────────────────────────────────────────────────┤
+│  ┌──────────────────────────────────────────────────────────────────────────┐  │
+│  │            Mulai atur tujuan tabunganmu hari ini.                        │  │
+│  │                            [ Daftar ]                                    │  │
+│  │                  surface --nv-blue-50, satu primary action               │  │
+│  └──────────────────────────────────────────────────────────────────────────┘  │
+├────────────────────────────────────────────────────────────────────────────────┤
+│  ◎ NAVORA                                              © 2026 NAVORA          │ ← footer
+└────────────────────────────────────────────────────────────────────────────────┘
 ```
 
-**Rules:** no user-specific financial data; no goal cards, no dashboard summary; responsive 360–1920px; DEC-010 warna, DEC-019 tipografi; CTA Masuk/Daftar harus memiliki target sentral 44×44px; fokus fokusable; langganan newsletter tidak dalam MVP.
+**Rules:** no user-specific financial data; no goal cards, no dashboard summary; responsive 360–1920px; DEC-010 palette (`--nv-blue-50` surface, `--nv-blue-600` primary), DEC-019 typography (Plus Jakarta Sans, JetBrains Mono tabular-nums only for monetary placeholders which are absent); CTA Masuk/Daftar target 44×44px fokus fokusable; langganan newsletter tidak dalam MVP; header desktop: wordmark kiri, nav tengah, CTA kanan 64px; hero dua kolom 1:1; feature grid 3×2 card radius 12px; cara kerja 4 langkah horizontal dengan konnector 1px; footer minimal: wordmark + © 2026 NAVORA, tanpa link kebijakan/syarat/tambahan.
 
 ---
 
 ## WF-19 — Public Landing Page (Mobile 360px)
 
 ```text
-│ ☰  NAVORA              [ ← ]                        │
+│ ☰ NAVORA              Daftar                          │ ← 56px: hamburger + wordmark + 1 CTA
+├─────────────────────────────────────────────────────────┤
+│ DRAWER (saat ☰ ditekan):                              │
+│   Tentang                                               │
+│   Fitur                                                 │
+│   Cara Kerja                                            │
+│   ─────────────                                         │
+│   Masuk                                                 │
+│   Daftar                                                │
+├─────────────────────────────────────────────────────────┤
+│ Menabung jadi lebih terarah.                          │ ← h1 display 30/38, weight 600
+│                                 │
+│ Buat tujuan tabungan, catat                           │
+│ setoran dan penarikan, lalu                           │
+│ pantau progres sampai tercapai.                       │
+│                                 │
+│ [           Daftar           ]                        │ ← primary, full-width
+│ [           Masuk           ]                         │ ← secondary, full-width
+│                                 │
+│ ┌────────────────────────────┐                        │
+│ │  [ placeholder visual ]    │                        │ ← stack di bawah copy
+│ │  target · progres · koin   │                        │
+│ └────────────────────────────┘                        │
 ├─────────────────────────────────────────────────────────┤
 │ Tentang NAVORA                                          │
-│ Menabung untuk tujuan dengan target dan progres yang jelas │
-│                                                         │
-│  [ Daftar ]                                             │
-│                                                         │
-│  [ Masuk ]                                              │
-│                                                         │
+│ NAVORA membantu mencatat tabungan untuk satu tujuan   │
+│ yang jelas: target harga, catatan setoran, dan      │
+│ progres yang mudah dibaca.                            │
+├─────────────────────────────────────────────────────────┤
 │ Fitur Utama                                             │
-│ Dream goal dengan target harga dan tanggal opsional     │
-│ Setoran dan penarikan                                     │
-│ Saldo, progres, sisa, dan kelebihan target              │
-│ Riwayat tabungan dengan pagination                      │
-│ Arsip dan pulihkan goal                                 │
-│                                                         │
+│ ┌────────────────────────────┐                        │
+│ │ (ikon) Target harga &      │                        │ 1 kolom penuh
+│ │        tanggal opsional    │                        │
+│ └────────────────────────────┘                        │
+│ ┌────────────────────────────┐                        │
+│ │ (ikon) Setoran & penarikan │                        │
+│ └────────────────────────────┘                        │
+│ ┌────────────────────────────┐                        │
+│ │ (ikon) Progres saldo       │                        │
+│ └────────────────────────────┘                        │
+│ ... 3 card lainnya                                    │
+├─────────────────────────────────────────────────────────┤
 │ Cara Kerja                                              │
-│ Daftar → Cek Email → Verifikasi → Dashboard             │
-│                                                         │
-│  [ Daftar ]                                             │
-│                                                         │
-│  [ Masuk ]                                              │
+│   ① Daftar                                              │
+│          │                                              │
+│   ② Cek Email                                             │
+│          │                                              │
+│   ③ Verifikasi                                              │
+│          │                                              │
+│   ④ Dashboard                                               │ ← vertikal, connector 1px
+├─────────────────────────────────────────────────────────┤
+│ Mulai atur tujuan tabunganmu.                         │
+│ [           Daftar           ]                        │
+│ [           Masuk           ]                         │
+├─────────────────────────────────────────────────────────┤
+│ ◎ NAVORA                                                │
+│ © 2026 NAVORA                                           │
 └─────────────────────────────────────────────────────────┘
 ```
 
-**Rules:** single-column layout, full-width cards; 16px page gutter; primary action (Masuk/Daftar) di header dengan target 44×44px; DEC-010 warna, DEC-019 tipografi; tidak menampilkan data pengguna; navigasi turun ke `/masuk` atau `/daftar`.
+**Rules:** single-column layout, full-width; hamburger `aria-label="Buka menu"`, drawer trap fokus, tutup Escape/backdrop; fokus dikembalikan ke tombol menu; tombol panah kembali `[ ← ]` dihapus — tidak ada return path pada halaman publik; 16px page gutter antar section; CTA `Daftar`/`Masuk` minimum 44px vertikal di header/footer; DEC-010 palette (`--nv-blue-50` surface, `--nv-blue-600` primary), DEC-019 typography (Plus Jakarta Sans, `display` 30/38 desktop, `h1` 30/38 mobile, weight 600); visual placeholder SVG abstrak (target + progres + koin) tanpa angka/data pengguna; footer minimal: wordmark + © 2026 NAVORA, tanpa link tambahan; tidak ada horizontal scroll.
 
 ---
 

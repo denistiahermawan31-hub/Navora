@@ -295,7 +295,19 @@ AI agents may draft entries but may not set `APPROVED` for product, financial, s
 | DEC-003, DEC-004, DEC-006, DEC-007, DEC-008, DEC-009, DEC-011, DEC-012, DEC-013, DEC-014, DEC-015, DEC-016, DEC-023, DEC-024, DEC-025, DEC-026 | Project Owner | 2026-11-22 |
 | DEC-010 — exact BESTCO primary blue palette | Project Owner | 2026-11-22 |
 | DEC-027 — Public Landing Page | Project Owner | 2026-11-22 |
+| Public Landing Page — 6 design decisions approved | Project Owner | 2026-11-22 |
 | Documentation consolidation into BRD/PRD/SRS/rules/features/quality docs | Project Owner instruction (this task) | 2026-11-22 |
 | Typography and icons (`DEC-019`), Waterfall (`DEC-022`), API approach (`DEC-017`) | Not yet approved | — |
 
 > The expanded product list above is the same owner-approved set recorded in 0.2.0; only the shorthand ranges were expanded. `DEC-010` is a separately owner-approved design decision recorded in §1.2, not a product-behavior decision. `DEC-005` is derived behavior, not an independently approved ID. `DEC-018`, `DEC-021`, and C-30 have no owner-approval record and are not included above.
+
+## 1.2.2 Public Landing Page — 6 Design Decisions (DEC-027 Implementation)
+
+| Item | Decision | Basis |
+|---|---|---|
+| Hero headline | "Menabung jadi lebih terarah." | DEC-027; FR-046; BS-12 |
+| Hero visual | SVG abstrak target/progres/koin; tanpa angka/data pengguna | DEC-010; DEC-019; no financial data on landing |
+| Ikon feature card | Hanya ikon dari allowlist DEC-019; tidak menambah ikon baru | DEC-019 Option A; CMP-01/CMP-01b |
+| Footer | Wordmark `◎ NAVORA` + © 2026 NAVORA; tanpa link kebijakan/syarat | DEC-013; DEC-027; minimal design |
+| Mobile drawer | Hamburger `aria-label="Buka menu"`; drawer: Tentang, Fitur, Cara Kerja, Masuk, Daftar; tutup Escape/backdrop; fokus dikembalikan ke hamburger; `[ ← ]` dihapus | DEC-003; DEC-013; accessibility |
+| CTA | `Daftar` primary, `Masuk` secondary | DEC-027; FR-046; satu primary action per region |
