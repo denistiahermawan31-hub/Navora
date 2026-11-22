@@ -3,11 +3,11 @@
 | Field | Value |
 |---|---|
 | Last updated | 2026-11-22 |
-| Overall implementation | **0% — no application code exists** |
-| Current phase | Requirements (documentation consolidated, awaiting owner sign-off) |
+| Overall implementation | **5% — landing page + MVC foundation complete; zero MVP features implemented** |
+| Current phase | Landing page approved (WF-18/WF-19); WF-01 (Desktop) & WF-11 (Mobile) approved; MVP build next: Dashboard, goals, auth |
 | Evidence standard | A feature is only "Done" with executed tests and recorded evidence |
 
-> **Honesty statement:** every source file in `NAVORA/` is 0 bytes. No screen, route, query, or calculation has been implemented or executed. Documentation is complete as a **draft**, not as approved requirements. Individual product decisions in `DECISIONS.md` §1 are owner-approved and binding; that is not sign-off of the full requirements package.
+> **Honesty statement:** `NAVORA/index.php`, `NAVORA/core/App.php`, `NAVORA/core/Controller.php`, `NAVORA/core/Session.php`, `NAVORA/errors/` are implemented; landing page (`NAVORA/app/views/landing/`, `NAVORA/app/controllers/LandingController.php`) is available at `/` per DEC-027. Dashboard, goals, savings, transactions, authentication routes — **all 0 bytes and unrunnable**; runtime execution unverified (PHP absent from PATH). Documentation: landing page approved (WF-18/WF-19, 6 decisions via DEC-027); WF-01 (Dashboard Desktop) and WF-11 (Dashboard Mobile) are `APPROVED` (owner design review 2026-11-22); DEC-019 Option A approved by owner.
 
 ---
 
@@ -16,13 +16,13 @@
 | Phase | Status | Evidence |
 |---|---|---|
 | 0 — Project audit | ✅ Complete | `DOCUMENTATION-INVENTORY.md` |
-| 1 — Product foundation | 🟡 Draft complete, awaiting approval | `docs/01-product/*` |
-| 2 — Design foundation | 🟡 Draft complete, awaiting approval | `docs/02-design/*` |
-| 3 — Technical foundation | 🟡 Draft complete, awaiting approval | `docs/03-technical/*` |
+| 1 — Product foundation | ✅ Complete | Owner-approved product decisions (§1); WF-01 + WF-11 approved; landing page approved |
+| 2 — Design foundation | 🟡 Draft complete, awaiting approval | `docs/02-design/*` (WF-01/WF-11 approved; others `PROPOSED`) |
+| 3 — Technical foundation | 🟡 Draft complete | `docs/03-technical/*`; `App/Controller/Session/error handler` implemented |
 | 4 — Project & quality management | 🟡 Draft complete | `ROADMAP.md`, `TESTING-PLAN.md`, etc. |
 | 5 — AI development instructions | ✅ Complete (draft) | `AGENTS.md`, `PROMPT-BUILD-NAVORA.md` |
-| Application development | ⛔ Not started | By instruction |
-| Testing execution | ⛔ Not started | No code to test |
+| Application development | ⏳ Landing page + MVC foundation done; MVP features not started | Landing page at `/`; core shell; zero app features |
+| Testing execution | ⏳ Not started | No MVP code to test |
 | Deployment | ⛔ Not started | — |
 
 ---
@@ -148,11 +148,12 @@
 |---|---|---|---|
 | B-07 | Stack confirmation (PHP version, database engine) | Implementation start | `TECH-01`, `TECH-02` |
 | B-08 | Owner sign-off of the complete requirements package | Requirements gate G1 | `ROADMAP.md` |
-| B-09 | Typography and icon approval | Design gate G2 | `DEC-019` Option A approved; `DEC-010` palette approved |
+| B-09 | Typography and icon approval | Design gate G2 | DEC-019 Option A approved; DEC-010 palette approved |
 | B-10 | Money column type and maximum amount | Schema DDL | `TECH-03` |
 | B-11 | Page size and invalid-page fallback | Final pagination spec | `C-20`, `C-19` |
 | B-12 | Token lifetime and single-use rules | Account security implementation | `OPEN-09` |
 | B-13 | Owner approval of proposed Must requirements | Requirements gate G1 | `FR-026`, `FR-028`, `FR-034` |
+| B-14 | MVP feature implementation start | Application development | Dashboard, goals, transactions, auth (DEC-003); pending routes/content decisions |
 
 ### Resolved by owner decisions (2026-11-22)
 
@@ -166,16 +167,17 @@
 | B-05 Deletion policy undecided | DEC-008: archive with retained history; hard delete out of MVP |
 | B-06 Out-of-scope module handling | DEC-016: productivity modules excluded; files preserved, not routed |
 | Public Landing Page undecided | DEC-027: Public Landing Page approved as part of MVP; guest `/`, authenticated `/dashboard` |
+| Wireframe design approval | WF-01 — Dashboard Desktop (≥1280px) approved; WF-11 — Dashboard Mobile (360px) approved (same day) |
+| WF-01 sub-decisions | D-01..D-12 approved |
+| WF-11 sub-decisions | M-01..M-12 approved |
+| DEC-019 | DEC-019 Option A approved by owner: Plus Jakarta Sans, JetBrains Mono + local inline SVG |
 
 ---
 
 ## 7. Next Actions
 
-1. Owner signs off the consolidated requirements package (G1), including approval or removal of `FR-026`, `FR-028`, and `FR-034`; Q-01..Q-08 are already resolved and retained for traceability in `PRD.md` §12.
-2. Owner approves DEC-019 Option A (typography: Plus Jakarta Sans + JetBrains Mono; icon: local inline SVG set, Lucide-compatible); `DEC-010` palette is approved and reflected in `DESIGN-SYSTEM.md`.
-3. Owner approves DEC-027 — Public Landing Page as part of MVP; guest opens `/`, authenticated user redirected to `/dashboard`.
-4. Owner resolves `TECH-01`, `TECH-02`, `TECH-03` and any `OPEN` item that blocks the first feature.
-5. Update this file after each approval.
-6. Only then proceed to Stage 2 (Design) per `ROADMAP.md`.
-
-**No application work will begin until explicit approval of the requirements package is given.**
+1. **Approved foundation is complete (2026-11-22):** landing page (WF-18/WF-19 via DEC-027 ✓), WF-01 (Dashboard Desktop ✓), WF-11 (Dashboard Mobile ✓), DEC-019 Option A ✓ (Plus Jakarta Sans, JetBrains Mono, local inline SVG), DEC-010 palette ✓. No further package sign-off is required.
+2. **Owner decisions to resolve before app features start:** open `TECH-01`/`TECH-02` (PHP version, engine), `TECH-03` money column, `TECH-04` status storage, `C-03` Goal vs DreamSavings naming, `C-20` page size, `OPEN-09` token rules, plus approve/finish the MVP must-requirements where still proposed (`FR-026`, `FR-028`, `FR-034`) — or invoke the "do-not-implement out of scope" standing instruction.
+3. **Build Stage (approve → begin):** DB/engine decisions (TECH-01..04, C-03) → App foundation (Database.php, .env, CSRF, error handling) → auth (register/login/logout, session guard, user_id) → Model Goal + single calculation helper (balance/remaining/progress/excess/status) → Goal CRUD (create/list/detail/edit/archive) → savings transactions + paginated history → Dashboard aggregation (WF-01 approved) → Mobile Dashboard (WF-11 approved) → validation/feedback/empty-loading-error states.
+4. **Documentation & evidence flow:** update PROGRESS.md after each milestone; update CHANGELOG.md after each stage; update DECISIONS.md when new decisions are made and track evidence with tests.
+5. **Escalate:** review verification evidence by end of each stage; escalate failures.

@@ -18,38 +18,52 @@ Legend: `[ ]` button · `( )` input · `▸` link · `▓` progress fill · `·`
 
 ## WF-01 — Dashboard (Desktop ≥1280px)
 
+**Status: `APPROVED — Owner approved`** — 2026-11-22, given directly by the Project Owner. Applies to WF-01 only; all other wireframes remain `PROPOSED`.
+
 ```text
 ┌───────────────┬──────────────────────────────────────────────────────────────┐
 │ NAVORA        │  Dashboard                              [ + Tambah Goal ]   │
 │               │  Ringkasan tabungan Anda                                     │
 │ ▸ Dashboard   │                                                              │
 │ ▸ Goals       │  ┌────────────────┬────────────────┬────────────────┐        │
-│ ▸ Arsip       │  │ GOAL AKTIF     │ TOTAL TABUNGAN │ TOTAL SISA     │        │
-│               │  │ 3              │ Rp12.500.000   │ Rp27.500.000   │        │
+│ ▸ Arsip       │  │ [ jumlah ]     │ Rp[…]          │ Rp[…]          │        │
 │               │  └────────────────┴────────────────┴────────────────┘        │
 │               │                                                              │
 │               │  Hampir tercapai                          ▸ Lihat semua goal│
 │               │  ┌──────────────────────────────┐  ┌────────────────────────┐│
-│               │  │ Yamaha Aerox      Hampir     │  │ Laptop                   ││
-│               │  │ Rp12.500.000 / Rp30.000.000  │  │ Rp6.000.000 / Rp15.000.000│
-│               │  │ ▓▓▓▓▓▓▓▓░░░░░░░░░░░░  42%    │  │ ▓▓▓▓▓▓░░░░░░░░░░░░░░  40%│
-│               │  │ Sisa Rp17.500.000            │  │ Sisa Rp9.000.000         ││
+│               │  │ [ nama goal ]     Hampir     │  │ [ nama goal ]   Hampir ││
+│               │  │ Rp[…] / Rp[…]                │  │ Rp[…] / Rp[…]          ││
+│               │  │ ▓▓▓▓▓▓▓▓▓▓░░  90,5%         │  │ ▓▓▓▓▓▓▓▓▓░░░ [ n,n% ] ││
+│               │  │ Sisa Rp[…]                   │  │ Sisa Rp[…]             ││
 │               │  └──────────────────────────────┘  └────────────────────────┘│
+│               │  (maks. 3 kartu, urut progres tertinggi)                     │
 │               │                                                              │
-│               │  Tabungan terbaru                         ▸ Lihat riwayat  │
+│               │  Tabungan terbaru                                            │
 │               │  ┌──────────────────────────────────────────────────────────┐│
-│               │  │ 18 Nov 2026 · Yamaha Aerox · Setoran Rp1.500.000         ││
-│               │  │ 15 Nov 2026 · Laptop       · Setoran   Rp750.000         ││
+│               │  │ [ tanggal ] · [ nama goal ] · [ jenis ] Rp[…]            ││
 │               │  └──────────────────────────────────────────────────────────┘│
+│ [ akun ]      │                                                              │
+│ [ Keluar ]    │                                                              │
 └───────────────┴──────────────────────────────────────────────────────────────┘
 ```
 
-**Notes**
-- Three summary figures share one band, separated by hairlines — not three identical cards.
-- Cards show only real data. No sparkline, no fake trend arrow.
-- Archived goals are excluded from all figures.
-- Empty state replaces the card sections with a single centered block (WF-08).
-
+**Notes (owner-approved decisions D-01..D-12 recorded in `DECISIONS.md` §1.2.3)**
+- **D-04 — Five blocks.** Goal Aktif, Total Tabungan, Total Sisa, Hampir Tercapai, Tabungan Terbaru. The three summary figures stay in **one band separated by hairlines**, not three identical cards. This resolves `OPEN-06` for WF-01.
+- **D-01 — Hampir Tercapai example.** Only `90% <= progress < 100%` may carry the label; the former 42%-style example is removed. Illustrative value: `90,5%`. Source: DEC-012 / RULE-054.
+- **D-02 — No demo finance figures.** All amounts are structural placeholders (`Rp[…]`, `[ jumlah ]`). No seed or demo data is created; examples must not be read as valid data.
+- **D-03 — No global history.** The "Lihat riwayat" link is removed and no global transaction-history feature is added. History remains per goal; "Lihat semua goal" → `/goals` is retained.
+- **D-05 — Navigation and states.** Sidebar destinations are Dashboard, Goals, Arsip. Loading, empty, and error states follow the approved component contracts with no fabricated financial figures; documented accessibility and navigation patterns are retained.
+- **D-07 — Percentage.** One decimal with comma, e.g. `90,5%` (`OPEN-15` resolved for WF-01).
+- **D-08 — Negative money.** `-Rp2.000.000` (`OPEN-16` resolved for WF-01); DEC-025 negative-balance behavior unchanged.
+- **D-09 — Date.** `22 Nov 2026` with Indonesian month names; timezone stays Asia/Jakarta (DEC-014).
+- **D-10 — Goal Aktif.** Every non-archived goal is counted, including goals with `Tercapai` status (DEC-008; RULE-032 behavior resolved for WF-01).
+- **D-11 — Hampir Tercapai section.** At most 3 cards, ordered by highest progress; the section is hidden when no goal is in range.
+- **D-12 — Account area.** Account information and the `Keluar` button are pinned to the bottom of the sidebar; logout follows UF-12.
+- Archived goals are excluded from all figures. Cards show only real data — no sparkline, no fake trend arrow.
+- **Empty / feedback states.** No goals → one centered empty state with a single "Tambah Goal" CTA and **no zero-valued summary band**; goals exist but no transactions → summary and goal list remain, and "Tabungan Terbaru" shows "Belum ada tabungan tercatat"; no Hampir Tercapai goal → section hidden; loading and error states are informative and never display invented financial figures.
+- DEC-010 (exact BESTCO blue) and DEC-019 Option A (Plus Jakarta Sans, JetBrains Mono, local inline SVG) remain the design basis.
+- `C-19` (invalid-page fallback) and `C-20` (page size) were not part of this approval and remain `OPEN`. Other wireframes are unchanged.
+```
 ---
 
 ## WF-02 — Goals List (Desktop)
@@ -266,6 +280,8 @@ Legend: `[ ]` button · `( )` input · `▸` link · `▓` progress fill · `·`
 
 ## WF-11 — Mobile: Dashboard (360px)
 
+**Status: `APPROVED — Owner approved`** — 2026-11-22, given directly by the Project Owner. Applies to WF-11 only; all other wireframes remain `PROPOSED`.
+
 ```text
 ┌─────────────────────────────────┐
 │ ☰  NAVORA              [ + ]    │
@@ -274,31 +290,47 @@ Legend: `[ ]` button · `( )` input · `▸` link · `▓` progress fill · `·`
 │ Ringkasan tabungan Anda         │
 │                                 │
 │ ┌─────────────────────────────┐ │
-│ │ GOAL AKTIF                  │ │
-│ │ 3                           │ │
-│ ├─────────────────────────────┤ │
-│ │ TOTAL TABUNGAN              │ │
-│ │ Rp12.500.000                │ │
-│ ├─────────────────────────────┤ │
-│ │ TOTAL SISA                  │ │
-│ │ Rp27.500.000                │ │
+│ │ [ jumlah ]                  │ │
+│ │ Rp[…]                       │ │
+│ │ Sisa Rp[…]                  │ │
 │ └─────────────────────────────┘ │
 │                                 │
 │ Hampir tercapai                 │
 │ ┌─────────────────────────────┐ │
-│ │ Yamaha Aerox                │ │
-│ │ Rp12.500.000 / Rp30.000.000 │ │
-│ │ ▓▓▓▓▓▓▓░░░░░░░  42%         │ │
-│ │ Sisa Rp17.500.000           │ │
+│ │ [ nama goal ]               │ │
+│ │ Rp[…] / Rp[…]               │ │
+│ │ ▓▓▓▓▓▓▓▓▓▓░░  90,5%         │ │
+│ │ Sisa Rp[…]                  │ │
 │ └─────────────────────────────┘ │
 │                                 │
+│ (maks. 3 kartu, urut progres tertinggi) │
+│                                 │
 │ Tabungan terbaru                │
-│ …                               │
+│ ┌─────────────────────────────┐ │
+│ │ [ tanggal ] · [ nama goal ] · [ jenis ] Rp[…] ││
+│ └─────────────────────────────┘ │
+│ [ akun ]                        │
+│ [ Keluar ]                      │
 └─────────────────────────────────┘
 ```
 
-**Rules:** 16px page gutter; cards full width; summary stacks vertically; primary action in the header remains reachable with a 44×44 target.
-
+**Notes (owner-approved decisions M-01..M-12 recorded in `DECISIONS.md` §1.2.4)**
+- **M-01 — No demo data.** All amounts are structural placeholders (`Rp[…]`, `[ jumlah ]`, `[ nama goal ]`). No seed or demo data is created; examples must not be read as valid data.
+- **M-02 & M-03 — Hampir Tercapai illustration.** Only `90% <= progress < 100%` may carry the label; illustrative value: `90,5%` one decimal with comma. Source: DEC-012 / RULE-054 / WF-01 D-01.
+- **M-04 — Mobile navigation drawer.** Destinations: Dashboard, Goals, Arsip, akun, Keluar. Account and Keluar pinned to bottom of drawer. Behavior follows CMP-03: focus trap, Escape/backdrop close, body scroll lock, focus returns to trigger, `aria-expanded`, `role="dialog"`, `aria-modal="true"`.
+- **M-05 — Primary action.** Header uses `+ Tambah` button with visible icon and text; action leads to add goal flow; not an icon-only button.
+- **M-06 — Status badge.** Kartu Hampir Tercapai wajib menampilkan badge teks `Hampir`; status tidak boleh disampaikan melalui warna saja. Ikuti CMP-11.
+- **M-07 — Hampir Tercapai rules.** Only goals with `90% <= progress < 100%`; maksimal 3 kartu di dashboard; urut berdasarkan progres tertinggi; section disembunyikan jika tidak ada goal yang memenuhi kriteria.
+- **M-08 — Tabungan Terbaru.** Maksimal 5 transaksi terbaru; tanggal format Indonesia `22 Nov 2026`; zona Asia/Jakarta; bila belum ada transaksi, tampilkan `Belum ada tabungan tercatat` bukan angka nol; placeholder struktural, bukan data demo.
+- **M-09 — UI states.** No goals → one centered empty state with single "Tambah Goal" CTA and **no summary band** with zero-valued figures; goals exist but no transactions → summary and goal list remain, "Tabungan Terbaru" shows "Belum ada tabungan tercatat"; no Hampir Tercapai goal → section hidden; loading → skeleton mengikuti geometri akhir dan `aria-busy="true"`; error → pesan sederhana dalam Bahasa Indonesia beserta aksi pemulihan, tanpa angka finansial palsu atau exception text.
+- **M-10 — Responsive and accessibility.** Design basis DEC-010 and DEC-019 Option A; page gutter 16px; tidak ada horizontal scrolling pada viewport 360px; gunakan skip link dan semantic `<main>`; focus indicator mengikuti DESIGN-SYSTEM; progress bar memiliki `role="progressbar"` dan nilai teks yang dapat diakses; status tidak hanya dibedakan melalui warna; toast mobile mengikuti UI-UX-GUIDELINES; hormati `prefers-reduced-motion`.
+- **M-11 — Goals navigation.** Tidak perlu tautan `Lihat semua goal` tambahan pada section Hampir Tercapai; navigasi ke seluruh goal cukup melalui item `Goals` pada mobile drawer; jangan menambahkan global transaction history.
+- **M-12 — Negative balance.** Saldo negatif tetap didukung sesuai DEC-025; format tampilan negatif mengikuti keputusan WF-01, contoh `-Rp2.000.000`.
+- Archived goals are excluded from all figures. Cards show only real data — no sparkline, no fake trend arrow.
+- **Empty / feedback states.** No goals → one centered empty state with a single "Tambah Goal" CTA and **no zero-valued summary band**; goals exist but no transactions → summary and goal list remain, and "Tabungan Terbaru" shows "Belum ada tabungan tercatat"; no Hampir Tercapai goal → section hidden; loading and error states are informative and never display invented financial figures.
+- DEC-010 (exact BESTCO blue) and DEC-019 Option A (Plus Jakarta Sans, JetBrains Mono, local inline SVG) remain the design basis.
+- `C-19` (invalid-page fallback) and `C-20` (page size) were not part of this approval and remain `OPEN`. Other wireframes are unchanged.
+```
 ---
 
 ## WF-12 — Mobile: Goal Detail
@@ -581,8 +613,10 @@ Legend: `[ ]` button · `( )` input · `▸` link · `▓` progress fill · `·`
 
 | Item | Reason |
 |---|---|
-| Summary figures on dashboard | Exact widget set is `OPEN-06` |
+| Summary figures on dashboard | Resolved for WF-01: 5 blocks in one band (D-04); `OPEN-06` scoped to WF-01 only |
 | Archive/restore wording | Approved behavior (DEC-008); copy needs review |
-| Negative and excess money display | Format details `OPEN-16`; excess approved (DEC-023) |
+| Negative and excess money display | `OPEN-16` resolved for WF-01 only: `-Rp2.000.000` format; DEC-025 unchanged |
 | Mobile bottom-sheet modals | Interaction preference; dialog is the fallback |
 | Search/sort/filter presence | `OPEN-05` |
+| Dashboard widget set | D-04 resolves 5 blocks for WF-01 only; other wireframes remain `OPEN-06` |
+| Mobile dashboard widget set | M-01..M-12 resolves all mobile dashboard behaviors: no demo data, Hampir illustration, drawer nav, primary action, status badge, Hampir rules, transaction list, UI states, responsive/a11y, goals navigation, negative balance |

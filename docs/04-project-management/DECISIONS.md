@@ -135,7 +135,7 @@ The owner's approved product decisions reused IDs that earlier drafts had assign
 
 | Former ID | Former topic | New ID | Status |
 |---|---|---|---|
-| DEC-011 | Typography and icon library | **DEC-019** | `PENDING` |
+| DEC-011 | Typography and icon library | **DEC-019** | `APPROVED — Owner approved` |
 | DEC-012 | GSAP adoption | **DEC-020** | `DEFERRED` |
 | DEC-013 | TailAdmin as inspiration only | **DEC-021** | `PENDING` (no owner approval record; reference not inspected) |
 | DEC-014 | Waterfall methodology | **DEC-022** | `PENDING` |
@@ -155,7 +155,7 @@ The owner's approved product decisions reused IDs that earlier drafts had assign
 | DEC-005 | Balance derived from transactions, not manually editable | `APPROVED (derived behavior) / OPEN (implementation)` | Behavior follows from DEC-004/006/023; not an independently owner-approved ID. Storage/query detail open. |
 | DEC-017 | No JSON API in MVP; server-rendered HTTP | `PENDING` | Technical; server-rendered is a proposed baseline, not an approved exclusion |
 | DEC-018 | Non-brief requirements are `PROPOSED` unless approved | `PENDING` | Documentation policy; formerly labelled `APPROVED` in draft but absent from §7 |
-| DEC-019 | Typography (Inter/Sora) and icons (Lucide) | `PENDING` | Renumbered from former DEC-011 |
+| DEC-019 | Typography (Plus Jakarta Sans) and icons (JetBrains Mono, local inline SVG) | `APPROVED — Owner approved` | DEC-019 Option A; renumbered from former DEC-011 |
 | DEC-020 | GSAP optional | `DEFERRED` | Renumbered from former DEC-012 |
 | DEC-021 | TailAdmin as inspiration only, not copied | `PENDING` | Renumbered from former DEC-013; formerly labelled `APPROVED` (principle) but absent from §7; `SRC-03` not inspected |
 | DEC-022 | Waterfall with approval gates | `PENDING` | Renumbered from former DEC-014 |
@@ -186,7 +186,7 @@ These items are **not** decided by the approved product decisions. They must not
 | OPEN-03 | Is goal description in MVP? | FR-007 | Optional field |
 | OPEN-04 | Is transaction note in MVP? | FR-017 | Optional field |
 | OPEN-05 | Are search, sort, and status filters in MVP? | FR-012..FR-014 | Search/sort `Should`; filters `Could` |
-| OPEN-06 | Exact dashboard widgets beyond approved metrics | FR-026 | Active goals, total saved, total remaining, nearly reached, recent activity |
+| OPEN-06 | Exact dashboard widgets beyond approved metrics | FR-026 | Active goals, total saved, total remaining, nearly reached, recent activity. Resolved for WF-01 only: 5 blocks in one band (D-04) |
 | OPEN-07 | Is a Settings page needed in MVP? | Former FR-028 | Defer; no settings scope approved |
 | OPEN-08 | Is login blocked until email is verified? | DEC-015 | Require verification before full access |
 | OPEN-09 | Password reset token lifetime and single-use rules | DEC-015 | Single-use, 60 minutes |
@@ -195,8 +195,8 @@ These items are **not** decided by the approved product decisions. They must not
 | OPEN-12 | Can an archived goal receive transactions before restore? | DEC-008 | Block; restore first |
 | OPEN-13 | Is there an "overdue" indicator for past target dates? | DEC-026 | Display date only; no overdue badge in MVP |
 | OPEN-14 | Case sensitivity of unique goal names | DEC-011 | Case-insensitive, trimmed |
-| OPEN-15 | Percentage display precision | DEC-012 | Integer percent for display |
-| OPEN-16 | Negative money display format | DEC-007 | `-Rp2.000.000` |
+| OPEN-15 | Percentage display precision | DEC-012 | Integer percent for display. Resolved for WF-01 only: `90,5%` (one decimal, comma) |
+| OPEN-16 | Negative money display format | DEC-007 | `-Rp2.000.000`. Resolved for WF-01 only; DEC-025 negative-balance behavior unchanged. |
 | OPEN-17 | Landing page for visitors | Auth flow | Resolved by DEC-027: Public Landing Page approved; guest sees `/`, authenticated sees `/dashboard` |
 | OPEN-18 | Data retention/purge policy for archived goals | DEC-008 | Retain indefinitely in MVP |
 | OPEN-19 | Rate limiting for login/reset | Security | Defer; document as risk |
@@ -297,7 +297,32 @@ AI agents may draft entries but may not set `APPROVED` for product, financial, s
 | DEC-027 — Public Landing Page | Project Owner | 2026-11-22 |
 | Public Landing Page — 6 design decisions approved | Project Owner | 2026-11-22 |
 | Documentation consolidation into BRD/PRD/SRS/rules/features/quality docs | Project Owner instruction (this task) | 2026-11-22 |
-| Typography and icons (`DEC-019`), Waterfall (`DEC-022`), API approach (`DEC-017`) | Not yet approved | — |
+| WF-01 — Dashboard Desktop (≥1280px) approval | Project Owner | 2026-11-22 |
+| WF-01 D-01 — Hampir Tercapai example (≥90%, `<100%`) | Project Owner | 2026-11-22 |
+| WF-01 D-02 — No demo finance figures (structural placeholders) | Project Owner | 2026-11-22 |
+| WF-01 D-03 — No global history (per-goal only) | Project Owner | 2026-11-22 |
+| WF-01 D-04 — Five blocks in one band (Goal Aktif, Total Tabungan, Total Sisa, Hampir Tercapai, Tabungan Terbaru) | Project Owner | 2026-11-22 |
+| WF-01 D-05 — Navigation and states (sidebar, loading, empty, error) | Project Owner | 2026-11-22 |
+| WF-01 D-07 — Percentage `90,5%` one decimal comma | Project Owner | 2026-11-22 |
+| WF-01 D-08 — Negative money `-Rp2.000.000` | Project Owner | 2026-11-22 |
+| WF-01 D-09 — Date `22 Nov 2026`, Indonesian month, Asia/Jakarta | Project Owner | 2026-11-22 |
+| WF-01 D-10 — Goal Aktif = every non-archived goal (incl. Tercapai) | Project Owner | 2026-11-22 |
+| WF-01 D-11 — Hampir Tercapai section: max 3 cards, ordered by progress tertinggi, hidden when none in range | Project Owner | 2026-11-22 |
+| WF-01 D-12 — Account area + `Keluar` at sidebar bottom; logout follows UF-12 | Project Owner | 2026-11-22 |
+| WF-11 — Mobile Dashboard (≥360px) approval | Project Owner | 2026-11-22 |
+| WF-11 M-01 — No demo data | Project Owner | 2026-11-22 |
+| WF-11 M-02 — Hampir Tercapai illustration (≥90%, `<100%`, `90,5%`) | Project Owner | 2026-11-22 |
+| WF-11 M-03 — Percentage one decimal comma | Project Owner | 2026-11-22 |
+| WF-11 M-04 — Mobile navigation drawer (Dashboard, Goals, Arsip, akun, Keluar) | Project Owner | 2026-11-22 |
+| WF-11 M-05 — Primary action `+ Tambah` button | Project Owner | 2026-11-22 |
+| WF-11 M-06 — Status badge `Hampir` | Project Owner | 2026-11-22 |
+| WF-11 M-07 — Hampir Tercapai rules (max 3 cards, ordered) | Project Owner | 2026-11-22 |
+| WF-11 M-08 — Tabungan Terbaru (max 5, tanggal Indonesia) | Project Owner | 2026-11-22 |
+| WF-11 M-09 — UI states (empty, loading, error) | Project Owner | 2026-11-22 |
+| WF-11 M-10 — Responsive and accessibility | Project Owner | 2026-11-22 |
+| WF-11 M-11 — Goals navigation | Project Owner | 2026-11-22 |
+| WF-11 M-12 — Negative balance | Project Owner | 2026-11-22 |
+| Typography and icons (`DEC-019`), Waterfall (`DEC-022`), API approach (`DEC-017`) | `APPROVED (DEC-019 Option A); DEC-022, DEC-017 not yet approved` | — |
 
 > The expanded product list above is the same owner-approved set recorded in 0.2.0; only the shorthand ranges were expanded. `DEC-010` is a separately owner-approved design decision recorded in §1.2, not a product-behavior decision. `DEC-005` is derived behavior, not an independently approved ID. `DEC-018`, `DEC-021`, and C-30 have no owner-approval record and are not included above.
 

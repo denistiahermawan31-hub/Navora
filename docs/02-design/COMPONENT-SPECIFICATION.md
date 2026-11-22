@@ -59,12 +59,13 @@ Naming: lowercase `nv-` prefix for CSS classes (e.g., `nv-goal-card`) to avoid c
 
 ## CMP-02 — Sidebar Navigation
 
-- **Purpose:** Persistent access to Dashboard and Goals.
-- **Structure:** brand mark, nav list, bottom account area.
-- **Data:** items `{label, href, icon, active}`.
-- **Behavior:** active item indicated by background + 2px left border + `aria-current="page"`.
+- **Purpose:** Persistent access to Dashboard, Goals, and Arsip.
+- **Structure:** brand mark, nav list, bottom account area with `[ akun ]` and `[ Keluar ]`.
+- **Data:** items `{label, href, icon, active}`; bottom account `{label, href}`.
+- **Behavior:** active item indicated by background + 2px left border + `aria-current="page"`; `Keluar` logs out following UF-12.
 - **Responsive:** hidden below 1024px, rendered as CMP-03 drawer.
 - **States:** default, hover, active, focus-visible.
+- **Navigation destinations:** Dashboard, Goals, Arsip.
 
 ## CMP-03 — Mobile Top Bar + Drawer
 
@@ -117,7 +118,7 @@ Naming: lowercase `nv-` prefix for CSS classes (e.g., `nv-goal-card`) to avoid c
 - **Structure:** track (`blue-100`) + fill (`blue-600`/`success-600`), optional label row.
 - **Behavior:** animates width once on mount; on update, transitions 500ms; reduced motion disables.
 - **Accessibility:** `role="progressbar"`, `aria-valuemin="0"`, `aria-valuemax="100"`, `aria-valuenow`, `aria-label` or adjacent text.
-- **Edge cases:** 0% shows an empty track with visible 0%; 100% shows a full track and "Target tercapai" text; never exceeds 100% visually; excess is displayed separately (DEC-023).
+- **Edge cases:** 0% shows an empty track with visible 0%; 100% shows a full track and "Target tercapai" text; never exceeds 100% visually; excess is displayed separately (DEC-023). Percentage uses one decimal with comma, e.g. `90,5%` (`OPEN-15` resolved for WF-01).
 
 ## CMP-09 — Goal Card
 
@@ -128,21 +129,23 @@ Naming: lowercase `nv-` prefix for CSS classes (e.g., `nv-goal-card`) to avoid c
 - **Responsive:** full width on mobile; fixed min-height to align grids.
 - **States:** default, hover (border tint), Tercapai, Hampir Tercapai, negative balance, loading skeleton.
 - **Rules:** no fabricated values; no decorative imagery required; archived goals are not shown here.
+- **Hampir Tercapai:** label only when `90% <= progress < 100%` (DEC-012); maksimal 3 kartu di dashboard, urut berdasarkan progres tertinggi; disembunyikan jika tidak ada goal dalam rentang ini. Gunakan persentase satu desimal dengan koma, e.g. `90,5%`.
 
 ## CMP-10 — Summary Figure Band
 
 - **Purpose:** Three headline figures on the dashboard.
 - **Data:** `activeGoals`, `totalSaved`, `totalRemaining`.
 - **Structure:** one horizontal band with dividers, not three floating cards.
-- **Rules:** label above, value below; values derived from the same aggregation as lists; zero is shown as a real zero; archived goals excluded; negative totals displayed as negative.
+- **Rules:** label above, value below; values derived from the same aggregation as lists; archived goals excluded; negative totals displayed as negative (`OPEN-16` resolved for WF-01: `-Rp2.000.000`); zero is shown as a real zero only when it is a real zero (no zero-valued summary band when no goals exist); goal Aktif count includes goals with `Tercapai` status as long as they are not archived (D-10).
 - **Responsive:** 3 columns → 2 → stacked.
-- **States:** loading skeletons; zero-state wording.
+- **States:** loading skeletons; zero-state wording. Empty state when no goals: one centered CTA "Tambah Goal" — **no summary band** with nol.
 
 ## CMP-11 — Status Badge
 
 - **Purpose:** Communicate goal state.
 - **Variants:** Berlangsung (blue tint), Tercapai (green tint), Diarsipkan (gray), Hampir Tercapai (amber, DEC-012).
 - **Rules:** text + color, never color alone; sentence case; no emoji.
+- **Hampir Tercapai:** only when `90% <= progress < 100%` (DEC-012); warna amber; never warna saja untuk menyandarkan status.
 
 ## CMP-12 — Goal Form
 
@@ -171,6 +174,7 @@ Naming: lowercase `nv-` prefix for CSS classes (e.g., `nv-goal-card`) to avoid c
 - **Behavior:** rows sorted newest first; actions in an overflow menu or icon buttons with labels.
 - **Responsive:** below 640px, rows become stacked blocks with labeled values; no clipped content.
 - **States:** default, empty (CMP-20), loading, error, single row, many rows.
+- **Dashboard context:** maksimal 5 entri terbaru; tanggal format `22 Nov 2026` dengan nama bulan Indonesia; zona Asia/Jakarta (DEC-014). Ketika goal belum memiliki transaksi, seksi "Tabungan Terbaru" menampilkan "Belum ada tabungan tercatat" bukan angka nol. "Lihat riwayat" tidak tersedia global; riwayat tetap per-goal (`/goals/{id}/savings`).
 
 ## CMP-15 — Pagination
 
@@ -216,8 +220,12 @@ Naming: lowercase `nv-` prefix for CSS classes (e.g., `nv-goal-card`) to avoid c
 
 - **Purpose:** Explain absence and offer the next step.
 - **Data:** `icon` (local inline SVG, Lucide-compatible), `title`, `description`, `action` (label + href).
-- **Variants:** no goals, no transactions, no search results, no archived goals, no recent activity.
+- **Variants:** no goals, no transactions, no search results, no archived goals, no recent activity, no Hampir Tercapai goal.
 - **Rules:** truthful copy; no fake sample data; one action. Icon uses the approved local SVG set; no emoji, no external package.
+- **Dashboard empty-state behavior:**
+  - **No goals:** one centered empty state with a single "Tambah Goal" CTA; **no summary band** with zero-valued figures.
+  - **Goals exist but no transactions:** summary and goal list remain; "Tabungan Terbaru" shows "Belum ada tabungan tercatat".
+  - **No Hampir Tercapai goal:** seksi tersebut disembunyikan; tidak tampilkan kartu dengan progress <90%.
 
 ## CMP-21 — Skeleton / Loading
 
