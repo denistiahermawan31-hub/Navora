@@ -8,41 +8,33 @@ The project does not yet follow semantic versioning; versions are documentation 
 
 ## [Unreleased]
 
-### Changed — Palette decision
-- Recorded `DEC-010` as owner-approved: NAVORA uses the exact 11-step BESTCO primary blue scale (`#eff6ff` through `#172554`).
-- Replaced the previous Navora Blue values in `DESIGN-SYSTEM.md`, including contrast ratios, focus token, CSS token skeleton, and the new BESTCO/NAVORA comparison table.
-- Updated status references so `DEC-019` remains the only pending design decision for typography and icons.
-- No application source, dependency, or implementation changed.
+### Added — Domain/UI layer (Developer B, assigned files only)
+- `app/models/Goal.php`: presentation helpers — `present()`, `summarize()`, IDR/percent/date formatting, DEC-006/023/025/026 rules (negative balance, over-saving, Hampir Tercapai, past target dates); no SQL.
+- `app/models/SavingsTransaction.php`: direction normalisation, signed labels, date/note presentation; persistence-free.
+- `app/controllers/GoalController.php`, `app/controllers/SavingsController.php`: 503 stubs rendering honest error states until Owner persistence contract confirmed.
+- `app/views/layouts/main.php`: ~989 lines of shared `nv_*` helpers (escape, inline SVG icons, money, badges, progress, alerts, flash, error summary, empty states, breadcrumb, page header, goal card, activity list, transaction table, pagination, form fields, savings dialog, confirm dialog, skeletons).
+- `app/views/layouts/{header,footer,sidebar}.php`: public/app/auth shells, skip link, title/description defaults, nav active-state, global flash, account block, logout form (POST to `/keluar`).
+- `app/views/auth/{login,register}.php`: documented fields only, CSRF optional, error summary, password never repopulated, register adds `password_confirmation`, reset link conditional on `$resetUrl`.
+- `app/views/dashboard/index.php`: summary band, Hampir Tercapai, recent activity, loading/empty/error states, confirm dialog.
+- `app/views/goals/index.php`: search/sort filterbar, goal grid, numbered pagination, no-results/empty states, confirm dialog.
+- `app/views/savings/index.php`: breadcrumb, history table, pagination, empty/loading/error states, add-savings dialog (archived-aware).
+- `app/views/landing/index.php`: shared header/footer/CSS, exact headline "Menabung jadi lebih terarah.", abstract SVG visual (token-coloured), 6 feature cards, 4-step section, closing CTA; inline CSS/JS removed.
+- `public/css/style.css`: exact DEC-010 BESTCO blue tokens, reset/utilities, components, responsive breakpoints (1100/1024/900/760/420), reduced-motion + print; WCAG AA contrast verified.
+- `public/js/script.js`: drawer/dialog focus trap/Escape/restore, confirm-dialog wiring, menus, alert dismissal, password visibility, money input/preview, counters, submit loading, clipboard, autofocus.
 
-### Changed — Typography and icons (DEC-019)
-- Owner approved DEC-019 Option A: UI/text = Plus Jakarta Sans (weights 400/500/600/700), financial figures = JetBrains Mono with `font-variant-numeric: tabular-nums`; icon system = local inline SVG set with Lucide-compatible outline geometry. Defaults: `stroke="currentColor"`, `stroke-width="1.75"`, `fill="none"`, `focusable="false"`, `aria-hidden="true"`, sizes 16/20/24/32. No emoji, no external dependency, no theme/chart/POS/inventory/QRIS icons.
-- Updated DESIGN-SYSTEM.md, COMPONENT-SPECIFICATION.md, UI-UX-GUIDELINES.md, BRD.md, PROGRESS.md, ROADMAP.md, README.md, AGENTS.md, TECHNICAL-ARCHITECTURE.md accordingly.
-- No application source, dependency, or runtime implementation changed.
+### Changed — Documentation sync
+- `PROGRESS.md`: implementation ~25%, phase status, feature table marked UI-only/backend-blocked, verification log added with executed results.
+- No Owner files (docs, routes, database, auth backend, legacy modules) modified.
 
-### Changed — Public Landing Page (DEC-027)
-- Owner approved DEC-027: Public Landing Page as part of MVP Scope A.
-- Guest opening `/` sees Landing Page; authenticated user redirected to `/dashboard`.
-- `OPEN-17` resolved: Landing page for visitors no longer deferred; redirected to login per auth flow.
-- `C-25` resolved: Landing page now part of MVP, not out of scope.
-- Added `BS-12` (BRD.md), `FR-046` (PRD.md), `FS-16` (FEATURE-SPECIFICATION.md), `AC-59`..`AC-64` (ACCEPTANCE-CRITERIA.md), `TC-L-01`..`TC-L-06` (TESTING-PLAN.md).
-- Updated WIREFRAME-SPECIFICATION.md: added `WF-18` (Landing Page Desktop) and `WF-19` (Landing Page Mobile 360px).
-- Updated route strategy: `GET /` → Landing Page; `GET /dashboard` → Dashboard.
-- Updated UI-UX-GUIDELINES.md: added Public level to IA and purpose table; separated public shell from authenticated shell.
-- Updated COMPONENT-SPECIFICATION.md: added CMP-01 (public app shell) and CMP-01b (authenticated app shell).
-- Updated ACCEPTANCE-CRITERIA.md: added `AC-59`..`AC-64`; updated summary totals from 58 to 64 criteria.
-- Updated TESTING-PLAN.md: added `TC-L-01`..`TC-L-06`; updated total from 107 to 113 planned cases.
-- Updated SRS.md: added SR-4.1.5 Public Landing Page Behavior; updated visitor actor access; updated traceability §4.1 to include FR-046.
-- Updated BRD.md: added `BS-12` Public Landing Page capability.
-- Updated PRD.md: added `FR-046` Public Landing Page Must requirement; added to MVP Included list; added `OUT-12` exclusion for dashboard on landing page.
-- Updated FEATURE-SPECIFICATION.md: added `FS-16` Public Landing Page; updated Feature Index.
-- Updated DECISIONS.md: added `DEC-027` as APPROVED; updated `OPEN-17` and `C-25` to reflect DEC-027 resolution.
-- Updated WIREFRAME-SPECIFICATION.md: added `WF-18` (Landing Page Desktop) and `WF-19` (Landing Page Mobile); updated wireframe-to-component map.
-- Updated ROADMAP.md, PROGRESS.md, CHANGELOG.md, README.md, AGENTS.md, and PROMPT-BUILD-NAVORA.md to sync all changes.
-- No application source, dependency, or runtime implementation changed.
+### Notes
+- All 16 changed files are within the Developer B assigned set.
+- PHP syntax (`php -l`) and JS syntax (`node --check`) pass on every changed file.
+- Views render via a local (uncommitted) harness at 360–1920 px with no overflow, no console errors, no DOM a11y issues.
+- End-to-end dashboard/goals/savings blocked pending Owner: `core/Database.php` (0 bytes), `DashboardController.php` (0 bytes), routes for `/goals`, `/goals/{id}`, `/goals/{id}/savings`, `/arsip`, `/arsipkan`, `/pulihkan`, password reset.
+- No commits, pushes, merges, rebases, resets, or stashes performed.
 
 ### Planned
 - Owner sign-off of the consolidated requirements package (Requirements gate G1).
-- Technical stack confirmation (TECH-01 PHP version, TECH-02 database engine, TECH-09 document root).
 - Technical stack confirmation (TECH-01 PHP version, TECH-02 database engine, TECH-09 document root).
 - Resolution of OPEN items that block the first feature, including C-19/C-20 and OPEN-09.
 - Owner decision on proposed Must requirements `FR-026`, `FR-028`, and `FR-034`.
